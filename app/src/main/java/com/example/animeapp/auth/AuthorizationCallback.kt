@@ -1,10 +1,10 @@
 package com.example.animeapp.auth
 
 interface AuthorizationCallback {
-    fun onSignInClicked()
-    fun onSignUpClicked()
+    fun onSignIn()
+    fun onSignUp()
     fun onResetPassword()
     fun onBackButtonPressed()
-    fun onFinishSignUpClicked()
-    fun onCreateNewPassword()
+    fun onFinishSignUp()
+    fun onChangePassword()
 }

@@ -2,6 +2,7 @@ package com.example.animeapp.auth
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.animeapp.R
 import com.example.animeapp.auth.changepassword.ChangePasswordFragment
 import com.example.animeapp.auth.signin.SignInFragment
@@ -17,58 +18,32 @@ class AuthActivity : AppCompatActivity(), AuthorizationCallback {
         binding = ActivityAccountLoginSignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navigateToSignIn()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentView, SignInFragment())
+                .commit()
+        }
     }
 
-    override fun onSignInClicked() = navigateToSignIn()
+    override fun onSignIn()  = launchFragment(SignInFragment())
 
-    override fun onSignUpClicked() = navigateToSignUp()
+    override fun onSignUp() = launchFragment(SignUpFragment())
 
-    override fun onResetPassword() {
+    override fun onResetPassword() = launchFragment(ChangePasswordFragment())
+
+    override fun onFinishSignUp() = launchFragment(SignUpFinishFragment())
+
+    override fun onChangePassword() = launchFragment(ChangePasswordFragment())
+
+    private fun launchFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .addToBackStack(ChangePasswordFragment::class.java.name)
-            .replace(R.id.fragmentView, ChangePasswordFragment())
+            .addToBackStack(fragment::class.java.name)
+            .replace(R.id.fragmentView, fragment)
             .commit()
     }
 
     override fun onBackButtonPressed() {
         onBackPressed()
-    }
-
-    override fun onFinishSignUpClicked() {
-        supportFragmentManager.beginTransaction()
-            .addToBackStack(SignUpFinishFragment::class.java.name)
-            .replace(R.id.fragmentView, SignUpFinishFragment())
-            .commit()
-    }
-
-    override fun onCreateNewPassword() {
-        supportFragmentManager.beginTransaction()
-            .addToBackStack(ChangePasswordFragment::class.java.name)
-            .replace(R.id.fragmentView, ChangePasswordFragment())
-            .commit()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        if (supportFragmentManager.backStackEntryCount == 0) {
-            finish()
-        }
-    }
-
-    private fun navigateToSignUp() {
-        supportFragmentManager.beginTransaction()
-            .addToBackStack(SignUpFragment::class.java.name)
-            .replace(R.id.fragmentView, SignUpFragment())
-            .commit()
-
-    }
-
-    private fun navigateToSignIn() {
-        supportFragmentManager.beginTransaction()
-            .addToBackStack(SignInFragment::class.java.name)
-            .replace(R.id.fragmentView, SignInFragment())
-            .commit()
     }
 
 }

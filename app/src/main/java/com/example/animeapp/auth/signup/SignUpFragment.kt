@@ -19,7 +19,8 @@ class SignUpFragment : AuthFragment<FragmentSignUpBinding>(
         fragmentBinding = FragmentSignUpBinding.bind(view)
         fragmentBinding.tvTermsAndConditions.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         fragmentBinding.tvSignIn.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-        fragmentBinding.tvSignIn.setOnClickListener { fragmentCallback.onSignInClicked() }
+
+        fragmentBinding.tvSignIn.setOnClickListener { fragmentCallback.onSignIn() }
 
         fragmentBinding.btnSignUp.setOnClickListener {
             val email = fragmentBinding.etEmailText.text.toString()

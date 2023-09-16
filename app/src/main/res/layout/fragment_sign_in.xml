@@ -63,7 +63,7 @@
         app:layout_constraintVertical_chainStyle="packed">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmail"
+            android:id="@+id/etEmailText"
             android:gravity="center_vertical"
             android:paddingVertical="0dp"
             android:lines="1"
@@ -85,13 +85,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="@string/password"
-        app:layout_constraintBottom_toTopOf="@+id/etPassword"
-        app:layout_constraintStart_toStartOf="@+id/etPassword"
+        app:layout_constraintBottom_toTopOf="@+id/etPasswordLayout"
+        app:layout_constraintStart_toStartOf="@+id/etPasswordLayout"
         app:layout_constraintTop_toBottomOf="@+id/etEmailLayout"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etPassword"
+        android:id="@+id/etPasswordLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="35dp"
@@ -132,7 +132,7 @@
 
         app:layout_constraintBottom_toTopOf="@+id/btnSignIn"
         app:layout_constraintEnd_toEndOf="@+id/btnSignIn"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordLayout"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatButton

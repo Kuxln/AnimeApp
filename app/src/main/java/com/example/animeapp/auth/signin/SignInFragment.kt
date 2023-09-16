@@ -3,6 +3,7 @@ package com.example.animeapp.auth.signin
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
 import com.example.animeapp.auth.AuthFragment
@@ -23,22 +24,27 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
 
 
         fragmentBinding.btnSignIn.setOnClickListener {
-            val email = fragmentBinding.etEmail.text.toString()
-            viewModel.onSignInClicked(email)
-        }
-        fragmentBinding.tvSignUp.setOnClickListener {
-            fragmentCallback.onSignUpClicked()
-        }
+            val email = fragmentBinding.etEmailText.text.toString()
+            val password = fragmentBinding.etPasswordText.text.toString()
 
-        fragmentBinding.tvForgotPassword.setOnClickListener {
-            fragmentCallback.onResetPassword()
+            viewModel.onSignInClicked(email, password)
         }
 
+        fragmentBinding.tvSignUp.setOnClickListener { fragmentCallback.onSignUp() }
 
+        fragmentBinding.tvForgotPassword.setOnClickListener { fragmentCallback.onResetPassword() }
 
         viewModel.liveData.observe(this.viewLifecycleOwner) {
-            fragmentBinding.etPasswordText.setText(it.password)
+            if (it.showError == true) {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "not correct password or email",
+                    Toast.LENGTH_SHORT
+                ).show()
+                it.showError = false
+            }
         }
     }
+
 }
 

@@ -22,7 +22,7 @@ class ChangePasswordFragment : AuthFragment<FragmentChangePasswordBinding>(
         fragmentBinding.btnBack.setOnClickListener { fragmentCallback.onBackButtonPressed() }
 
         fragmentBinding.btnSignIn.setOnClickListener{
-            fragmentCallback.onCreateNewPassword()
+            fragmentCallback.onChangePassword()
             viewModel.onCreateNewPasswordClicked()
         }
 
