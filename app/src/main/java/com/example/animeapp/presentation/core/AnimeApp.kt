@@ -1,6 +1,7 @@
-package com.example.animeapp.core
+package com.example.animeapp.presentation.core
 
 import android.app.Application
+import com.example.animeapp.data.AppDatabase
 
 class AnimeApp : Application() {
     lateinit var db: AppDatabase

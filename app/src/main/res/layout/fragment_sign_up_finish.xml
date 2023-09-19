@@ -40,37 +40,45 @@
         android:text="@string/don_t_worry_only_you_can_see_your_personal_data_no_one_else_will_be_able_to_see_it"
         android:textAlignment="center"
 
-        app:layout_constraintBottom_toTopOf="@+id/imAccImage"
+        app:layout_constraintBottom_toTopOf="@+id/ivAccImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCompleteProfile"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <ImageView
-
-        android:id="@+id/imAccImage"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ivAccImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/account_circle"
-        android:padding="15dp"
-        android:src="@drawable/account_default"
+        app:cardBackgroundColor="@color/grey_account_image"
         app:layout_constraintBottom_toTopOf="@+id/tvName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDoNotWorry" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDoNotWorry"
+        app:cardCornerRadius="50dp">
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/account_default" />
+    </androidx.cardview.widget.CardView>
 
     <ImageView
+        android:translationZ="2dp"
+        android:id="@+id/pickImage"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_gravity="bottom|end"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:background="@drawable/pen_edit_background"
         android:padding="8dp"
         android:src="@drawable/pen_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/imAccImage"
-        app:layout_constraintEnd_toEndOf="@+id/imAccImage" />
-
+        app:layout_constraintBottom_toBottomOf="@+id/ivAccImage"
+        app:layout_constraintEnd_toEndOf="@+id/ivAccImage"/>
     <TextView
         android:id="@+id/tvName"
         style="@style/authorizationMain"
@@ -79,13 +87,13 @@
         android:layout_marginTop="50dp"
         android:text="@string/name"
 
-        app:layout_constraintBottom_toTopOf="@+id/etName"
-        app:layout_constraintStart_toStartOf="@+id/etName"
-        app:layout_constraintTop_toBottomOf="@+id/imAccImage"
+        app:layout_constraintBottom_toTopOf="@+id/etNameLayout"
+        app:layout_constraintStart_toStartOf="@+id/etNameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/ivAccImage"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etName"
+        android:id="@+id/etNameLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="35dp"
@@ -102,6 +110,7 @@
         app:layout_constraintVertical_chainStyle="packed">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNameText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/edit_text_background_main"
@@ -123,13 +132,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="@string/phone_number"
-        app:layout_constraintBottom_toTopOf="@+id/etPhoneNumber"
-        app:layout_constraintStart_toStartOf="@+id/etPhoneNumber"
-        app:layout_constraintTop_toBottomOf="@+id/etName"
+        app:layout_constraintBottom_toTopOf="@+id/etPhoneNumberLayout"
+        app:layout_constraintStart_toStartOf="@+id/etPhoneNumberLayout"
+        app:layout_constraintTop_toBottomOf="@+id/etNameLayout"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etPhoneNumber"
+        android:id="@+id/etPhoneNumberLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="35dp"
@@ -145,10 +154,11 @@
         app:layout_constraintVertical_chainStyle="packed">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:hint="@string/_1234567890"
+            android:id="@+id/etPhoneNumberText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/edit_text_background_main"
+            android:hint="@string/_1234567890"
             android:inputType="phone"
             android:lines="1"
             android:paddingHorizontal="15dp"
@@ -166,7 +176,7 @@
         android:text="@string/gender"
         app:layout_constraintBottom_toTopOf="@+id/spinnerGender"
         app:layout_constraintStart_toStartOf="@+id/spinnerGender"
-        app:layout_constraintTop_toBottomOf="@+id/etPhoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/etPhoneNumberLayout"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -176,16 +186,15 @@
         android:layout_marginHorizontal="35dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/edit_text_background_main"
-        android:paddingHorizontal="15dp"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSignIn"
+        app:layout_constraintBottom_toTopOf="@+id/btnCompleteProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvGender"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btnCompleteProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="35dp"

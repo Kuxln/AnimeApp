@@ -1,4 +1,4 @@
-package com.example.animeapp.auth.signup
+package com.example.animeapp.presentation.auth.signup
 
 data class SignUpState (
     var email : String? = null,

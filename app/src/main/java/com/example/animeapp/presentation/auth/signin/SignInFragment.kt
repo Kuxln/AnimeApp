@@ -1,4 +1,4 @@
-package com.example.animeapp.auth.signin
+package com.example.animeapp.presentation.auth.signin
 
 import android.graphics.Paint
 import android.os.Bundle
@@ -6,16 +6,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
-import com.example.animeapp.auth.AuthFragment
-import com.example.animeapp.core.AnimeApp
-import com.example.animeapp.core.MyViewModelFactory
 import com.example.animeapp.databinding.FragmentSignInBinding
+import com.example.animeapp.presentation.auth.AuthFragment
+import com.example.animeapp.presentation.core.AnimeApp
+import com.example.animeapp.presentation.core.AppViewModelFactory
 
 
 class SignInFragment : AuthFragment<FragmentSignInBinding>(
     R.layout.fragment_sign_in
 ) {
-    val viewModel: SignInViewModel by viewModels { MyViewModelFactory(requireActivity().applicationContext as AnimeApp) }
+    val viewModel: SignInViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fragmentBinding = FragmentSignInBinding.bind(view)
@@ -42,6 +42,12 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
                     Toast.LENGTH_SHORT
                 ).show()
                 it.showError = false
+            } else {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "Authorization completed",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

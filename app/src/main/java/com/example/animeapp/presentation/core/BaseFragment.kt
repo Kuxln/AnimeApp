@@ -1,4 +1,4 @@
-package com.example.animeapp.core
+package com.example.animeapp.presentation.core
 
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
