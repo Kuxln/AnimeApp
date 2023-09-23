@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.animeapp.data.AppDatabase
 import com.example.animeapp.presentation.core.hashing
+import com.example.animeapp.presentation.core.isValidEmail
 
 class SignInViewModel(
     db: AppDatabase
@@ -16,21 +17,21 @@ class SignInViewModel(
     private val dao = db.userDao()
 
     fun onSignInClicked(email: String, password: String) {
-        val user = dao.findUser(email, password.hashing())
-        if (user == null) {
-            signInViewState.showError = true
-            _liveData.postValue(signInViewState)
-        } else {
-            signInViewState.showError = false
-            signInViewState.email = user.email
-            signInViewState.password = user.password
-            signInViewState.number = user.number
-            signInViewState.name = user.name
-            signInViewState.gender = user.gender
-            signInViewState.image = user.profileImage
-            _liveData.postValue(signInViewState)
-        }
-
+        if (email.isValidEmail() && email.length >= 5) {
+            if (password.length >= 8) {
+                val user = dao.findUser(email, password.hashing())
+                signInViewState.showError = user == null
+            } else signInViewState.isPasswordValid = false
+        } else signInViewState.isEmailValid = false
+        signInViewState.email = email
+        _liveData.postValue(signInViewState)
     }
 
+    fun clearState() {
+        signInViewState.isEmailValid = null
+        signInViewState.email = null
+        signInViewState.isPasswordValid = null
+        signInViewState.showError = null
+        _liveData.postValue(signInViewState)
+    }
 }

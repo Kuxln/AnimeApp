@@ -27,12 +27,11 @@ class SignUpFinishViewModel(
         user = dao.findUserByEmail(email)!!
         if (user.name != null) {
             signUpFinishState.username = user.name
-            _liveData.postValue(signUpFinishState)
         }
         if (user.profileImage != null) {
             signUpFinishState.profileImageURI = user.profileImage
-            _liveData.postValue(signUpFinishState)
         }
+        _liveData.postValue(signUpFinishState)
     }
 
     fun onFinishProfile(number: String, name: String, gender: UserGender) {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/animeTab"
+        android:title="@string/anime" />
+    <item
+        android:id="@+id/mangaTab"
+        android:title="@string/manga" />
+    <item
+        android:id="@+id/searchTab"
+        android:title="@string/search" />
+    <item
+        android:id="@+id/reelsTab"
+        android:title="@string/reels" />
+    <item
+        android:id="@+id/profileTab"
+        android:title="@string/profile" />
+</menu>

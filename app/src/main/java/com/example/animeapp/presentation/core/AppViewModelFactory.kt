@@ -19,8 +19,5 @@ class AppViewModelFactory(
             modelClass.isAssignableFrom(ChangePasswordViewModel::class.java) -> ChangePasswordViewModel(app.db) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
-
     }
-
-
 }

@@ -2,6 +2,7 @@ package com.example.animeapp.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.animeapp.R
 import com.example.animeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,13 +13,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val extras = intent.extras
-        if (extras != null) {
-            val email= extras.getString("EMAIL")
-            binding.acctextview.text = email
-        }
+        val bundle = intent.extras
+        val email = bundle!!.getString("EMAIL")
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainActivityFragmentContainer, TabsFragment())
+            .commit()
     }
-
-
-
 }
+
+

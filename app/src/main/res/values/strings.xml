@@ -28,5 +28,10 @@
     <string name="gender">Gender</string>
     <string name="_1234567890">+1234567890</string>
     <string name="complete_profile">Complete Profile</string>
+    <string name="anime">Anime</string>
+    <string name="manga">Manga</string>
+    <string name="search">Search</string>
+    <string name="reels">Reels</string>
+    <string name="profile">Profile</string>
 
 </resources>

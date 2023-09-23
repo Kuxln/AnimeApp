@@ -41,13 +41,32 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
                     "not correct password or email",
                     Toast.LENGTH_SHORT
                 ).show()
-                it.showError = false
-            } else {
+                viewModel.clearState()
+            }
+            if (it.showError == false) {
                 Toast.makeText(
                     requireActivity().applicationContext,
                     "Authorization completed",
                     Toast.LENGTH_SHORT
                 ).show()
+                fragmentCallback.onAuthorization(it.email!!)
+                viewModel.clearState()
+            }
+            if (it.isPasswordValid == false) {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "Password is shorter than 8 symbols",
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.clearState()
+            }
+            if (it.isEmailValid == false) {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "Email is not Valid or length is shorter than 5 symbols",
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.clearState()
             }
         }
     }

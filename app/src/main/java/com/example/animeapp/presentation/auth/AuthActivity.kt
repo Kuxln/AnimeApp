@@ -39,18 +39,22 @@ class AuthActivity : AppCompatActivity(), AuthorizationCallback {
 
     override fun onBackButtonPressed() = onBackPressed()
 
-    override fun onAccountCreated(email: String) {
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        intent.putExtra("EMAIL", email)
-        startActivity(intent)
-        finish()
-    }
+    override fun onAccountCreated(email: String) = navigateToMain(email)
+
+    override fun onAuthorization(email: String) = navigateToMain(email)
 
     private fun launchFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .addToBackStack(fragment::class.java.name)
             .replace(R.id.fragmentView, fragment)
             .commit()
+    }
+
+    private fun navigateToMain(email: String) {
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        intent.putExtra("EMAIL", email)
+        startActivity(intent)
+        finish()
     }
 
 }

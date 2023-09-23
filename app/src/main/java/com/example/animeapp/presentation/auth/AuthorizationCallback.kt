@@ -10,4 +10,5 @@ interface AuthorizationCallback {
     fun onFinishSignUp(fragment: SignUpFinishFragment)
     fun onChangePassword()
     fun onAccountCreated(email: String)
+    fun onAuthorization(email: String)
 }
