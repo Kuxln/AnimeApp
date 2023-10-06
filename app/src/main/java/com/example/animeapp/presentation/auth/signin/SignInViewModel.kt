@@ -1,20 +1,25 @@
 package com.example.animeapp.presentation.auth.signin
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.animeapp.R
 import com.example.animeapp.data.AppDatabase
 import com.example.animeapp.presentation.core.hashing
 import com.example.animeapp.presentation.core.isValidEmail
 
 class SignInViewModel(
-    db: AppDatabase
+    db: AppDatabase,
+    context: Context
 ) : ViewModel() {
     val liveData: LiveData<SignInViewState> get() = _liveData
     private val _liveData = MutableLiveData<SignInViewState>()
 
     private val signInViewState = SignInViewState()
     private val dao = db.userDao()
+
+    val sharedPreferences = context.getSharedPreferences(R.string.pref_acc_key.toString(), Context.MODE_PRIVATE)
 
     fun onSignInClicked(email: String, password: String) {
         if (email.isValidEmail() && email.length >= 5) {
@@ -32,6 +37,19 @@ class SignInViewModel(
         signInViewState.email = null
         signInViewState.isPasswordValid = null
         signInViewState.showError = null
+        _liveData.postValue(signInViewState)
+    }
+
+    fun addPreferenceAccount() {
+        with(sharedPreferences.edit()) {
+            putString("email", signInViewState.email)
+            apply()
+        }
+    }
+
+    fun getPrefs() {
+        val email = sharedPreferences.getString("email", "")
+        signInViewState.pref_email = email
         _liveData.postValue(signInViewState)
     }
 }

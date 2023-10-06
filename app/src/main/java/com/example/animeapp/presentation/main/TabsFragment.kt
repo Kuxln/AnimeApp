@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentTabsBinding
 import com.example.animeapp.presentation.core.BaseFragment
-import com.example.animeapp.presentation.news.AnimeFragment
-import com.example.animeapp.presentation.news.MangaFragment
+import com.example.animeapp.presentation.anime.AnimeFragment
+import com.example.animeapp.presentation.manga.MangaFragment
 import com.example.animeapp.presentation.profile.ProfileFragment
 import com.example.animeapp.presentation.reels.ReelsFragment
 import com.example.animeapp.presentation.search.SearchFragment

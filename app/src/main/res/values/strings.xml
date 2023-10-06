@@ -33,5 +33,6 @@
     <string name="search">Search</string>
     <string name="reels">Reels</string>
     <string name="profile">Profile</string>
+    <string name="pref_acc_key">acc_preferences</string>
 
 </resources>

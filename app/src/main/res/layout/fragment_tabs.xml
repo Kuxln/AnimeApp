@@ -21,5 +21,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainFragmentContainerView"
-        app:menu="@menu/bottom_tabs_menu" />
+        app:menu="@menu/bottom_tabs_menu"
+        app:itemHorizontalTranslationEnabled="false"
+        app:labelVisibilityMode="labeled"
+        app:itemTextColor="@color/orange"
+        app:itemTextAppearanceActive="@color/orange"
+        app:itemRippleColor="@null"
+        app:itemIconTint="@color/bottom_bar_selector"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

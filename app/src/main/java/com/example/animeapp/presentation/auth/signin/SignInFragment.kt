@@ -15,13 +15,12 @@ import com.example.animeapp.presentation.core.AppViewModelFactory
 class SignInFragment : AuthFragment<FragmentSignInBinding>(
     R.layout.fragment_sign_in
 ) {
-    val viewModel: SignInViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
+    private val viewModel: SignInViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fragmentBinding = FragmentSignInBinding.bind(view)
         fragmentBinding.tvForgotPassword.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         fragmentBinding.tvSignUp.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-
 
         fragmentBinding.btnSignIn.setOnClickListener {
             val email = fragmentBinding.etEmailText.text.toString()
@@ -50,6 +49,7 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
                     Toast.LENGTH_SHORT
                 ).show()
                 fragmentCallback.onAuthorization(it.email!!)
+                viewModel.addPreferenceAccount()
                 viewModel.clearState()
             }
             if (it.isPasswordValid == false) {
@@ -68,7 +68,15 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
                 ).show()
                 viewModel.clearState()
             }
+            if (it.pref_email != null) {
+                fragmentBinding.etEmailText.setText(it.pref_email)
+            }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getPrefs()
     }
 
 }

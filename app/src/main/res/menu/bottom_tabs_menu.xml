@@ -2,17 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/animeTab"
-        android:title="@string/anime" />
+        android:title="@string/anime"
+        android:icon="@drawable/anime"/>
     <item
         android:id="@+id/mangaTab"
-        android:title="@string/manga" />
+        android:title="@string/manga"
+        android:icon="@drawable/manga"/>
     <item
         android:id="@+id/searchTab"
-        android:title="@string/search" />
+        android:title="@string/search"
+        android:icon="@drawable/search_tab_image"/>
     <item
         android:id="@+id/reelsTab"
-        android:title="@string/reels" />
+        android:title="@string/reels"
+        android:icon="@drawable/reel"/>
     <item
         android:id="@+id/profileTab"
-        android:title="@string/profile" />
+        android:title="@string/profile"
+        android:icon="@drawable/profile_tab_image"/>
 </menu>

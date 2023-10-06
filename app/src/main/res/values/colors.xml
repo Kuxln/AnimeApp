@@ -11,5 +11,8 @@
     <color name="grey_account_image">#DFDFDF</color>
     <color name="grey_pressed">#AAAAAA</color>
     <color name="orange">#E65A5A</color>
+    <color name="orange_anime_list_icons">#E45751</color>
     <color name="orange_pressed">#E47777</color>
+    <color name="white_trans">#80FFFFFF</color>
+    <color name="gold">#F37943</color>
 </resources>
