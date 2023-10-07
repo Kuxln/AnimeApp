@@ -22,7 +22,7 @@ class AnimeFragment : BaseFragment<FragmentAnimeBinding>(
 
         viewModel.liveData.observe(this.viewLifecycleOwner) {state ->
             state.animeTitleData?.let {
-                fragmentBinding.animeRecyclerView.adapter = AnimeListAdapter(it)
+                fragmentBinding.animeRecyclerView.adapter = AnimeListAdapter(it, state.hasMoreData)
             }
             if (!state.isLoading) {
                 fragmentBinding.animeRecyclerView.visibility = View.VISIBLE

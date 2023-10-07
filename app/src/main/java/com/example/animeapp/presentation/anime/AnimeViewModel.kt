@@ -24,6 +24,7 @@ class AnimeViewModel(
             val response = animeApi.getTopAnime()
             Log.d("tag", response.toString())
             animeViewState.animeTitleData = response?.data
+            animeViewState.hasMoreData = response?.links?.next != null
             animeViewState.isLoading = false
             _liveData.postValue(animeViewState)
 

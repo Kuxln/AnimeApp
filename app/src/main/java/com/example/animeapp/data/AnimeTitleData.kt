@@ -1,7 +1,12 @@
 package com.example.animeapp.data
 
 data class AnimeApiResponse(
-    val data: List<AnimeTitleData>
+    val data: List<AnimeTitleData>? = null,
+    val links: AnimeLinks? = null
+)
+
+data class AnimeLinks(
+    val next: String? = null
 )
 
 data class AnimeTitleData(
