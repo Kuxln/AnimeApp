@@ -17,5 +17,10 @@ data class AnimeAttributes(
     val userCount: Int? = null,
     val startDate: String? = null,
     val endDate: String? = null,
-    val episodeLength: Int? = null
+    val episodeLength: Int? = null,
+    val posterImage: AnimePosters? = null
+)
+
+data class AnimePosters(
+    val original: String? = null
 )

@@ -22,6 +22,7 @@ class AnimeViewModel(
         _liveData.postValue(animeViewState)
         viewModelScope.launch(Dispatchers.IO) {
             val response = animeApi.getTopAnime()
+            Log.d("tag", response.toString())
             animeViewState.animeTitleData = response?.data
             animeViewState.isLoading = false
             _liveData.postValue(animeViewState)
