@@ -3,6 +3,7 @@ package com.example.animeapp.presentation.anime
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -12,28 +13,27 @@ import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.AnimeListItemBinding
 import com.example.animeapp.databinding.LoadingProgressBarBinding
 
+class AnimeDiffUtil(
+    private val oldData: List<AnimeTitleData>,
+    private val newData: List<AnimeTitleData>
+) : DiffUtil.Callback() {
 
-class PaginationScrollListener(
-    private val linearLayoutManager: LinearLayoutManager,
-    private val viewModel: AnimeViewModel
-) : RecyclerView.OnScrollListener() {
-    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        super.onScrolled(recyclerView, dx, dy)
-
-        val callback = viewModel as AnimeViewModelCallback
-        val visibleItemCount = linearLayoutManager.childCount
-        val totalItemCount = linearLayoutManager.itemCount
-        val firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
-        val lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()
-
-
-        if ((lastVisibleItemPosition == totalItemCount)
-            && firstVisibleItemPosition >= 0
-        ) {
-            callback.loadMoreItems()
-        }
-//        callback.loadMoreItems()
+    override fun getOldListSize(): Int {
+        return oldData.size
     }
+
+    override fun getNewListSize(): Int {
+        return newData.size
+    }
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldData[oldItemPosition].id == newData[newItemPosition].id
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldData[oldItemPosition].attributes?.canonicalTitle == newData[newItemPosition].attributes?.canonicalTitle
+    }
+
 }
 
 class AnimeListViewHolder(
@@ -50,11 +50,11 @@ class AnimeListViewHolder(
 
 class LoadingProgressBarViewHolder(
     binding: LoadingProgressBarBinding
-) : RecyclerView.ViewHolder(binding.root) {
-    val progressBar = binding.loadingProgressBar
-}
+) : RecyclerView.ViewHolder(binding.root)
 
 class AnimeListAdapter(
+    private val onUpArrowShow: () -> Unit = {},
+    private val onArrowHide: () -> Unit = {},
     private val onLastElementVisible: () -> Unit = {}
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
     private var data: MutableList<AnimeTitleData> = mutableListOf()
@@ -92,6 +92,9 @@ class AnimeListAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (position >= 40) {
+            onUpArrowShow()
+        } else onArrowHide()
         when (getItemViewType(position)) {
             ITEM -> {
                 val animeListViewHolder = holder as AnimeListViewHolder
@@ -142,12 +145,23 @@ class AnimeListAdapter(
         return if (position == data.size) LOADING else ITEM
     }
 
-    fun setData(newData: List<AnimeTitleData>, hasMore: Boolean) {
+//    fun setData(newData: List<AnimeTitleData>, hasMore: Boolean) {
+//        val animeDiffUtil = AnimeDiffUtil(this.data, newData)
+//        val animeDiffResult = DiffUtil.calculateDiff(animeDiffUtil)
+//        this.data.clear()
+//        this.data.addAll(newData)
+//        this.hasMoreData = hasMore
+//        animeDiffResult.dispatchUpdatesTo(this)
+//}
+
+    fun updateData(newData: List<AnimeTitleData>, hasMore: Boolean) {
+        val animeDiffUtil = AnimeDiffUtil(this.data, newData)
+        val animeDiffResult = DiffUtil.calculateDiff(animeDiffUtil)
         this.data.clear()
         this.data.addAll(newData)
         this.hasMoreData = hasMore
-        notifyDataSetChanged()
-}
+        animeDiffResult.dispatchUpdatesTo(this)
+    }
 
 
     companion object {

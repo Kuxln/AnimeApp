@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 interface AnimeViewModelCallback {
     fun loadMoreItems()
+    fun refreshList()
 }
 
 class AnimeViewModel(
@@ -34,8 +35,6 @@ class AnimeViewModel(
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
-
         }
     }
 
@@ -50,8 +49,21 @@ class AnimeViewModel(
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
 
-
+    override fun refreshList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = animeApi.getTopAnime()
+                Log.d("tag", response.toString())
+                animeViewState.animeTitleData = response?.data
+                animeViewState.hasMoreData = response?.links?.next != null
+                animeViewState.isLoading = false
+                _liveData.postValue(animeViewState)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }
