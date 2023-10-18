@@ -16,6 +16,9 @@ class AnimeApiDataSource {
     suspend fun getTopAnime() : AnimeApiResponse? {
         return animeApi.getTopAnime().body()
     }
+    suspend fun loadMore(offset: Int) : AnimeApiResponse? {
+        return animeApi.loadNext(offset, 20).body()
+    }
 
 
 }

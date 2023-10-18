@@ -109,7 +109,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPasswordText"
-            android:text="qwerty123"
             android:paddingVertical="0dp"
             android:lines="1"
             android:layout_width="match_parent"

@@ -18,16 +18,4 @@ interface UserDao {
 
     @Update
     fun update(user: User)
-//
-//    @Update(entity = User::class)
-//    fun update(obj: UserFinishFields)
-//
-//    @Entity
-//    data class UserFinishFields(
-//        @ColumnInfo(name = "name") val name: String?,
-//        @ColumnInfo(name = "number") val number: String?,
-//        @ColumnInfo(name = "gender") val gender: Int?
-//    )
-
-
 }
