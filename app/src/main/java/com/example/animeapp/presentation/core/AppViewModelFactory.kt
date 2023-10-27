@@ -24,7 +24,7 @@ class AppViewModelFactory(
             modelClass.isAssignableFrom(ChangePasswordViewModel::class.java) -> ChangePasswordViewModel(app.db) as T
 
             modelClass.isAssignableFrom(AnimeViewModel::class.java) -> AnimeViewModel(app.animeApi) as T
-            modelClass.isAssignableFrom(MangaViewModel::class.java) -> MangaViewModel() as T
+            modelClass.isAssignableFrom(MangaViewModel::class.java) -> MangaViewModel(app.mangaApi) as T
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> ProfileViewModel() as T
             modelClass.isAssignableFrom(ReelsViewModel::class.java) -> ReelsViewModel() as T
             modelClass.isAssignableFrom(SearchViewModel::class.java) -> SearchViewModel() as T

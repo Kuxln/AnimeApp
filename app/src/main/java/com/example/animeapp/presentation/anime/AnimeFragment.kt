@@ -4,23 +4,27 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
+import com.example.animeapp.data.AnimeTitle
 import com.example.animeapp.databinding.FragmentAnimeBinding
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.BaseFragment
 import com.example.animeapp.presentation.core.PaddingItemDecoration
 
-class AnimeFragment : BaseFragment<FragmentAnimeBinding>(
+class AnimeFragment(
+    private val onAnimeTitleSelected: (animeTitle: AnimeTitle) -> Unit = {}
+) : BaseFragment<FragmentAnimeBinding>(
     R.layout.fragment_anime
 ) {
     private val viewModel: AnimeViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
     private lateinit var animeAdapter: AnimeListAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding = FragmentAnimeBinding.bind(view)
+        fragmentBinding= FragmentAnimeBinding.bind(view)
 
         fragmentBinding.animeRecyclerView.addItemDecoration(PaddingItemDecoration(24))
         fragmentBinding.animeRecyclerView.visibility = View.INVISIBLE
 
+        fragmentBinding.animeSwipeRefreshLayout.setColorSchemeResources(R.color.orange)
         fragmentBinding.animeSwipeRefreshLayout.setOnRefreshListener {
             fragmentBinding.animeSwipeRefreshLayout.isRefreshing = true
             viewModel.refreshList()
@@ -36,13 +40,17 @@ class AnimeFragment : BaseFragment<FragmentAnimeBinding>(
                     fragmentBinding.animeArrowUp.visibility = View.GONE
                 }
             },
-            { viewModel.loadMoreItems() }
+            { viewModel.loadMoreItems() },
+            {
+                if (it.attributes != null){
+                    onAnimeTitleSelected(AnimeTitle.newInstance(it.attributes))
+                }
+            }
         )
         fragmentBinding.animeRecyclerView.adapter = animeAdapter
         fragmentBinding.animeArrowUp.setOnClickListener {
             fragmentBinding.animeRecyclerView.smoothScrollToPosition(0)
         }
-
 
         viewModel.liveData.observe(this.viewLifecycleOwner) { state ->
             state.animeTitleData?.let {

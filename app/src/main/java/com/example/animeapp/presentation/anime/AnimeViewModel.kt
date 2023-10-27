@@ -9,14 +9,9 @@ import com.example.animeapp.data.AnimeApiDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-interface AnimeViewModelCallback {
-    fun loadMoreItems()
-    fun refreshList()
-}
-
 class AnimeViewModel(
     private val animeApi: AnimeApiDataSource
-) : ViewModel(), AnimeViewModelCallback {
+) : ViewModel() {
     val liveData: LiveData<AnimeViewState> get() = _liveData
     private val _liveData = MutableLiveData<AnimeViewState>()
     private val animeViewState = AnimeViewState()
@@ -38,12 +33,15 @@ class AnimeViewModel(
         }
     }
 
-    override fun loadMoreItems() {
+    fun loadMoreItems() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = animeApi.loadMore(animeViewState.animeTitleData.orEmpty().size)
                 Log.d("tag", response.toString())
-                animeViewState.animeTitleData = listOf(animeViewState.animeTitleData.orEmpty(), response?.data.orEmpty()).flatten()
+                animeViewState.animeTitleData = listOf(
+                    animeViewState.animeTitleData.orEmpty(),
+                    response?.data.orEmpty()
+                ).flatten()
                 animeViewState.hasMoreData = response?.links?.next != null
                 _liveData.postValue(animeViewState)
             } catch (e: Exception) {
@@ -52,7 +50,9 @@ class AnimeViewModel(
         }
     }
 
-    override fun refreshList() {
+    fun refreshList() {
+        animeViewState.isLoading = true
+        _liveData.postValue(animeViewState)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = animeApi.getTopAnime()

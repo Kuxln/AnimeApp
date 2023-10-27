@@ -5,8 +5,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentTabsBinding
-import com.example.animeapp.presentation.core.BaseFragment
 import com.example.animeapp.presentation.anime.AnimeFragment
+import com.example.animeapp.presentation.anime.AnimeSelectedItemFragment
+import com.example.animeapp.presentation.core.BaseFragment
 import com.example.animeapp.presentation.manga.MangaFragment
 import com.example.animeapp.presentation.profile.ProfileFragment
 import com.example.animeapp.presentation.reels.ReelsFragment
@@ -18,7 +19,12 @@ class TabsFragment : BaseFragment<FragmentTabsBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fragmentBinding = FragmentTabsBinding.bind(view)
 
-        val animeFragment = AnimeFragment()
+        val animeFragment = AnimeFragment {
+            childFragmentManager.beginTransaction()
+                .addToBackStack(AnimeSelectedItemFragment::class.java.name)
+                .replace(R.id.mainFragmentContainerView, AnimeSelectedItemFragment.newInstance(it))
+                .commit()
+        }
         val mangaFragment = MangaFragment()
         val searchFragment = SearchFragment()
         val reelsFragment = ReelsFragment()

@@ -1,5 +1,10 @@
 package com.example.animeapp.presentation.manga
 
+import com.example.animeapp.data.MangaTitleData
+
 data class MangaViewState(
-    val test : String? = null
+    var mangaTitleData: List<MangaTitleData>? = null,
+    var hasMoreData: Boolean = false,
+    var isLoading: Boolean = true
+
 )

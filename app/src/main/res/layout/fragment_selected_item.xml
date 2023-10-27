@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/selectedItemConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/animeCardViewMainImageView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/code_geass_title"
+        app:layout_constraintBottom_toTopOf="@+id/animeCardViewTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/rating_card_shape"
+        app:layout_constraintBottom_toBottomOf="@id/animeCardViewMainImageView"
+        app:layout_constraintEnd_toEndOf="@id/animeCardViewMainImageView"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/animeCardViewRatingStarImageView"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_margin="7dp"
+                android:src="@drawable/star_rating"
+                android:tint="@color/gold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/animeCardViewRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@id/animeCardViewRatingStarImageView"
+                app:layout_constraintStart_toEndOf="@id/animeCardViewRatingStarImageView"
+                app:layout_constraintTop_toTopOf="@id/animeCardViewRatingStarImageView"
+                tools:text="4.8" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/animeCardViewViews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@id/animeCardViewRatingStarImageView"
+                app:layout_constraintStart_toEndOf="@id/animeCardViewRating"
+                app:layout_constraintTop_toTopOf="@id/animeCardViewRatingStarImageView"
+
+
+                tools:text="(6.7 million Views)" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/animeCardViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/animeCardViewSubTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/animeCardViewMainImageView"
+        tools:text="Code Geass: Lelouch the Rebellion" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/animeCardViewSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="7dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/animeCardViewLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animeCardViewTitle"
+        tools:text="A high-schooler who's granted powers to make anyone instantly obedient dons a mask to lead Japan's rebellion against a long-invading Britannia." />
+
+    <View
+        android:id="@+id/animeCardViewLine"
+        android:layout_width="match_parent"
+
+        android:layout_height="0.5dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@color/grey_pressed"
+        app:layout_constraintBottom_toTopOf="@id/animeCardReleaseDateImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animeCardViewSubTitle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/animeCardReleaseDateImageView"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/calendar"
+        android:tint="@color/orange_anime_list_icons"
+        app:layout_constraintBottom_toTopOf="@id/animeCardViewAmountOfTimeImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animeCardViewLine" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/animeCardReleaseDateTextView"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/animeCardReleaseDateImageView"
+        app:layout_constraintStart_toEndOf="@id/animeCardReleaseDateImageView"
+        app:layout_constraintTop_toTopOf="@id/animeCardReleaseDateImageView"
+
+        tools:text="12-12-1988" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/animeCardViewAmountOfTimeImageView"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/clock"
+        android:tint="@color/orange_anime_list_icons"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animeCardReleaseDateImageView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/animeCardViewAmountOfTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/animeCardViewAmountOfTimeImageView"
+        app:layout_constraintStart_toEndOf="@id/animeCardViewAmountOfTimeImageView"
+        app:layout_constraintTop_toTopOf="@id/animeCardViewAmountOfTimeImageView"
+
+        tools:text="24 ep" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

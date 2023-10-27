@@ -19,6 +19,13 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.mainActivityFragmentContainer, TabsFragment())
             .commit()
     }
+
+//    override fun onBackPressed() {
+//
+//        if (!fragment.onBack) {
+//            super.onBackPressed()
+//        }
+//    }
 }
 
 
