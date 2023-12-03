@@ -1,18 +1,25 @@
 package com.example.animeapp.presentation.anime
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.example.animeapp.R
 import com.example.animeapp.data.AnimeTitle
+import com.example.animeapp.databinding.AnimeListItemBinding
+import com.example.animeapp.databinding.ExpandableToolbarBinding
 import com.example.animeapp.databinding.FragmentSelectedItemBinding
 import com.example.animeapp.presentation.core.BaseFragment
+import com.google.android.material.appbar.CollapsingToolbarLayout
+
 
 class AnimeSelectedItemFragment :
-    BaseFragment<FragmentSelectedItemBinding>(R.layout.fragment_selected_item) {
+    BaseFragment<ExpandableToolbarBinding>(R.layout.expandable_toolbar) {
     private lateinit var animeTitle: AnimeTitle
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding = FragmentSelectedItemBinding.bind(view)
+        fragmentBinding = ExpandableToolbarBinding.bind(view)
 
         val titleData = this.arguments
         animeTitle = titleData?.getParcelable("animeTitle")
@@ -43,8 +50,8 @@ class AnimeSelectedItemFragment :
         with(fragmentBinding) {
             animeCardViewTitle.text = animeTitle.canonicalTitle
             animeCardViewSubTitle.text = animeTitle.description
-            animeCardViewRating.text = animeTitle.averageRating
-            animeCardViewViews.text = userCountMetadata
+//            animeCardViewRating.text = animeTitle.averageRating
+//            animeCardViewViews.text = userCountMetadata
             animeCardViewAmountOfTimeTextView.text = amountOfTimeMD
             animeCardReleaseDateTextView.text = releaseDateMD
             Glide.with(animeCardViewMainImageView.context)
@@ -52,8 +59,21 @@ class AnimeSelectedItemFragment :
                 .placeholder(R.drawable.anime)
                 .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                 .into(animeCardViewMainImageView)
+//            Glide.with(animeCardViewMainImageView1.context)
+//                .load(animeTitle.posterImage)
+//                .placeholder(R.drawable.anime)
+//                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+//                .into(animeCardViewMainImageView1)
 
         }
+//        fragmentBinding.collapsingToolbarLayout.title = "Test Title"
+//        fragmentBinding.collapsingToolbarLayout.setCollapsedTitleTextAppearance(com.example.animeapp.R.style.authorizationSubTitle)
+//        fragmentBinding.collapsingToolbarLayout.setExpandedTitleTextAppearance(com.example.animeapp.R.style.authorizationSubTitle)
+//        fragmentBinding.collapsingToolbarLayout.setContentScrimColor(Color.GREEN)
+    }
+
+    override fun onBack(): Boolean {
+        return false
     }
 
     companion object {

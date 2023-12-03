@@ -15,7 +15,6 @@ class ChangePasswordFragment : AuthFragment<FragmentChangePasswordBinding>(
 ) {
     val viewModel: ChangePasswordViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fragmentBinding = FragmentChangePasswordBinding.bind(view)
         fragmentBinding.btnBack.setOnClickListener { fragmentCallback.onBackButtonPressed() }

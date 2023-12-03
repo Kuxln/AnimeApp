@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="snap|scroll">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/animeCardViewMainImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/code_geass_title"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.5" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:id="@+id/selectedItemConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/animeCardViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Code Geass: Lelouch the Rebellion" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/animeCardViewSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="7dp"
+                app:layout_constraintBottom_toTopOf="@id/animeCardViewLine"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/animeCardViewTitle"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="A high-schooler who's granted powers to make anyone instantly obedient dons a mask to lead Japan's rebellion against a long-invading Britannia." />
+
+            <View
+                android:id="@+id/animeCardViewLine"
+                android:layout_width="match_parent"
+
+                android:layout_height="0.5dp"
+                android:layout_marginHorizontal="15dp"
+                android:background="@color/grey_pressed"
+                app:layout_constraintBottom_toTopOf="@id/animeCardReleaseDateImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/animeCardViewSubTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/animeCardReleaseDateImageView"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/calendar"
+                android:tint="@color/orange_anime_list_icons"
+                app:layout_constraintBottom_toTopOf="@id/animeCardViewAmountOfTimeImageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/animeCardViewLine"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/animeCardReleaseDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/animeCardReleaseDateImageView"
+                app:layout_constraintStart_toEndOf="@id/animeCardReleaseDateImageView"
+                app:layout_constraintTop_toTopOf="@id/animeCardReleaseDateImageView"
+                app:layout_constraintVertical_chainStyle="packed"
+
+                tools:text="12-12-1988" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/animeCardViewAmountOfTimeImageView"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/clock"
+                android:tint="@color/orange_anime_list_icons"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/animeCardReleaseDateImageView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/animeCardViewAmountOfTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/animeCardViewAmountOfTimeImageView"
+                app:layout_constraintStart_toEndOf="@id/animeCardViewAmountOfTimeImageView"
+                app:layout_constraintTop_toTopOf="@id/animeCardViewAmountOfTimeImageView"
+
+                tools:text="24 ep" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:background="@color/bottom_bar_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@+id/appBar"
+        app:layout_anchorGravity="center|bottom"
+        android:text="Shuffle Play"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

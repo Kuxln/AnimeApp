@@ -9,15 +9,26 @@ import com.example.animeapp.databinding.FragmentAnimeBinding
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.BaseFragment
+import com.example.animeapp.presentation.core.MainActivityFragment
 import com.example.animeapp.presentation.core.PaddingItemDecoration
 
 class AnimeFragment(
     private val onAnimeTitleSelected: (animeTitle: AnimeTitle) -> Unit = {}
-) : BaseFragment<FragmentAnimeBinding>(
+) : MainActivityFragment<FragmentAnimeBinding>(
     R.layout.fragment_anime
 ) {
     private val viewModel: AnimeViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
     private lateinit var animeAdapter: AnimeListAdapter
+
+    override fun onBack() : Boolean{
+        return if (parentFragmentManager.backStackEntryCount > 0) {
+            parentFragmentManager.popBackStack()
+            true
+        } else false
+
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fragmentBinding= FragmentAnimeBinding.bind(view)
 
