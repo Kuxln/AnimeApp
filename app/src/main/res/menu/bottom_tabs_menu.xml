@@ -9,10 +9,6 @@
         android:title="@string/manga"
         android:icon="@drawable/manga"/>
     <item
-        android:id="@+id/searchTab"
-        android:title="@string/search"
-        android:icon="@drawable/search_tab_image"/>
-    <item
         android:id="@+id/reelsTab"
         android:title="@string/reels"
         android:icon="@drawable/reel"/>

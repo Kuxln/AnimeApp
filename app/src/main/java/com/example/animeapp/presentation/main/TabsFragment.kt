@@ -29,14 +29,12 @@ class TabsFragment : BaseFragment<FragmentTabsBinding>(
                 .commit()
         }
         val mangaFragment = MangaFragment()
-        val searchFragment = SearchFragment()
         val reelsFragment = ReelsFragment()
         val profileFragment = ProfileFragment()
         fragmentBinding.mainNavBar.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.animeTab -> setFragment(animeFragment)
                 R.id.mangaTab -> setFragment(mangaFragment)
-                R.id.searchTab -> setFragment(searchFragment)
                 R.id.reelsTab -> setFragment(reelsFragment)
                 R.id.profileTab -> setFragment(profileFragment)
             }

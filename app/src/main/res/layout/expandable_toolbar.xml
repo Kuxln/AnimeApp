@@ -130,13 +130,15 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:background="@color/bottom_bar_selector"
+    <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/button_selector"
+        android:textColor="@color/button_text_selector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@+id/appBar"
         app:layout_anchorGravity="center|bottom"
-        android:text="Shuffle Play"/>
+        android:text="Shuffle Play"
+        android:elevation="3dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
