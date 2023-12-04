@@ -13,11 +13,13 @@ data class AnimeLinks(
     val next: String? = null
 )
 
+@Parcelize
 data class AnimeTitleData(
     val id: String? = null,
     val attributes: AnimeAttributes? = null
-)
+): Parcelable
 
+@Parcelize
 data class AnimeAttributes(
     val canonicalTitle: String? = null,
     val description: String? = null,
@@ -28,11 +30,12 @@ data class AnimeAttributes(
     val endDate: String? = null,
     val episodeLength: Int? = null,
     val posterImage: AnimePosters? = null
-)
+): Parcelable
 
+@Parcelize
 data class AnimePosters(
     val original: String? = null
-)
+):Parcelable
 
 @Parcelize
 data class AnimeTitle(

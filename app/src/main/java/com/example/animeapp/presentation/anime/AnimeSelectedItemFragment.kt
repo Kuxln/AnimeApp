@@ -4,21 +4,20 @@ import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.example.animeapp.R
-import com.example.animeapp.data.AnimeTitle
+import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.ExpandableToolbarBinding
 import com.example.animeapp.presentation.core.BaseFragment
 
 class AnimeSelectedItemFragment :
     BaseFragment<ExpandableToolbarBinding>(R.layout.expandable_toolbar) {
-    private lateinit var animeTitle: AnimeTitle
+    private lateinit var animeTitleData: AnimeTitleData
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = ExpandableToolbarBinding.bind(view)
 
         val titleData = this.arguments
-        animeTitle = titleData?.getParcelable("animeTitle")
+        val animeTitle = titleData?.getParcelable<AnimeTitleData>("animeTitle")?.attributes
             ?: throw IllegalArgumentException("AnimeTitle is required for fragment AnimeSelectedItemFragment")
-
 
         val userCountMetadata = if (animeTitle.userCount != null) {
             "(${animeTitle.userCount} Views)"
@@ -48,8 +47,8 @@ class AnimeSelectedItemFragment :
 //            animeCardViewViews.text = userCountMetadata
             animeCardViewAmountOfTimeTextView.text = amountOfTimeMD
             animeCardReleaseDateTextView.text = releaseDateMD
-            Glide.with(animeCardViewMainImageView.context)
-                .load(animeTitle.posterImage)
+            Glide.with(requireContext())
+                .load(animeTitle.posterImage?.original)
                 .placeholder(R.drawable.anime)
                 .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                 .into(animeCardViewMainImageView)
@@ -72,7 +71,7 @@ class AnimeSelectedItemFragment :
 
     companion object {
         @JvmStatic
-        fun newInstance(animeTitle: AnimeTitle): AnimeSelectedItemFragment {
+        fun newInstance(animeTitle: AnimeTitleData): AnimeSelectedItemFragment {
             val animeSelectedItemFragment = AnimeSelectedItemFragment()
             val animeTitleBundle = Bundle()
             animeTitleBundle.putParcelable("animeTitle", animeTitle)

@@ -12,7 +12,7 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
-import com.example.animeapp.data.AnimeTitle
+import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeBinding
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
@@ -20,17 +20,36 @@ import com.example.animeapp.presentation.core.BaseFragment
 import com.example.animeapp.presentation.core.PaddingItemDecoration
 
 
-class AnimeFragment(
-    private val onAnimeTitleSelected: (animeTitle: AnimeTitle) -> Unit = {}
-) : MenuProvider, BaseFragment<FragmentAnimeBinding>(
+class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
     R.layout.fragment_anime
 ) {
     private val viewModel: AnimeViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
     private lateinit var animeAdapter: AnimeListAdapter
+    private lateinit var fragmentCallback: AnimeFragmentCallback
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this)
+        fragmentCallback = requireParentFragment() as AnimeFragmentCallback
+        animeAdapter = AnimeListAdapter(
+            onScroll = {
+                if (it >= 15) {
+                    binding.animeArrowUp.visibility = View.VISIBLE
+                } else {
+                    binding.animeArrowUp.visibility = View.INVISIBLE
+                }
+            },
+            onItemSelected = { titleData ->
+                fragmentCallback.onAnimeClicked(titleData)
+            },
+            onLastElementVisible = {
+                viewModel.loadMoreItems()
+            }
+        )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentAnimeBinding.bind(view)
         (activity as AppCompatActivity?)!!.setSupportActionBar(binding.animeToolbar)
 
@@ -43,23 +62,6 @@ class AnimeFragment(
             viewModel.refreshList()
         }
 
-        animeAdapter = AnimeListAdapter(
-            onScroll = {
-                if (it >= 15) {
-                    binding.animeArrowUp.visibility = View.VISIBLE
-                } else {
-                    binding.animeArrowUp.visibility = View.INVISIBLE
-                }
-            },
-            onItemSelected = {
-                if (it.attributes != null) {
-                    onAnimeTitleSelected(AnimeTitle.newInstance(it.attributes))
-                }
-            },
-            onLastElementVisible = {
-                viewModel.loadMoreItems()
-            }
-        )
         binding.animeRecyclerView.adapter = animeAdapter
         binding.animeArrowUp.setOnClickListener {
             if (animeAdapter.itemCount > 22) {
@@ -95,7 +97,7 @@ class AnimeFragment(
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.toolbar_search_menu, menu)
-        val searchItem  = menu.children.firstOrNull { it.itemId == R.id.action_search }
+        val searchItem = menu.children.firstOrNull { it.itemId == R.id.action_search }
         val searchView = searchItem?.actionView as SearchView?
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -115,5 +117,9 @@ class AnimeFragment(
             parentFragmentManager.popBackStack()
             true
         } else false
+    }
+
+    interface AnimeFragmentCallback {
+        fun onAnimeClicked(titleData: AnimeTitleData)
     }
 }
