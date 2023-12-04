@@ -5,12 +5,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.animeapp.R
-import com.example.animeapp.databinding.FragmentAnimeBinding
 import com.example.animeapp.databinding.FragmentTabsBinding
 import com.example.animeapp.presentation.anime.AnimeFragment
 import com.example.animeapp.presentation.anime.AnimeSelectedItemFragment
 import com.example.animeapp.presentation.core.BaseFragment
-import com.example.animeapp.presentation.core.MainActivityFragment
 import com.example.animeapp.presentation.manga.MangaFragment
 import com.example.animeapp.presentation.profile.ProfileFragment
 import com.example.animeapp.presentation.reels.ReelsFragment

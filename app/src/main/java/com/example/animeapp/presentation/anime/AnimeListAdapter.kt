@@ -1,6 +1,5 @@
 package com.example.animeapp.presentation.anime
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -50,8 +49,7 @@ class AnimeListViewHolder(
 }
 
 class AnimeListAdapter(
-    private val onUpArrowShow: () -> Unit = {},
-    private val onArrowHide: () -> Unit = {},
+    private val onScroll: (visiblePosition: Int) -> Unit = {},
     private val onLastElementVisible: () -> Unit = {},
     private val onItemSelected: (animeTitleData: AnimeTitleData) -> Unit = {}
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
@@ -88,9 +86,7 @@ class AnimeListAdapter(
     } else data.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position >= 40) {
-            onUpArrowShow()
-        } else onArrowHide()
+        onScroll(position)
 
         when (getItemViewType(position)) {
             ITEM -> {

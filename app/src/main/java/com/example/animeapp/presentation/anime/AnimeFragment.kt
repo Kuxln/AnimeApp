@@ -9,18 +9,17 @@ import com.example.animeapp.databinding.FragmentAnimeBinding
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.BaseFragment
-import com.example.animeapp.presentation.core.MainActivityFragment
 import com.example.animeapp.presentation.core.PaddingItemDecoration
 
 class AnimeFragment(
     private val onAnimeTitleSelected: (animeTitle: AnimeTitle) -> Unit = {}
-) : MainActivityFragment<FragmentAnimeBinding>(
+) : BaseFragment<FragmentAnimeBinding>(
     R.layout.fragment_anime
 ) {
     private val viewModel: AnimeViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
     private lateinit var animeAdapter: AnimeListAdapter
 
-    override fun onBack() : Boolean{
+    override fun onBack(): Boolean {
         return if (parentFragmentManager.backStackEntryCount > 0) {
             parentFragmentManager.popBackStack()
             true
@@ -30,7 +29,7 @@ class AnimeFragment(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding= FragmentAnimeBinding.bind(view)
+        fragmentBinding = FragmentAnimeBinding.bind(view)
 
         fragmentBinding.animeRecyclerView.addItemDecoration(PaddingItemDecoration(24))
         fragmentBinding.animeRecyclerView.visibility = View.INVISIBLE
@@ -41,26 +40,29 @@ class AnimeFragment(
             viewModel.refreshList()
         }
         animeAdapter = AnimeListAdapter(
-            {
-                if (fragmentBinding.animeArrowUp.visibility == View.GONE) {
+            onScroll = {
+                if (it >= 15) {
                     fragmentBinding.animeArrowUp.visibility = View.VISIBLE
+                } else {
+                    fragmentBinding.animeArrowUp.visibility = View.INVISIBLE
                 }
             },
-            {
-                if (fragmentBinding.animeArrowUp.visibility == View.VISIBLE) {
-                    fragmentBinding.animeArrowUp.visibility = View.GONE
-                }
-            },
-            { viewModel.loadMoreItems() },
-            {
-                if (it.attributes != null){
+            onItemSelected = {
+                if (it.attributes != null) {
                     onAnimeTitleSelected(AnimeTitle.newInstance(it.attributes))
                 }
+            },
+            onLastElementVisible = {
+                viewModel.loadMoreItems()
             }
         )
         fragmentBinding.animeRecyclerView.adapter = animeAdapter
         fragmentBinding.animeArrowUp.setOnClickListener {
-            fragmentBinding.animeRecyclerView.smoothScrollToPosition(0)
+            if (animeAdapter.itemCount > 22) {
+                fragmentBinding.animeRecyclerView.scrollToPosition(0)
+            } else {
+                fragmentBinding.animeRecyclerView.smoothScrollToPosition(0)
+            }
         }
 
         viewModel.liveData.observe(this.viewLifecycleOwner) { state ->
