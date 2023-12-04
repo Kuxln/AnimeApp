@@ -12,13 +12,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         tabsFragment = TabsFragment()
         val bundle = intent.extras
         val email = bundle!!.getString("EMAIL")
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainActivityFragmentContainer, tabsFragment)
             .commit()
+
     }
 
     override fun onBackPressed() {

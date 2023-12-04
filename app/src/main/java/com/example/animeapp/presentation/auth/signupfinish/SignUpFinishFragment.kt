@@ -39,17 +39,17 @@ class SignUpFinishFragment : AuthFragment<FragmentSignUpFinishBinding>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding = FragmentSignUpFinishBinding.bind(view)
-        fragmentBinding.btnBack.setOnClickListener { fragmentCallback.onBackButtonPressed() }
+        binding = FragmentSignUpFinishBinding.bind(view)
+        binding.btnBack.setOnClickListener { fragmentCallback.onBackButtonPressed() }
         val genders = arrayListOf("Man", "Woman", "Other")
         arrayAdapter = ArrayAdapter(view.context, R.layout.spinner_list_item, genders)
-        fragmentBinding.spinnerGender.adapter = arrayAdapter
+        binding.spinnerGender.adapter = arrayAdapter
 
 
-        fragmentBinding.btnCompleteProfile.setOnClickListener {
-            val number = fragmentBinding.etPhoneNumberText.text.toString()
-            val name = fragmentBinding.etNameText.text.toString()
-            val gender = when (fragmentBinding.spinnerGender.selectedItem.toString()) {
+        binding.btnCompleteProfile.setOnClickListener {
+            val number = binding.etPhoneNumberText.text.toString()
+            val name = binding.etNameText.text.toString()
+            val gender = when (binding.spinnerGender.selectedItem.toString()) {
                 "Man" -> UserGender.Male
                 "Woman" -> UserGender.Female
                 "Other" -> UserGender.Other
@@ -61,16 +61,16 @@ class SignUpFinishFragment : AuthFragment<FragmentSignUpFinishBinding>(
             viewModel.onFinishProfile(number, name, gender)
         }
 
-        fragmentBinding.pickImage.setOnClickListener {
+        binding.pickImage.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
         viewModel.liveData.observe(this.viewLifecycleOwner) {
             if (it.profileImageURI != null) {
-                fragmentBinding.userImage.setImageURI(it.profileImageURI!!.toUri())
+                binding.userImage.setImageURI(it.profileImageURI!!.toUri())
             }
             if (it.username != null) {
-                fragmentBinding.etNameText.setText(it.username)
+                binding.etNameText.setText(it.username)
             }
             if (it.email != null) {
                 fragmentCallback.onAccountCreated(it.email!!)

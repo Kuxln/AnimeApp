@@ -1,6 +1,5 @@
 package com.example.animeapp.presentation.anime
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
@@ -14,7 +13,7 @@ class AnimeSelectedItemFragment :
     private lateinit var animeTitle: AnimeTitle
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding = ExpandableToolbarBinding.bind(view)
+        binding = ExpandableToolbarBinding.bind(view)
 
         val titleData = this.arguments
         animeTitle = titleData?.getParcelable("animeTitle")
@@ -42,7 +41,7 @@ class AnimeSelectedItemFragment :
 
         val amountOfTimeMD = "$episodeCountMetadata $episodeLengthMetadata"
         val releaseDateMD = "$animeStartDate $endDateMetadata"
-        with(fragmentBinding) {
+        with(binding) {
             animeCardViewTitle.text = animeTitle.canonicalTitle
             animeCardViewSubTitle.text = animeTitle.description
 //            animeCardViewRating.text = animeTitle.averageRating

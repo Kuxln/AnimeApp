@@ -18,21 +18,21 @@ class SignUpFragment : AuthFragment<FragmentSignUpBinding>(
     val viewModel: SignUpViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding = FragmentSignUpBinding.bind(view)
-        fragmentBinding.tvTermsAndConditions.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-        fragmentBinding.tvSignIn.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding = FragmentSignUpBinding.bind(view)
+        binding.tvTermsAndConditions.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding.tvSignIn.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
-        fragmentBinding.tvSignIn.setOnClickListener { fragmentCallback.onSignIn() }
+        binding.tvSignIn.setOnClickListener { fragmentCallback.onSignIn() }
 
-        fragmentBinding.btnSignUp.setOnClickListener {
-            val email = fragmentBinding.etEmailText.text.toString()
-            val name = fragmentBinding.etNameText.text.toString()
-            val password = fragmentBinding.etPasswordText.text.toString()
+        binding.btnSignUp.setOnClickListener {
+            val email = binding.etEmailText.text.toString()
+            val name = binding.etNameText.text.toString()
+            val password = binding.etPasswordText.text.toString()
             viewModel.onSignUpClicked(email, name, password)
         }
 
         // TODO:  fragmentBinding.checkboxAgree.setOnCheckedChangeListener { }
-        fragmentBinding.tvTermsAndConditions.setOnClickListener { }
+        binding.tvTermsAndConditions.setOnClickListener { }
 
 
         viewModel.liveData.observe(this.viewLifecycleOwner) {

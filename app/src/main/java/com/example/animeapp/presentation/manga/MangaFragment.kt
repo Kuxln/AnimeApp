@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentMangaBinding
-import com.example.animeapp.presentation.anime.AnimeViewModel
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.BaseFragment
@@ -17,11 +16,11 @@ class MangaFragment : BaseFragment<FragmentMangaBinding>(
     private val viewModel: MangaViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
     private lateinit var mangaAdapter: MangaListAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding = FragmentMangaBinding.bind(view)
+        binding = FragmentMangaBinding.bind(view)
 
 
 
-        with(fragmentBinding) {
+        with(binding) {
             mangaRecyclerView.addItemDecoration(PaddingItemDecoration(24))
             mangaRecyclerView.visibility = View.INVISIBLE
 
@@ -54,7 +53,7 @@ class MangaFragment : BaseFragment<FragmentMangaBinding>(
         viewModel.liveData.observe(this.viewLifecycleOwner) { state ->
             state.mangaTitleData?.let {
                 mangaAdapter.updateData(it, state.hasMoreData)
-                with(fragmentBinding) {
+                with(binding) {
                     if (mangaSwipeRefreshLayout.isRefreshing) {
                         mangaSwipeRefreshLayout.isRefreshing = false
                     }

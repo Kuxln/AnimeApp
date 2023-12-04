@@ -18,20 +18,20 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
     private val viewModel: SignInViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding = FragmentSignInBinding.bind(view)
-        fragmentBinding.tvForgotPassword.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-        fragmentBinding.tvSignUp.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding = FragmentSignInBinding.bind(view)
+        binding.tvForgotPassword.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding.tvSignUp.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
-        fragmentBinding.btnSignIn.setOnClickListener {
-            val email = fragmentBinding.etEmailText.text.toString()
-            val password = fragmentBinding.etPasswordText.text.toString()
+        binding.btnSignIn.setOnClickListener {
+            val email = binding.etEmailText.text.toString()
+            val password = binding.etPasswordText.text.toString()
 
             viewModel.onSignInClicked(email, password)
         }
 
-        fragmentBinding.tvSignUp.setOnClickListener { fragmentCallback.onSignUp() }
+        binding.tvSignUp.setOnClickListener { fragmentCallback.onSignUp() }
 
-        fragmentBinding.tvForgotPassword.setOnClickListener { fragmentCallback.onResetPassword() }
+        binding.tvForgotPassword.setOnClickListener { fragmentCallback.onResetPassword() }
 
         viewModel.liveData.observe(this.viewLifecycleOwner) {
             if (it.showError == true) {
@@ -69,7 +69,7 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
                 viewModel.clearState()
             }
             if (it.pref_email != null) {
-                fragmentBinding.etEmailText.setText(it.pref_email)
+                binding.etEmailText.setText(it.pref_email)
             }
         }
     }

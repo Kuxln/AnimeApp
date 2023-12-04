@@ -16,14 +16,14 @@ class ChangePasswordFragment : AuthFragment<FragmentChangePasswordBinding>(
     val viewModel: ChangePasswordViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding = FragmentChangePasswordBinding.bind(view)
-        fragmentBinding.btnBack.setOnClickListener { fragmentCallback.onBackButtonPressed() }
+        binding = FragmentChangePasswordBinding.bind(view)
+        binding.btnBack.setOnClickListener { fragmentCallback.onBackButtonPressed() }
 
-        fragmentBinding.btnChangePassword.setOnClickListener {
+        binding.btnChangePassword.setOnClickListener {
 
-            val password = fragmentBinding.etPasswordText.text.toString()
-            val passwordRepeated = fragmentBinding.etConfirmPasswordText.text.toString()
-            val email = fragmentBinding.etEmailText.text.toString()
+            val password = binding.etPasswordText.text.toString()
+            val passwordRepeated = binding.etConfirmPasswordText.text.toString()
+            val email = binding.etEmailText.text.toString()
 
             viewModel.onResetPasswordClicked(email, password, passwordRepeated)
         }

@@ -12,13 +12,12 @@ import com.example.animeapp.presentation.core.BaseFragment
 import com.example.animeapp.presentation.manga.MangaFragment
 import com.example.animeapp.presentation.profile.ProfileFragment
 import com.example.animeapp.presentation.reels.ReelsFragment
-import com.example.animeapp.presentation.search.SearchFragment
 
 class TabsFragment : BaseFragment<FragmentTabsBinding>(
     R.layout.fragment_tabs
 ) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fragmentBinding = FragmentTabsBinding.bind(view)
+        binding = FragmentTabsBinding.bind(view)
 
         val animeFragment = AnimeFragment {
             childFragmentManager.beginTransaction()
@@ -29,7 +28,7 @@ class TabsFragment : BaseFragment<FragmentTabsBinding>(
         val mangaFragment = MangaFragment()
         val reelsFragment = ReelsFragment()
         val profileFragment = ProfileFragment()
-        fragmentBinding.mainNavBar.setOnItemSelectedListener {
+        binding.mainNavBar.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.animeTab -> setFragment(animeFragment)
                 R.id.mangaTab -> setFragment(mangaFragment)
@@ -44,7 +43,7 @@ class TabsFragment : BaseFragment<FragmentTabsBinding>(
     //todo
     override fun onBack(): Boolean {
         val currentFragment =
-            fragmentBinding.mainFragmentContainerView.getFragment<BaseFragment<*>>()
+            binding.mainFragmentContainerView.getFragment<BaseFragment<*>>()
         return if (currentFragment.onBack()) {
             Toast.makeText(requireActivity(), "dadadada", Toast.LENGTH_SHORT).show()
             true
