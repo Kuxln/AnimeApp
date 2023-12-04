@@ -3,16 +3,11 @@ package com.example.animeapp.presentation.anime
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.example.animeapp.R
 import com.example.animeapp.data.AnimeTitle
-import com.example.animeapp.databinding.AnimeListItemBinding
 import com.example.animeapp.databinding.ExpandableToolbarBinding
-import com.example.animeapp.databinding.FragmentSelectedItemBinding
 import com.example.animeapp.presentation.core.BaseFragment
-import com.google.android.material.appbar.CollapsingToolbarLayout
-
 
 class AnimeSelectedItemFragment :
     BaseFragment<ExpandableToolbarBinding>(R.layout.expandable_toolbar) {
