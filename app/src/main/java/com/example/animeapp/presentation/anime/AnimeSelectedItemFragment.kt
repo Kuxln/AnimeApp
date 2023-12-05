@@ -5,15 +5,15 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.example.animeapp.R
 import com.example.animeapp.data.AnimeTitleData
-import com.example.animeapp.databinding.ExpandableToolbarBinding
+import com.example.animeapp.databinding.FragmentAnimeSelectedBinding
 import com.example.animeapp.presentation.core.BaseFragment
 
 class AnimeSelectedItemFragment :
-    BaseFragment<ExpandableToolbarBinding>(R.layout.expandable_toolbar) {
+    BaseFragment<FragmentAnimeSelectedBinding>(R.layout.fragment_anime_selected) {
     private lateinit var animeTitleData: AnimeTitleData
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = ExpandableToolbarBinding.bind(view)
+        binding = FragmentAnimeSelectedBinding.bind(view)
 
         val titleData = this.arguments
         val animeTitle = titleData?.getParcelable<AnimeTitleData>("animeTitle")?.attributes
@@ -52,17 +52,7 @@ class AnimeSelectedItemFragment :
                 .placeholder(R.drawable.anime)
                 .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                 .into(animeCardViewMainImageView)
-//            Glide.with(animeCardViewMainImageView1.context)
-//                .load(animeTitle.posterImage)
-//                .placeholder(R.drawable.anime)
-//                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
-//                .into(animeCardViewMainImageView1)
-
         }
-//        fragmentBinding.collapsingToolbarLayout.title = "Test Title"
-//        fragmentBinding.collapsingToolbarLayout.setCollapsedTitleTextAppearance(com.example.animeapp.R.style.authorizationSubTitle)
-//        fragmentBinding.collapsingToolbarLayout.setExpandedTitleTextAppearance(com.example.animeapp.R.style.authorizationSubTitle)
-//        fragmentBinding.collapsingToolbarLayout.setContentScrimColor(Color.GREEN)
     }
 
     override fun onBack(): Boolean {

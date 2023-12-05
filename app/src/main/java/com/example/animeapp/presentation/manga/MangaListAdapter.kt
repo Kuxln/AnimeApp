@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.animeapp.R
-import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.data.MangaTitleData
-import com.example.animeapp.databinding.AnimeListItemBinding
-import com.example.animeapp.databinding.LoadingProgressBarBinding
+import com.example.animeapp.databinding.ListItemAnimeBinding
+import com.example.animeapp.databinding.ListLoadingProgressBarBinding
 import com.example.animeapp.presentation.core.LoadingProgressBarViewHolder
 
 class MangaDiffUtil(
@@ -37,7 +36,7 @@ class MangaDiffUtil(
 }
 
 class MangaListViewHolder(
-    binding: AnimeListItemBinding
+    binding: ListItemAnimeBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     val canonicalTitle = binding.animeCardViewTitle
     val description = binding.animeCardViewSubTitle
@@ -64,12 +63,12 @@ class MangaListAdapter(
 
         return when (viewType) {
             ITEM -> {
-                val binding = AnimeListItemBinding.inflate(inflater, parent, false)
+                val binding = ListItemAnimeBinding.inflate(inflater, parent, false)
                 MangaListViewHolder(binding)
             }
 
             LOADING -> {
-                val binding = LoadingProgressBarBinding.inflate(inflater, parent, false)
+                val binding = ListLoadingProgressBarBinding.inflate(inflater, parent, false)
                 LoadingProgressBarViewHolder(binding)
             }
 

@@ -45,11 +45,11 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ratings_container"
                 android:layout_width="wrap_content"
-                android:backgroundTint="@color/orange"
-                android:paddingHorizontal="8dp"
                 android:layout_height="32dp"
                 android:background="@drawable/rating_card_shape"
+                android:backgroundTint="@color/orange"
                 android:elevation="4dp"
+                android:paddingHorizontal="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -88,8 +88,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="(6.7 million Views)"
-                        android:textSize="17sp"
                         android:textColor="@color/white"
+                        android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="@id/animeCardViewRatingStarImageView"
                         app:layout_constraintStart_toEndOf="@id/animeCardViewRating"
                         app:layout_constraintTop_toTopOf="@id/animeCardViewRatingStarImageView"
@@ -99,7 +99,7 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -115,9 +115,6 @@
                     android:layout_marginTop="34dp"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed"
                     tools:text="Code Geass: Lelouch the Rebellion" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -126,10 +123,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginVertical="7dp"
-                    app:layout_constraintBottom_toTopOf="@id/animeCardViewLine"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/animeCardViewTitle"
-                    app:layout_constraintVertical_chainStyle="packed"
                     tools:text="A high-schooler who's granted powers to make anyone instantly obedient dons a mask to lead Japan's rebellion against a long-invading Britannia." />
 
                 <View
@@ -138,63 +131,58 @@
 
                     android:layout_height="0.5dp"
                     android:layout_marginHorizontal="15dp"
-                    android:background="@color/grey_pressed"
-                    app:layout_constraintBottom_toTopOf="@id/animeCardReleaseDateImageView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/animeCardViewSubTitle" />
+                    android:background="@color/grey_pressed"/>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/animeCardReleaseDateImageView"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/calendar"
-                    android:tint="@color/orange_anime_list_icons"
-                    app:layout_constraintBottom_toTopOf="@id/animeCardViewAmountOfTimeImageView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/animeCardViewLine"
-                    app:layout_constraintVertical_chainStyle="packed" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/animeCardReleaseDateTextView"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    app:layout_constraintBottom_toBottomOf="@id/animeCardReleaseDateImageView"
-                    app:layout_constraintStart_toEndOf="@id/animeCardReleaseDateImageView"
-                    app:layout_constraintTop_toTopOf="@id/animeCardReleaseDateImageView"
-                    app:layout_constraintVertical_chainStyle="packed"
+                    android:orientation="horizontal">
 
-                    tools:text="12-12-1988" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/animeCardReleaseDateImageView"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/calendar"
+                        android:tint="@color/orange_anime_list_icons"/>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/animeCardViewAmountOfTimeImageView"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="15dp"
-                    android:src="@drawable/clock"
-                    android:tint="@color/orange_anime_list_icons"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/animeCardReleaseDateImageView" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/animeCardReleaseDateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="bottom"
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/animeCardViewAmountOfTimeTextView"
+                        tools:text="12-12-1988" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    app:layout_constraintBottom_toBottomOf="@id/animeCardViewAmountOfTimeImageView"
-                    app:layout_constraintStart_toEndOf="@id/animeCardViewAmountOfTimeImageView"
-                    app:layout_constraintTop_toTopOf="@id/animeCardViewAmountOfTimeImageView"
+                    android:orientation="horizontal">
 
-                    tools:text="24 ep" />
-            </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/animeCardViewAmountOfTimeImageView"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/clock"
+                        android:tint="@color/orange_anime_list_icons" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/animeCardViewAmountOfTimeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="bottom"
+
+                        tools:text="24 ep" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
