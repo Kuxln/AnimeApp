@@ -56,5 +56,4 @@ class AuthActivity : AppCompatActivity(), AuthorizationCallback {
         startActivity(intent)
         finish()
     }
-
 }

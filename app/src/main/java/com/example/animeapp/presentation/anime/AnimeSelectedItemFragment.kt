@@ -2,6 +2,9 @@ package com.example.animeapp.presentation.anime
 
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
+import androidx.core.view.doOnLayout
+import androidx.core.view.updateLayoutParams
 import com.bumptech.glide.Glide
 import com.example.animeapp.R
 import com.example.animeapp.data.AnimeTitleData
@@ -52,6 +55,14 @@ class AnimeSelectedItemFragment :
                 .placeholder(R.drawable.anime)
                 .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                 .into(animeCardViewMainImageView)
+        }
+
+        binding.root.doOnLayout {
+            val rootHeight = binding.root.measuredHeight;
+            val tabsHeight = binding.pagerTabs.measuredHeight;
+            binding.pager.updateLayoutParams {
+                height = rootHeight - tabsHeight
+            }
         }
     }
 
