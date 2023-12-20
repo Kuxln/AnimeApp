@@ -1,6 +1,9 @@
 package com.example.animeapp.presentation.anime
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.doOnLayout
@@ -13,11 +16,17 @@ import com.example.animeapp.presentation.core.BaseFragment
 
 class AnimeSelectedItemFragment :
     BaseFragment<FragmentAnimeSelectedBinding>(R.layout.fragment_anime_selected) {
+    private var currentlyTouching: Boolean = false
+    private var currentlyScrolling: Boolean = false
+    private var scrollPerformed: Boolean = false
+
     private lateinit var animeTitleData: AnimeTitleData
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var anotherBinding: FragmentAnimeSelectedBinding;
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentAnimeSelectedBinding.bind(view)
-
+        anotherBinding = binding;
         val titleData = this.arguments
         val animeTitle = titleData?.getParcelable<AnimeTitleData>("animeTitle")?.attributes
             ?: throw IllegalArgumentException("AnimeTitle is required for fragment AnimeSelectedItemFragment")
@@ -63,6 +72,41 @@ class AnimeSelectedItemFragment :
             binding.pager.updateLayoutParams {
                 height = rootHeight - tabsHeight
             }
+        }
+
+        binding.scrollContent.setOnScrollChangeListener { view, x, scrollY, oldX, oldScrollY ->
+            currentlyScrolling = true
+            handler.removeCallbacksAndMessages(null)
+            handler.postDelayed({
+                scrollPerformed = true
+                currentlyScrolling = false
+                onScrolled()
+            }, 50)
+        }
+
+        binding.scrollContent.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    currentlyTouching = false
+                    onScrolled()
+                }
+
+                MotionEvent.ACTION_DOWN -> currentlyTouching = true
+            }
+            return@setOnTouchListener false
+        }
+    }
+
+    private fun onScrolled() {
+        if (!scrollPerformed || currentlyTouching || currentlyScrolling || binding.scrollContent.scrollY == 0) {
+            return
+        }
+        scrollPerformed = false
+        System.err.println("On scrolled!!!! \"${binding.scrollContent.scrollY}\"")
+        if ((anotherBinding.scrollContent.scrollY * 100) / anotherBinding.staticContent.height > 50) {
+            binding.scrollContent.smoothScrollTo(0, anotherBinding.staticContent.height, 200)
+        } else {
+            binding.scrollContent.smoothScrollTo(0, 0, 200)
         }
     }
 
