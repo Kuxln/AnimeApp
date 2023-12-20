@@ -17,6 +17,12 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
 ) {
     private val viewModel: SignInViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        fragmentCallback.onAuthorization("vetal.lebed@gmail.com")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentSignInBinding.bind(view)
         binding.tvForgotPassword.paintFlags = Paint.UNDERLINE_TEXT_FLAG
