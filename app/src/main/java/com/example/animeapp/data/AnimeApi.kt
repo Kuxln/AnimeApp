@@ -7,8 +7,30 @@ import retrofit2.http.Query
 
 interface AnimeApi {
     @GET("anime?page[limit]=20&page[offset]=0")
-    suspend fun getTopAnime() : Response<AnimeApiResponse>
+    suspend fun getTopAnime(): Response<AnimeApiResponse>
 
     @GET("anime?")
-    suspend fun loadNext(@Query("page[offset]") offset: Int, @Query("page[limit]") limit : Int) : Response<AnimeApiResponse>
+    suspend fun loadNext(
+        @Query("page[offset]") offset: Int,
+        @Query("page[limit]") limit: Int
+    ): Response<AnimeApiResponse>
+
+    @GET("anime/{id}/genres")
+    suspend fun getGenres(@Path("id") id: Int)
+
+    @GET("anime/{id}/categories")
+    suspend fun getCategories(@Path("id") id: Int)
+
+    @GET("anime/{id}/reviews")
+    suspend fun getReviews(@Path("id") id: Int)
+
+    @GET("anime/{id}/characters")
+    suspend fun getCharacters(@Path("id") id: Int)
+
+    @GET("anime/{id}/episodes?")
+    suspend fun getEpisodes(
+        @Path("id") id: Int,
+        @Query("page[limit]") limit: Int,
+        @Query("page[offset]") offset: Int
+    ): Response<AnimeEpisodesResponse>
 }

@@ -10,7 +10,7 @@ import com.example.animeapp.R
 import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.ListItemAnimeBinding
 import com.example.animeapp.databinding.ListLoadingProgressBarBinding
-import com.example.animeapp.presentation.core.LoadingProgressBarViewHolder
+import com.example.animeapp.presentation.core.ui.LoadingProgressBarViewHolder
 
 class AnimeDiffUtil(
     private val oldData: List<AnimeTitleData>,
@@ -32,7 +32,6 @@ class AnimeDiffUtil(
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldData[oldItemPosition].attributes?.canonicalTitle == newData[newItemPosition].attributes?.canonicalTitle
     }
-
 }
 
 class AnimeListViewHolder(
@@ -133,7 +132,6 @@ class AnimeListAdapter(
             }
 
             LOADING -> {
-                val loadingViewHolder = holder as LoadingProgressBarViewHolder
                 onLastElementVisible()
             }
         }
@@ -153,8 +151,8 @@ class AnimeListAdapter(
     }
 
     companion object {
-        private const val ITEM = 1
-        private const val LOADING = 0
+        private const val ITEM = 0
+        private const val LOADING = 1
     }
 }
 

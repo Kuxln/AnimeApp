@@ -2,7 +2,7 @@ package com.example.animeapp.presentation.auth
 
 import android.os.Bundle
 import androidx.viewbinding.ViewBinding
-import com.example.animeapp.presentation.core.BaseFragment
+import com.example.animeapp.presentation.core.ui.BaseFragment
 
 abstract class AuthFragment<B>(
     layout: Int

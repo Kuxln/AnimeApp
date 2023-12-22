@@ -16,8 +16,8 @@ import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeBinding
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
-import com.example.animeapp.presentation.core.BaseFragment
-import com.example.animeapp.presentation.core.PaddingItemDecoration
+import com.example.animeapp.presentation.core.ui.BaseFragment
+import com.example.animeapp.presentation.core.ui.PaddingItemDecoration
 
 
 class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(

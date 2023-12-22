@@ -1,18 +1,17 @@
-package com.example.animeapp.presentation.anime
+package com.example.animeapp.presentation.anime.selectedtitle
 
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
-import android.widget.LinearLayout
 import androidx.core.view.doOnLayout
 import androidx.core.view.updateLayoutParams
 import com.bumptech.glide.Glide
 import com.example.animeapp.R
 import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeSelectedBinding
-import com.example.animeapp.presentation.core.BaseFragment
+import com.example.animeapp.presentation.core.ui.BaseFragment
 
 class AnimeSelectedItemFragment :
     BaseFragment<FragmentAnimeSelectedBinding>(R.layout.fragment_anime_selected) {
@@ -55,8 +54,6 @@ class AnimeSelectedItemFragment :
         with(binding) {
             animeCardViewTitle.text = animeTitle.canonicalTitle
             animeCardViewSubTitle.text = animeTitle.description
-//            animeCardViewRating.text = animeTitle.averageRating
-//            animeCardViewViews.text = userCountMetadata
             animeCardViewAmountOfTimeTextView.text = amountOfTimeMD
             animeCardReleaseDateTextView.text = releaseDateMD
             Glide.with(requireContext())

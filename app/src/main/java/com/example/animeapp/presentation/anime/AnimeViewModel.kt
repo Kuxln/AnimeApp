@@ -30,6 +30,13 @@ class AnimeViewModel(
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+
+            try {
+                val response = animeApi.getEpisodes(1, 0)
+                Log.d("tag", response.toString())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

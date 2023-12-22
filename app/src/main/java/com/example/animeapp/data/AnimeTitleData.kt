@@ -1,6 +1,5 @@
 package com.example.animeapp.data
 
-import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
@@ -65,3 +64,34 @@ data class AnimeTitle(
         }
     }
 }
+
+data class AnimeEpisodesResponse (
+    val data: List<AnimeEpisodesData>? = null,
+    val links: AnimeEpisodesLinks? = null
+)
+
+data class AnimeEpisodesLinks (
+    val next: String? = null
+)
+
+data class AnimeEpisodesData (
+    val id: String? = null
+    val attributes: AnimeEpisodesAttributes? = null
+)
+
+data class AnimeEpisodesAttributes (
+    val seasonNumber: Int? = null,
+    val number: Int? = null,
+    val length: Int? = null,
+    val titles: AnimeEpisodeCanonicalTitle? = null,
+    val description: String? = null,
+    val thumbnail: AnimeEpisodeThumbnail? = null
+)
+
+data class AnimeEpisodeCanonicalTitle (
+    val canonicalTitle: String? = null
+)
+
+data class AnimeEpisodeThumbnail (
+    val original: String? = null
+)

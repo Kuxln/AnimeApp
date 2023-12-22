@@ -1,4 +1,4 @@
-package com.example.animeapp.presentation.core
+package com.example.animeapp.presentation.core.ui
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animeapp.databinding.ListLoadingProgressBarBinding

@@ -1,4 +1,4 @@
-package com.example.animeapp.presentation.core
+package com.example.animeapp.presentation.core.ui
 
 import android.graphics.Rect
 import android.view.View

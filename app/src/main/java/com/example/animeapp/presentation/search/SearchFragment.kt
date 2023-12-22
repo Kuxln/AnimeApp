@@ -5,7 +5,7 @@ import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentSearchBinding
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
-import com.example.animeapp.presentation.core.BaseFragment
+import com.example.animeapp.presentation.core.ui.BaseFragment
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(
     R.layout.fragment_search

@@ -20,5 +20,9 @@ class AnimeApiDataSource {
         return animeApi.loadNext(offset, 20).body()
     }
 
+    suspend fun getEpisodes(id: Int, offset: Int) : AnimeEpisodesResponse? {
+        return animeApi.getEpisodes(id, 20, offset).body()
+    }
+
 
 }

@@ -11,7 +11,7 @@ import com.example.animeapp.R
 import com.example.animeapp.data.MangaTitleData
 import com.example.animeapp.databinding.ListItemAnimeBinding
 import com.example.animeapp.databinding.ListLoadingProgressBarBinding
-import com.example.animeapp.presentation.core.LoadingProgressBarViewHolder
+import com.example.animeapp.presentation.core.ui.LoadingProgressBarViewHolder
 
 class MangaDiffUtil(
     private val oldData: List<MangaTitleData>,

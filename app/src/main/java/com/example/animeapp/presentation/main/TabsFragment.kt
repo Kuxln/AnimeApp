@@ -2,17 +2,13 @@ package com.example.animeapp.presentation.main
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.example.animeapp.R
 import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.FragmentTabsBinding
 import com.example.animeapp.presentation.anime.AnimeFragment
-import com.example.animeapp.presentation.anime.AnimeSelectedItemFragment
-import com.example.animeapp.presentation.core.BaseFragment
+import com.example.animeapp.presentation.anime.selectedtitle.AnimeSelectedItemFragment
+import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.manga.MangaFragment
 import com.example.animeapp.presentation.profile.ProfileFragment
 import com.example.animeapp.presentation.reels.ReelsFragment

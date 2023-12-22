@@ -5,7 +5,7 @@ import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentReelsBinding
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
-import com.example.animeapp.presentation.core.BaseFragment
+import com.example.animeapp.presentation.core.ui.BaseFragment
 
 class ReelsFragment : BaseFragment<FragmentReelsBinding>(
     R.layout.fragment_reels
