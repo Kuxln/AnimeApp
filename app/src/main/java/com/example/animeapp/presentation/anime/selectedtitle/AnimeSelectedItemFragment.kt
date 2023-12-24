@@ -12,6 +12,7 @@ import com.example.animeapp.R
 import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeSelectedBinding
 import com.example.animeapp.presentation.core.ui.BaseFragment
+import com.example.animeapp.presentation.core.ui.FragmentAdapter
 
 class AnimeSelectedItemFragment :
     BaseFragment<FragmentAnimeSelectedBinding>(R.layout.fragment_anime_selected) {
@@ -92,6 +93,10 @@ class AnimeSelectedItemFragment :
             }
             return@setOnTouchListener false
         }
+
+        val animeTitleID = titleData?.getParcelable<AnimeTitleData>("animeTitle")?.id
+            ?: throw IllegalArgumentException("AnimeTitle is required for fragment AnimeSelectedItemFragment")
+        binding.pager.adapter = FragmentAdapter(this, animeTitleID)
     }
 
     private fun onScrolled() {

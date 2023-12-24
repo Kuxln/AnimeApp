@@ -1,5 +1,6 @@
 package com.example.animeapp.presentation.anime.selectedtitle
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,10 +9,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.animeapp.R
 import com.example.animeapp.data.AnimeEpisodesData
-import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.ListItemAnimeEpisodeBinding
+import com.example.animeapp.databinding.ListItemEmptyBinding
 import com.example.animeapp.databinding.ListLoadingProgressBarBinding
-import com.example.animeapp.presentation.anime.AnimeDiffUtil
+import com.example.animeapp.presentation.core.ui.EmptyViewHolder
 import com.example.animeapp.presentation.core.ui.LoadingProgressBarViewHolder
 
 class AnimeSelectedItemEpisodesAdapter(
@@ -48,7 +49,7 @@ class AnimeSelectedItemEpisodesAdapter(
                     else ""
 
                 with(itemViewHolder) {
-                    title.text = attributes?.titles?.canonicalTitle
+                    title.text = attributes?.canonicalTitle
                     Glide.with(epImage.context)
                         .load(attributes?.thumbnail?.original)
                         .placeholder(R.drawable.anime)
@@ -62,7 +63,7 @@ class AnimeSelectedItemEpisodesAdapter(
             }
 
             LOADING -> {
-                onLastElementVisible
+                onLastElementVisible()
             }
         }
     }
@@ -72,12 +73,16 @@ class AnimeSelectedItemEpisodesAdapter(
     override fun getItemViewType(position: Int): Int = if (position == data.size) LOADING else ITEM
 
     fun updateData(newData: List<AnimeEpisodesData>, hasMore: Boolean) {
+        notifyItemRemoved(this.data.size)
         val animeDiffUtil = AnimeEpisodesDiffUtil(this.data, newData)
         val animeDiffResult = DiffUtil.calculateDiff(animeDiffUtil)
         this.data.clear()
         this.data.addAll(newData)
         this.hasMoreData = hasMore
+        Log.d("tag", hasMore.toString())
+        Log.d("tag", itemCount.toString())
         animeDiffResult.dispatchUpdatesTo(this)
+
     }
 
     companion object {
@@ -100,6 +105,9 @@ class AnimeEpisodesDiffUtil(
     private val oldData: List<AnimeEpisodesData>,
     private val newData: List<AnimeEpisodesData>
 ) : DiffUtil.Callback() {
+    init {
+        oldData
+    }
 
     override fun getOldListSize(): Int {
         return oldData.size
@@ -114,6 +122,6 @@ class AnimeEpisodesDiffUtil(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldData[oldItemPosition].attributes?.titles?.canonicalTitle == newData[newItemPosition].attributes?.titles?.canonicalTitle
+        return oldData[oldItemPosition].attributes?.canonicalTitle == newData[newItemPosition].attributes?.canonicalTitle
     }
 }

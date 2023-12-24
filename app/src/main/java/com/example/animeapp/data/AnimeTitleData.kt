@@ -75,7 +75,7 @@ data class AnimeEpisodesLinks (
 )
 
 data class AnimeEpisodesData (
-    val id: String? = null
+    val id: String? = null,
     val attributes: AnimeEpisodesAttributes? = null
 )
 
@@ -83,14 +83,12 @@ data class AnimeEpisodesAttributes (
     val seasonNumber: Int? = null,
     val number: Int? = null,
     val length: Int? = null,
-    val titles: AnimeEpisodeCanonicalTitle? = null,
     val description: String? = null,
-    val thumbnail: AnimeEpisodeThumbnail? = null
-)
-
-data class AnimeEpisodeCanonicalTitle (
+    val thumbnail: AnimeEpisodeThumbnail? = null,
     val canonicalTitle: String? = null
 )
+
+
 
 data class AnimeEpisodeThumbnail (
     val original: String? = null

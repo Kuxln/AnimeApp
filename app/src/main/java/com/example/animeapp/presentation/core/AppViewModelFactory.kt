@@ -3,6 +3,7 @@ package com.example.animeapp.presentation.core
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.animeapp.presentation.anime.AnimeViewModel
+import com.example.animeapp.presentation.anime.selectedtitle.EpisodesViewModel
 import com.example.animeapp.presentation.auth.changepassword.ChangePasswordViewModel
 import com.example.animeapp.presentation.auth.signin.SignInViewModel
 import com.example.animeapp.presentation.auth.signup.SignUpViewModel
@@ -28,6 +29,8 @@ class AppViewModelFactory(
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> ProfileViewModel() as T
             modelClass.isAssignableFrom(ReelsViewModel::class.java) -> ReelsViewModel() as T
             modelClass.isAssignableFrom(SearchViewModel::class.java) -> SearchViewModel() as T
+
+            modelClass.isAssignableFrom(EpisodesViewModel::class.java) -> EpisodesViewModel(app.animeApi) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }

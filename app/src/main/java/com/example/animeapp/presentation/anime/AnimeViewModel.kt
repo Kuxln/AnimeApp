@@ -30,20 +30,13 @@ class AnimeViewModel(
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
-            try {
-                val response = animeApi.getEpisodes(1, 0)
-                Log.d("tag", response.toString())
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
         }
     }
 
     fun loadMoreItems() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = animeApi.loadMore(animeViewState.animeTitleData.orEmpty().size)
+                val response = animeApi.getAnimeTitles(animeViewState.animeTitleData.orEmpty().size)
                 Log.d("tag", response.toString())
                 animeViewState.animeTitleData = listOf(
                     animeViewState.animeTitleData.orEmpty(),

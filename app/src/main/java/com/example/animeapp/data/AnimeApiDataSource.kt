@@ -16,11 +16,11 @@ class AnimeApiDataSource {
     suspend fun getTopAnime() : AnimeApiResponse? {
         return animeApi.getTopAnime().body()
     }
-    suspend fun loadMore(offset: Int) : AnimeApiResponse? {
+    suspend fun getAnimeTitles(offset: Int) : AnimeApiResponse? {
         return animeApi.loadNext(offset, 20).body()
     }
 
-    suspend fun getEpisodes(id: Int, offset: Int) : AnimeEpisodesResponse? {
+    suspend fun getAnimeEpisodes(id: String, offset: Int) : AnimeEpisodesResponse? {
         return animeApi.getEpisodes(id, 20, offset).body()
     }
 

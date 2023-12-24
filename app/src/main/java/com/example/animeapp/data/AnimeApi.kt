@@ -29,7 +29,7 @@ interface AnimeApi {
 
     @GET("anime/{id}/episodes?")
     suspend fun getEpisodes(
-        @Path("id") id: Int,
+        @Path("id") id: String,
         @Query("page[limit]") limit: Int,
         @Query("page[offset]") offset: Int
     ): Response<AnimeEpisodesResponse>
