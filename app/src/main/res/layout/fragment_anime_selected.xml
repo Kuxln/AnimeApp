@@ -202,7 +202,6 @@
                     android:id="@+id/pager"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@color/orange"
                     android:gravity="center_vertical|center_horizontal">
                 </androidx.viewpager2.widget.ViewPager2>
             </androidx.appcompat.widget.LinearLayoutCompat>

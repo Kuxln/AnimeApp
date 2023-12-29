@@ -73,7 +73,7 @@ class AnimeSelectedItemEpisodesAdapter(
     override fun getItemViewType(position: Int): Int = if (position == data.size) LOADING else ITEM
 
     fun updateData(newData: List<AnimeEpisodesData>, hasMore: Boolean) {
-        notifyItemRemoved(this.data.size)
+        if (!hasMore) notifyItemRemoved(this.data.size)
         val animeDiffUtil = AnimeEpisodesDiffUtil(this.data, newData)
         val animeDiffResult = DiffUtil.calculateDiff(animeDiffUtil)
         this.data.clear()

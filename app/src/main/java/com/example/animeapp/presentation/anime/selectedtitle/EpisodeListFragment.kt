@@ -9,6 +9,7 @@ import com.example.animeapp.databinding.FragmentAnimeEpisodesBinding
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.ui.BaseFragment
+import com.example.animeapp.presentation.core.ui.PaddingItemDecoration
 
 class EpisodeListFragment : BaseFragment<FragmentAnimeEpisodesBinding>(
     R.layout.fragment_anime_episodes
@@ -28,7 +29,7 @@ class EpisodeListFragment : BaseFragment<FragmentAnimeEpisodesBinding>(
         binding.recycler.adapter = adapter
         viewModel.populateData(id)
 
-
+        binding.recycler.addItemDecoration(PaddingItemDecoration(24))
 
         viewModel.liveData.observe(this.viewLifecycleOwner) {state ->
             state.episodesData?.let {data ->

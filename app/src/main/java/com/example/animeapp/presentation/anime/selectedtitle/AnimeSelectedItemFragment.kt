@@ -13,6 +13,7 @@ import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeSelectedBinding
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.FragmentAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
 class AnimeSelectedItemFragment :
     BaseFragment<FragmentAnimeSelectedBinding>(R.layout.fragment_anime_selected) {
@@ -97,6 +98,16 @@ class AnimeSelectedItemFragment :
         val animeTitleID = titleData?.getParcelable<AnimeTitleData>("animeTitle")?.id
             ?: throw IllegalArgumentException("AnimeTitle is required for fragment AnimeSelectedItemFragment")
         binding.pager.adapter = FragmentAdapter(this, animeTitleID)
+
+        TabLayoutMediator(
+            binding.pagerTabs, binding.pager
+        ) { tab, position ->
+            when (position) {
+                0 -> tab.text = "Episodes"
+                1 -> tab.text = "Characters"
+                2 -> tab.text = "..."
+            }
+        }.attach()
     }
 
     private fun onScrolled() {
