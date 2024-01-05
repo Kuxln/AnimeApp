@@ -14,7 +14,7 @@ data class AnimeLinks(
 
 @Parcelize
 data class AnimeTitleData(
-    val id: String? = null,
+    val id: String,
     val attributes: AnimeAttributes? = null
 ): Parcelable
 
