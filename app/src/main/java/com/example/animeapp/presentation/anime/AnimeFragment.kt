@@ -112,13 +112,6 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
         })
     }
 
-    override fun onBack(): Boolean {
-        return if (parentFragmentManager.backStackEntryCount > 0) {
-            parentFragmentManager.popBackStack()
-            true
-        } else false
-    }
-
     interface AnimeFragmentCallback {
         fun onAnimeClicked(titleData: AnimeTitleData)
     }

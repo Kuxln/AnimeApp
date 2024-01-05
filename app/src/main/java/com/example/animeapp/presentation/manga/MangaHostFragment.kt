@@ -20,4 +20,11 @@ class MangaHostFragment : BaseFragment<FragmentMangaHostBinding>(
             .replace(R.id.containerMangaFragment, MangaFragment())
             .commit()
     }
+
+    override fun onBack(): Boolean {
+        return if (childFragmentManager.backStackEntryCount > 0) {
+            childFragmentManager.popBackStack()
+            true
+        } else false
+    }
 }
