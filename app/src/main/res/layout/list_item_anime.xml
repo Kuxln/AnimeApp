@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="5dp"
-    app:cardCornerRadius="12dp"
-    app:layout_constraintTop_toTopOf="parent">
+    app:cardCornerRadius="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -85,6 +84,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.textview.MaterialTextView
+            style="@style/mainTitleList"
             android:id="@+id/animeCardViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,8 +92,6 @@
             android:layout_marginTop="15dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/black"
-            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/animeCardViewSubTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/animeCardViewMainImageView"

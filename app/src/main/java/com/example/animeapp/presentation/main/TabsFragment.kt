@@ -40,8 +40,8 @@ class TabsFragment : BaseFragment<FragmentTabsBinding>(
     }
 
     override fun onBack(): Boolean {
-        val currentFragment = binding.mainFragmentContainerView.getFragment<BaseFragment<*>>()
-        if (currentFragment.onBack()) {
+        val fr = currentFragment
+        if (fr is BaseFragment<*> && fr.onBack()) {
             return true
         } else if (childFragmentManager.backStackEntryCount  > 0) {
             childFragmentManager.popBackStack()

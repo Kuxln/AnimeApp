@@ -123,10 +123,6 @@ class AnimeSelectedItemFragment :
         }
     }
 
-    override fun onBack(): Boolean {
-        return false
-    }
-
     companion object {
         @JvmStatic
         fun newInstance(animeTitle: AnimeTitleData): AnimeSelectedItemFragment {

@@ -45,8 +45,9 @@ class AnimeSelectedItemEpisodesAdapter(
                 val attributes = data[position].attributes
                 val seasonEpisodeMetadata =
                     if (attributes?.seasonNumber != null && attributes.number != null)
-                        "Season ${attributes.seasonNumber}, episode ${attributes.number}"
+                        "S${attributes.seasonNumber}, EP${attributes.number}"
                     else ""
+                val lengthMetadata = "${attributes?.length.toString()} min"
 
                 with(itemViewHolder) {
                     title.text = attributes?.canonicalTitle
@@ -58,7 +59,7 @@ class AnimeSelectedItemEpisodesAdapter(
 
                     description.text = attributes?.description
                     seasonAndEpisode.text =seasonEpisodeMetadata
-                        length.text = attributes?.length.toString()
+                        length.text = lengthMetadata
                 }
             }
 

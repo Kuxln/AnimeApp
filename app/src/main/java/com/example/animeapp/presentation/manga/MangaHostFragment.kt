@@ -22,7 +22,7 @@ class MangaHostFragment : BaseFragment<FragmentMangaHostBinding>(
     }
 
     override fun onBack(): Boolean {
-        return if (childFragmentManager.backStackEntryCount > 0) {
+        return if (childFragmentManager.backStackEntryCount > 1) {
             childFragmentManager.popBackStack()
             true
         } else false

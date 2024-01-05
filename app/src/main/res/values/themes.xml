@@ -18,14 +18,14 @@
 
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
         <!--        &lt;!&ndash; Gets rid of the search icon &ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="searchIcon">@drawable/ic_search</item>&ndash;&gt;-->
-<!--        &lt;!&ndash; Gets rid of the "underline" in the text &ndash;&gt;-->
-<!--        <item name="queryBackground">@android:drawable/edit_text</item>-->
-<!--        &lt;!&ndash; Gets rid of the search icon when the SearchView is expanded &ndash;&gt;-->
-<!--        <item name="searchHintIcon">@color/white</item>-->
-<!--        <item name="android:textColor">@color/white</item>-->
-<!--        &lt;!&ndash; The hint text that appears when the user has not typed anything &ndash;&gt;-->
-<!--        <item name="queryHint">@string/search_anime_hint</item>-->
+        <!--&lt;!&ndash;        <item name="searchIcon">@drawable/ic_search</item>&ndash;&gt;-->
+        <!--        &lt;!&ndash; Gets rid of the "underline" in the text &ndash;&gt;-->
+        <!--        <item name="queryBackground">@android:drawable/edit_text</item>-->
+        <!--        &lt;!&ndash; Gets rid of the search icon when the SearchView is expanded &ndash;&gt;-->
+        <!--        <item name="searchHintIcon">@color/white</item>-->
+        <!--        <item name="android:textColor">@color/white</item>-->
+        <!--        &lt;!&ndash; The hint text that appears when the user has not typed anything &ndash;&gt;-->
+        <!--        <item name="queryHint">@string/search_anime_hint</item>-->
     </style>
 
     <style name="authorizationTitle">
@@ -40,9 +40,20 @@
     <style name="authorizationMain">
         <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="authorizationLink">
         <item name="android:textColor">@color/text_link_selector</item>
     </style>
 
     <string name="search_anime_hint">Anime title</string>
+
+    <style name="mainTitleList">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="mainTitleEpList">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

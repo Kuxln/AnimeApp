@@ -1,6 +1,7 @@
 package com.example.animeapp.presentation.anime
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.example.animeapp.R
 import com.example.animeapp.data.AnimeTitleData
@@ -30,7 +31,7 @@ class AnimeHostFragment : AnimeFragment.AnimeFragmentCallback,
     }
 
     override fun onBack(): Boolean {
-        return if (childFragmentManager.backStackEntryCount > 0) {
+        return if (childFragmentManager.backStackEntryCount > 1) {
             childFragmentManager.popBackStack()
             true
         } else false
