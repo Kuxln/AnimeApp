@@ -39,7 +39,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/firstLinLayout"
             android:layout_width="0dp"
-            android:layout_height="120dp"
+            android:layout_height="125dp"
             android:orientation="vertical"
 
             app:layout_constraintBottom_toBottomOf="parent"
@@ -91,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black"
+                    android:layout_weight="1"
                     android:text="25 min" />
 
 
@@ -100,7 +101,8 @@
                     android:layout_gravity="end"
                     android:background="@drawable/button_selector"
                     android:text="Watch Now"
-                    android:textColor="@color/button_text_selector" />
+                    android:textColor="@color/button_text_selector"
+                    android:layout_weight="0"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
