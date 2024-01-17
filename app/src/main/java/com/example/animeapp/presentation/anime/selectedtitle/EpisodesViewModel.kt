@@ -6,10 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animeapp.data.AnimeApiDataSource
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EpisodesViewModel(
+@HiltViewModel
+class EpisodesViewModel @Inject constructor(
     private val animeApi: AnimeApiDataSource
 ) : ViewModel() {
     val liveData: LiveData<EpisodesViewState> get() = _liveData

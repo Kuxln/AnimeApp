@@ -10,11 +10,14 @@ import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.PaddingItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class EpisodeListFragment : BaseFragment<FragmentAnimeEpisodesBinding>(
+@AndroidEntryPoint
+class EpisodeListFragment @Inject constructor() : BaseFragment<FragmentAnimeEpisodesBinding>(
     R.layout.fragment_anime_episodes
 ) {
-    private val viewModel: EpisodesViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
+    private val viewModel: EpisodesViewModel by viewModels()
     private lateinit var adapter: AnimeSelectedItemEpisodesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

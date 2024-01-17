@@ -9,11 +9,13 @@ import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.PaddingItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MangaFragment : BaseFragment<FragmentMangaBinding>(
     R.layout.fragment_manga
 ) {
-    private val viewModel: MangaViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
+    private val viewModel: MangaViewModel by viewModels()
     private lateinit var mangaAdapter: MangaListAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentMangaBinding.bind(view)

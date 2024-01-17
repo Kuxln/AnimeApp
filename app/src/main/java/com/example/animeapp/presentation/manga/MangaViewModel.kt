@@ -5,10 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animeapp.data.MangaApiDataSource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MangaViewModel(
+@HiltViewModel
+class MangaViewModel @Inject constructor(
     private val mangaApi: MangaApiDataSource
 ) : ViewModel() {
     val liveData: LiveData<MangaViewState> get() = _liveData

@@ -2,8 +2,9 @@ package com.example.animeapp.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class AnimeApiDataSource {
+class AnimeApiDataSource @Inject constructor() {
     private val animeApi: AnimeApi
     init {
         val retrofit = Retrofit.Builder()

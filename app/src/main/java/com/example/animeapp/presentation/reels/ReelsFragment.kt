@@ -6,9 +6,11 @@ import com.example.animeapp.databinding.FragmentReelsBinding
 import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.ui.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ReelsFragment : BaseFragment<FragmentReelsBinding>(
     R.layout.fragment_reels
 ) {
-    val viewModel: ReelsViewModel by viewModels{ AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
+    val viewModel: ReelsViewModel by viewModels()
 }

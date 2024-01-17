@@ -18,12 +18,13 @@ import com.example.animeapp.presentation.core.AnimeApp
 import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.PaddingItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
     R.layout.fragment_anime
 ) {
-    private val viewModel: AnimeViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
+    private val viewModel: AnimeViewModel by viewModels()
     private lateinit var animeAdapter: AnimeListAdapter
     private lateinit var fragmentCallback: AnimeFragmentCallback
 
