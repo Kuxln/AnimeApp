@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
-import com.example.animeapp.data.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeEpisodesBinding
-import com.example.animeapp.presentation.core.AnimeApp
-import com.example.animeapp.presentation.core.AppViewModelFactory
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.PaddingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint

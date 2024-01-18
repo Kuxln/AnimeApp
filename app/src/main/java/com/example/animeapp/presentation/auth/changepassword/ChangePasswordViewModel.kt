@@ -5,8 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.animeapp.data.AppDatabase
 import com.example.animeapp.presentation.core.hashing
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ChangePasswordViewModel(db: AppDatabase) : ViewModel() {
+@HiltViewModel
+class ChangePasswordViewModel @Inject constructor(
+    db: AppDatabase
+) : ViewModel() {
 
     val liveData: LiveData<ChangePasswordState> get() = _liveData
     private val _liveData = MutableLiveData<ChangePasswordState>()

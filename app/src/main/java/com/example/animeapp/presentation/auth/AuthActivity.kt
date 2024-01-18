@@ -11,7 +11,9 @@ import com.example.animeapp.presentation.auth.signin.SignInFragment
 import com.example.animeapp.presentation.auth.signup.SignUpFragment
 import com.example.animeapp.presentation.auth.signupfinish.SignUpFinishFragment
 import com.example.animeapp.presentation.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthActivity : AppCompatActivity(), AuthorizationCallback {
     private lateinit var binding: ActivityAuthBinding
 

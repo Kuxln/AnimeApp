@@ -8,14 +8,13 @@ import androidx.fragment.app.viewModels
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentSignInBinding
 import com.example.animeapp.presentation.auth.AuthFragment
-import com.example.animeapp.presentation.core.AnimeApp
-import com.example.animeapp.presentation.core.AppViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SignInFragment : AuthFragment<FragmentSignInBinding>(
     R.layout.fragment_sign_in
 ) {
-    private val viewModel: SignInViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
+    private val viewModel by viewModels<SignInViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

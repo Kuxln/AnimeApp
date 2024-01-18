@@ -8,10 +8,14 @@ import com.example.animeapp.R
 import com.example.animeapp.data.AppDatabase
 import com.example.animeapp.presentation.core.hashing
 import com.example.animeapp.presentation.core.isValidEmail
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class SignInViewModel(
+@HiltViewModel
+class SignInViewModel @Inject constructor(
     db: AppDatabase,
-    context: Context
+    @ApplicationContext context: Context
 ) : ViewModel() {
     val liveData: LiveData<SignInViewState> get() = _liveData
     private val _liveData = MutableLiveData<SignInViewState>()

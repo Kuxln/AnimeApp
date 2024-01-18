@@ -12,13 +12,13 @@ import com.example.animeapp.R
 import com.example.animeapp.data.UserGender
 import com.example.animeapp.databinding.FragmentSignUpFinishBinding
 import com.example.animeapp.presentation.auth.AuthFragment
-import com.example.animeapp.presentation.core.AnimeApp
-import com.example.animeapp.presentation.core.AppViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpFinishFragment : AuthFragment<FragmentSignUpFinishBinding>(
     R.layout.fragment_sign_up_finish
 ) {
-    val viewModel: SignUpFinishViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
+    val viewModel by viewModels<SignUpFinishViewModel>()
 
     private lateinit var arrayAdapter: ArrayAdapter<String>
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>

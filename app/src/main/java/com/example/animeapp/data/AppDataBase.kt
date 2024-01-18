@@ -11,22 +11,4 @@ import androidx.room.TypeConverters
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
-    companion object {
-        private var INSTANCE: AppDatabase? = null
-
-        fun getInstance(context: Context): AppDatabase? {
-            if (INSTANCE == null) {
-                synchronized(AppDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        AppDatabase::class.java, "anime_db").allowMainThreadQueries()
-                        .build()
-                }
-            }
-            return INSTANCE
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
 }

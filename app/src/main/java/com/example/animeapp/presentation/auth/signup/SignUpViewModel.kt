@@ -7,8 +7,11 @@ import com.example.animeapp.data.AppDatabase
 import com.example.animeapp.data.User
 import com.example.animeapp.presentation.core.hashing
 import com.example.animeapp.presentation.core.isValidEmail
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SignUpViewModel(
+@HiltViewModel
+class SignUpViewModel @Inject constructor(
     db: AppDatabase
 ) : ViewModel() {
     val liveData: LiveData<SignUpState> get() = _liveData

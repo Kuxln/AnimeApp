@@ -9,13 +9,13 @@ import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentSignUpBinding
 import com.example.animeapp.presentation.auth.AuthFragment
 import com.example.animeapp.presentation.auth.signupfinish.SignUpFinishFragment
-import com.example.animeapp.presentation.core.AnimeApp
-import com.example.animeapp.presentation.core.AppViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpFragment : AuthFragment<FragmentSignUpBinding>(
     R.layout.fragment_sign_up
 ) {
-    val viewModel: SignUpViewModel by viewModels { AppViewModelFactory(requireActivity().applicationContext as AnimeApp) }
+    val viewModel by viewModels<SignUpViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentSignUpBinding.bind(view)

@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.example.animeapp.data.AppDatabase
 import com.example.animeapp.data.User
 import com.example.animeapp.data.UserGender
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SignUpFinishViewModel(
+@HiltViewModel
+class SignUpFinishViewModel @Inject constructor(
     db: AppDatabase
 ) : ViewModel() {
     val liveData: LiveData<SignUpFinishState> get() = _liveData
