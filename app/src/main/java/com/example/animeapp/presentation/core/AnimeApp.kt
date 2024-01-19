@@ -7,13 +7,4 @@ import com.example.animeapp.data.MangaApiDataSource
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class AnimeApp : MultiDexApplication() {
-    lateinit var animeApi: AnimeApiDataSource
-    lateinit var mangaApi: MangaApiDataSource
-    override fun onCreate() {
-        super.onCreate()
-
-        animeApi = AnimeApiDataSource()
-        mangaApi = MangaApiDataSource()
-    }
-}
+class AnimeApp : MultiDexApplication()
