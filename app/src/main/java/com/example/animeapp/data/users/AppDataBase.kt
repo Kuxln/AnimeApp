@@ -1,8 +1,6 @@
-package com.example.animeapp.data
+package com.example.animeapp.data.users
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 

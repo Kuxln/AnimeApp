@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.animeapp.R
-import com.example.animeapp.data.AppDatabase
+import com.example.animeapp.data.users.AppDatabase
 import com.example.animeapp.presentation.core.hashing
 import com.example.animeapp.presentation.core.isValidEmail
 import dagger.hilt.android.lifecycle.HiltViewModel

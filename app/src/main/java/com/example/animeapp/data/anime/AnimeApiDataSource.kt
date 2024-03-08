@@ -1,8 +1,4 @@
-package com.example.animeapp.data
-
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
+package com.example.animeapp.data.anime
 
 class AnimeApiDataSource (
     private val animeApi: AnimeApi

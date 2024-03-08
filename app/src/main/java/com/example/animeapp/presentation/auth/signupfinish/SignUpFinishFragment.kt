@@ -9,7 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
-import com.example.animeapp.data.UserGender
+import com.example.animeapp.data.users.UserGender
 import com.example.animeapp.databinding.FragmentSignUpFinishBinding
 import com.example.animeapp.presentation.auth.AuthFragment
 import dagger.hilt.android.AndroidEntryPoint

@@ -8,11 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.animeapp.R
-import com.example.animeapp.data.AnimeEpisodesData
+import com.example.animeapp.data.anime.AnimeEpisodesData
 import com.example.animeapp.databinding.ListItemAnimeEpisodeBinding
-import com.example.animeapp.databinding.ListItemEmptyBinding
 import com.example.animeapp.databinding.ListLoadingProgressBarBinding
-import com.example.animeapp.presentation.core.ui.EmptyViewHolder
 import com.example.animeapp.presentation.core.ui.LoadingProgressBarViewHolder
 
 class AnimeSelectedItemEpisodesAdapter(
@@ -63,9 +61,7 @@ class AnimeSelectedItemEpisodesAdapter(
                 }
             }
 
-            LOADING -> {
-                onLastElementVisible()
-            }
+            LOADING -> onLastElementVisible()
         }
     }
 

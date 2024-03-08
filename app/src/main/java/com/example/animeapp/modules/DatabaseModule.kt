@@ -2,8 +2,8 @@ package com.example.animeapp.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.example.animeapp.data.AppDatabase
-import com.example.animeapp.data.UserDao
+import com.example.animeapp.data.users.AppDatabase
+import com.example.animeapp.data.users.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.example.animeapp.data
+package com.example.animeapp.data.users
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.animeapp.R
-import com.example.animeapp.data.MangaTitleData
+import com.example.animeapp.data.manga.MangaTitleData
 import com.example.animeapp.databinding.ListItemAnimeBinding
 import com.example.animeapp.databinding.ListLoadingProgressBarBinding
 import com.example.animeapp.presentation.core.ui.LoadingProgressBarViewHolder

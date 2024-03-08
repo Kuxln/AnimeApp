@@ -1,10 +1,9 @@
 package com.example.animeapp.presentation.anime
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.example.animeapp.R
-import com.example.animeapp.data.AnimeTitleData
+import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeHostBinding
 import com.example.animeapp.presentation.anime.selectedtitle.AnimeSelectedItemFragment
 import com.example.animeapp.presentation.core.ui.BaseFragment

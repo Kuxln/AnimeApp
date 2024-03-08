@@ -1,6 +1,6 @@
 package com.example.animeapp.presentation.anime
 
-import com.example.animeapp.data.AnimeTitleData
+import com.example.animeapp.data.anime.AnimeTitleData
 
 data class AnimeViewState(
     var animeTitleData: List<AnimeTitleData>? = null,

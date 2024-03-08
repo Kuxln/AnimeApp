@@ -1,10 +1,9 @@
 package com.example.animeapp.modules
 
-import com.example.animeapp.data.AnimeApi
-import com.example.animeapp.data.AnimeApiDataSource
-import com.example.animeapp.data.MangaApi
-import com.example.animeapp.data.MangaApiDataSource
-import dagger.Binds
+import com.example.animeapp.data.anime.AnimeApi
+import com.example.animeapp.data.anime.AnimeApiDataSource
+import com.example.animeapp.data.manga.MangaApi
+import com.example.animeapp.data.manga.MangaApiDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,7 +36,6 @@ class NetworkModule {
     fun provideAnimeDataSource(api: AnimeApi): AnimeApiDataSource {
         return AnimeApiDataSource(api)
     }
-
 
     @Singleton
     @Provides

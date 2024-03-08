@@ -12,7 +12,7 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
-import com.example.animeapp.data.AnimeTitleData
+import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeBinding
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.PaddingItemDecoration

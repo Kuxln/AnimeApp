@@ -1,9 +1,4 @@
-package com.example.animeapp.data
-
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
-import javax.inject.Singleton
+package com.example.animeapp.data.manga
 
 class MangaApiDataSource(
     private val mangaApi: MangaApi

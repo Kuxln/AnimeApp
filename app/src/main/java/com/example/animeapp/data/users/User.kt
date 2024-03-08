@@ -1,4 +1,4 @@
-package com.example.animeapp.data
+package com.example.animeapp.data.users
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

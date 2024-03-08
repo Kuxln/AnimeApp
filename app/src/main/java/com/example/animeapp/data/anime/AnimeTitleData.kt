@@ -1,4 +1,4 @@
-package com.example.animeapp.data
+package com.example.animeapp.data.anime
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

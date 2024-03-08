@@ -9,7 +9,7 @@ import androidx.core.view.doOnLayout
 import androidx.core.view.updateLayoutParams
 import com.bumptech.glide.Glide
 import com.example.animeapp.R
-import com.example.animeapp.data.AnimeTitleData
+import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeSelectedBinding
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.FragmentAdapter

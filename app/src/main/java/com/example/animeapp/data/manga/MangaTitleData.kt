@@ -1,4 +1,4 @@
-package com.example.animeapp.data
+package com.example.animeapp.data.manga
 
 data class MangaApiResponse (
     val data: List<MangaTitleData>? = null,
