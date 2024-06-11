@@ -6,7 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AnimeApi {
-    @GET("anime?page[limit]=20&page[offset]=0")
+    @GET("anime?page[limit]=20&page[offset]=0&sort=popularityRank")
     suspend fun getTopAnime(): Response<AnimeApiResponse>
 
     @GET("anime?")
@@ -33,4 +33,11 @@ interface AnimeApi {
         @Query("page[limit]") limit: Int,
         @Query("page[offset]") offset: Int
     ): Response<AnimeEpisodesResponse>
+
+    @GET("anime?")
+    suspend fun getSearchResponse(
+        @Query("filter[text]") searchString: String,
+        @Query("page[limit]") limit: Int,
+        @Query("page[offset]") offset: Int
+    ): Response<AnimeApiResponse>
 }

@@ -21,25 +21,26 @@ class AnimeSelectedItemFragment :
     private var currentlyScrolling: Boolean = false
     private var scrollPerformed: Boolean = false
 
-    private lateinit var animeTitleData: AnimeTitleData
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var anotherBinding: FragmentAnimeSelectedBinding;
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentAnimeSelectedBinding.bind(view)
-        anotherBinding = binding;
+        anotherBinding = binding
         val titleData = this.arguments
         val animeTitle = titleData?.getParcelable<AnimeTitleData>("animeTitle")?.attributes
             ?: throw IllegalArgumentException("AnimeTitle is required for fragment AnimeSelectedItemFragment")
 
-        val userCountMetadata = if (animeTitle.userCount != null) {
-            "(${animeTitle.userCount} Views)"
-        } else ""
+        val userCountMetadata = if (animeTitle.userCount != null && animeTitle.userCount > 5000)
+            "(" + (animeTitle.userCount / 1000).toString() + "k+ Views)"
+        else if (animeTitle.userCount != null) "(${animeTitle.userCount} Views)"
+        else ""
 
         val episodeCountMetadata = if (animeTitle.episodeCount != null) {
             "${animeTitle.episodeCount} ep."
         } else ""
 
+        val animeRatingMetadata = animeTitle.averageRating.orEmpty()
 
         val episodeLengthMetadata = if (animeTitle.episodeLength != null) {
             "• ${animeTitle.episodeLength} min"
@@ -58,11 +59,14 @@ class AnimeSelectedItemFragment :
             animeCardViewSubTitle.text = animeTitle.description
             animeCardViewAmountOfTimeTextView.text = amountOfTimeMD
             animeCardReleaseDateTextView.text = releaseDateMD
+            animeCardViewRating.text = animeRatingMetadata
+            animeCardViewViews.text = userCountMetadata
             Glide.with(requireContext())
                 .load(animeTitle.posterImage?.original)
                 .placeholder(R.drawable.anime)
                 .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                 .into(animeCardViewMainImageView)
+
         }
 
         binding.root.doOnLayout {

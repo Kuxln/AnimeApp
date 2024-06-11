@@ -77,7 +77,7 @@ class AnimeListAdapter(
     }
 
     override fun getItemId(position: Int): Long {
-        return data[position].id?.toLongOrNull() ?: 0
+        return data[position].id.toLongOrNull() ?: 0
     }
 
     override fun getItemCount(): Int = if (hasMoreData) {
@@ -96,9 +96,10 @@ class AnimeListAdapter(
 
                 val dataAttributes = data[position].attributes
 
-                val userCountMetadata = if (dataAttributes?.userCount != null) {
-                    "(${dataAttributes.userCount} Views)"
-                } else ""
+                val userCountMetadata = if (dataAttributes?.userCount != null && dataAttributes.userCount > 5000)
+                    "(" + (dataAttributes.userCount / 1000).toString() + "k+ Views)"
+                else if (dataAttributes?.userCount != null) "(${dataAttributes.userCount} Views)"
+                else ""
 
                 val episodeCountMetadata = if (dataAttributes?.episodeCount != null) {
                     "${dataAttributes.episodeCount} ep."

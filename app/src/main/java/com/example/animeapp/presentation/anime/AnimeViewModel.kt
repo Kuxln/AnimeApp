@@ -18,6 +18,7 @@ class AnimeViewModel @Inject constructor(
     val liveData: LiveData<AnimeViewState> get() = _liveData
     private val _liveData = MutableLiveData<AnimeViewState>()
     private val animeViewState = AnimeViewState()
+    var isSearching = false
 
     init {
         animeViewState.isLoading = true
@@ -46,6 +47,7 @@ class AnimeViewModel @Inject constructor(
                     response?.data.orEmpty()
                 ).flatten()
                 animeViewState.hasMoreData = response?.links?.next != null
+                isSearching = false
                 _liveData.postValue(animeViewState)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -63,10 +65,33 @@ class AnimeViewModel @Inject constructor(
                 animeViewState.animeTitleData = response?.data
                 animeViewState.hasMoreData = response?.links?.next != null
                 animeViewState.isLoading = false
+                isSearching = false
                 _liveData.postValue(animeViewState)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+    }
+
+    fun searchQuery() {
+        animeViewState.isLoading = true
+        _liveData.postValue(animeViewState)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = animeApi.searchQuery(animeViewState.searchString, animeViewState.animeTitleData.orEmpty().size)
+                Log.d("tag", response.toString())
+                animeViewState.animeTitleData = response?.data
+                animeViewState.hasMoreData = response?.links?.next != null
+                animeViewState.isLoading = false
+                _liveData.postValue(animeViewState)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun setSearchString(searchString: String) {
+        isSearching = true
+        animeViewState.searchString = searchString
     }
 }

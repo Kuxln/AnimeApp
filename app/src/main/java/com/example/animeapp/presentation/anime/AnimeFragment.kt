@@ -26,6 +26,8 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
     private lateinit var animeAdapter: AnimeListAdapter
     private lateinit var fragmentCallback: AnimeFragmentCallback
 
+    private lateinit var searchString: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val menuHost: MenuHost = requireActivity()
@@ -43,7 +45,8 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
                 fragmentCallback.onAnimeClicked(titleData)
             },
             onLastElementVisible = {
-                viewModel.loadMoreItems()
+                if (viewModel.isSearching) viewModel.searchQuery()
+                else viewModel.loadMoreItems()
             }
         )
     }
@@ -69,6 +72,7 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
                 binding.animeRecyclerView.smoothScrollToPosition(0)
             }
         }
+
 
         viewModel.liveData.observe(this.viewLifecycleOwner) { state ->
             state.animeTitleData?.let {
@@ -100,12 +104,12 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
         val searchView = searchItem?.actionView as SearchView?
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                println("XXX: On Search text submit - $query")
+                viewModel.setSearchString(query.orEmpty())
+                viewModel.searchQuery()
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                println("XXX: On Search text change - $newText")
                 return false
             }
         })

@@ -88,8 +88,6 @@ data class AnimeEpisodesAttributes (
     val canonicalTitle: String? = null
 )
 
-
-
 data class AnimeEpisodeThumbnail (
     val original: String? = null
 )
