@@ -26,8 +26,6 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
     private lateinit var animeAdapter: AnimeListAdapter
     private lateinit var fragmentCallback: AnimeFragmentCallback
 
-    private lateinit var searchString: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val menuHost: MenuHost = requireActivity()
@@ -45,7 +43,7 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
                 fragmentCallback.onAnimeClicked(titleData)
             },
             onLastElementVisible = {
-                if (viewModel.isSearching) viewModel.searchQuery()
+                if (viewModel.isSearching) viewModel.loadMoreSearch()
                 else viewModel.loadMoreItems()
             }
         )
@@ -61,9 +59,10 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
         binding.animeSwipeRefreshLayout.setColorSchemeResources(R.color.orange)
         binding.animeSwipeRefreshLayout.setOnRefreshListener {
             binding.animeSwipeRefreshLayout.isRefreshing = true
+            viewModel.isSearching = false
             viewModel.refreshList()
         }
-
+        binding.animeRecyclerView.setItemAnimator(null)
         binding.animeRecyclerView.adapter = animeAdapter
         binding.animeArrowUp.setOnClickListener {
             if (animeAdapter.itemCount > 22) {

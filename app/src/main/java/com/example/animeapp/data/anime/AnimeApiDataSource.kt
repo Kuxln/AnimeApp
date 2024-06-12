@@ -15,7 +15,11 @@ class AnimeApiDataSource(
         return animeApi.getEpisodes(id, 20, offset).body()
     }
 
-    suspend fun searchQuery(searchString: String, offset: Int): AnimeApiResponse? {
-        return animeApi.getSearchResponse(searchString.replace(' ', '%'), 20, offset).body()
+    suspend fun searchQuery(searchString: String): AnimeApiResponse? {
+        return animeApi.getSearchResponse(searchString.replace(' ', '%'), 20, 0).body()
+    }
+
+    suspend fun loadMoreSearchQuery(searchString: String, offset: Int): AnimeApiResponse? {
+        return animeApi.getNextSearchResponse(searchString.replace(' ', '%'), 20, offset).body()
     }
 }

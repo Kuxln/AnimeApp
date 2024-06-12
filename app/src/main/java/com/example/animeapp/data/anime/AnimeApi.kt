@@ -40,4 +40,11 @@ interface AnimeApi {
         @Query("page[limit]") limit: Int,
         @Query("page[offset]") offset: Int
     ): Response<AnimeApiResponse>
+
+    @GET("anime?")
+    suspend fun getNextSearchResponse(
+        @Query("filter[text]") searchString: String,
+        @Query("page[limit]") limit: Int,
+        @Query("page[offset]") offset: Int
+    ): Response<AnimeApiResponse>
 }
