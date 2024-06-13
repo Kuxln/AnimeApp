@@ -26,6 +26,8 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
     private lateinit var animeAdapter: AnimeListAdapter
     private lateinit var fragmentCallback: AnimeFragmentCallback
 
+    private var currentState: AnimeViewState? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val menuHost: MenuHost = requireActivity()
@@ -43,52 +45,57 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
                 fragmentCallback.onAnimeClicked(titleData)
             },
             onLastElementVisible = {
-                if (viewModel.isSearching) viewModel.loadMoreSearch()
-                else viewModel.loadMoreItems()
+                viewModel.onLoadMore()
             }
         )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentAnimeBinding.bind(view)
-        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.animeToolbar)
+        with(binding) {
+            (activity as AppCompatActivity?)!!.setSupportActionBar(animeToolbar)
 
-        binding.animeRecyclerView.addItemDecoration(PaddingItemDecoration(24))
-        binding.animeRecyclerView.visibility = View.INVISIBLE
+            animeRecyclerView.setItemAnimator(null)
+            animeRecyclerView.addItemDecoration(PaddingItemDecoration(24))
+            animeRecyclerView.visibility = View.INVISIBLE
+            animeRecyclerView.adapter = animeAdapter
 
-        binding.animeSwipeRefreshLayout.setColorSchemeResources(R.color.orange)
-        binding.animeSwipeRefreshLayout.setOnRefreshListener {
-            binding.animeSwipeRefreshLayout.isRefreshing = true
-            viewModel.isSearching = false
-            viewModel.refreshList()
-        }
-        binding.animeRecyclerView.setItemAnimator(null)
-        binding.animeRecyclerView.adapter = animeAdapter
-        binding.animeArrowUp.setOnClickListener {
-            if (animeAdapter.itemCount > 22) {
-                binding.animeRecyclerView.scrollToPosition(0)
-            } else {
-                binding.animeRecyclerView.smoothScrollToPosition(0)
+            animeSwipeRefreshLayout.setColorSchemeResources(R.color.orange)
+            animeSwipeRefreshLayout.setOnRefreshListener { viewModel.onRefresh() }
+
+            animeArrowUp.setOnClickListener {
+                if (animeAdapter.itemCount > 22) animeRecyclerView.scrollToPosition(0)
+                else animeRecyclerView.smoothScrollToPosition(0)
             }
         }
 
-
         viewModel.liveData.observe(this.viewLifecycleOwner) { state ->
-            state.animeTitleData?.let {
-                animeAdapter.updateData(it, state.hasMoreData)
-                if (binding.animeSwipeRefreshLayout.isRefreshing) {
-                    binding.animeSwipeRefreshLayout.isRefreshing = false;
+            currentState = state
+
+            if (state.setData) {
+                state.animeTitleData?.let { data ->
+                    animeAdapter.updateData(data, state.hasMoreData)
+                    if (binding.animeSwipeRefreshLayout.isRefreshing) {
+                        binding.animeSwipeRefreshLayout.isRefreshing = false
+                    }
                 }
-                if (!state.isLoading) {
-                    binding.animeRecyclerView.visibility = View.VISIBLE
-                    binding.animeListProgressBar.visibility = View.INVISIBLE
-                } else {
-                    binding.animeRecyclerView.visibility = View.INVISIBLE
-                    binding.animeListProgressBar.visibility = View.VISIBLE
+            }
+
+            if (state.setSearchData) {
+                state.animeSearchTitleData?.let {data ->
+                    animeAdapter.updateData(data, state.searchHasMoreData)
                 }
+            }
+            if (!state.isLoading) {
+                binding.animeRecyclerView.visibility = View.VISIBLE
+                binding.animeListProgressBar.visibility = View.INVISIBLE
+            } else {
+                binding.animeRecyclerView.visibility = View.INVISIBLE
+                binding.animeListProgressBar.visibility = View.VISIBLE
             }
         }
     }
+
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
@@ -104,7 +111,6 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.setSearchString(query.orEmpty())
-                viewModel.searchQuery()
                 return false
             }
 
