@@ -1,12 +1,15 @@
 package com.example.animeapp.presentation.anime.selectedtitle
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.doOnLayout
 import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.animeapp.R
 import com.example.animeapp.data.anime.AnimeTitleData
@@ -14,7 +17,9 @@ import com.example.animeapp.databinding.FragmentAnimeSelectedBinding
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.FragmentAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AnimeSelectedItemFragment :
     BaseFragment<FragmentAnimeSelectedBinding>(R.layout.fragment_anime_selected) {
     private var currentlyTouching: Boolean = false
@@ -24,49 +29,66 @@ class AnimeSelectedItemFragment :
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var anotherBinding: FragmentAnimeSelectedBinding;
 
+    private val viewModel: AnimeSelectedItemViewModel by viewModels()
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentAnimeSelectedBinding.bind(view)
         anotherBinding = binding
-        val titleData = this.arguments
-        val animeTitle = titleData?.getParcelable<AnimeTitleData>("animeTitle")?.attributes
-            ?: throw IllegalArgumentException("AnimeTitle is required for fragment AnimeSelectedItemFragment")
+        val id = this.arguments?.getParcelable<AnimeTitleData>("animeTitle")?.id
+        viewModel.setId(id)
 
-        val userCountMetadata = if (animeTitle.userCount != null && animeTitle.userCount > 5000)
-            "(" + (animeTitle.userCount / 1000).toString() + "k+ Views)"
-        else if (animeTitle.userCount != null) "(${animeTitle.userCount} Views)"
-        else ""
 
-        val episodeCountMetadata = if (animeTitle.episodeCount != null) {
-            "${animeTitle.episodeCount} ep."
-        } else ""
 
-        val animeRatingMetadata = animeTitle.averageRating.orEmpty()
+        viewModel.liveData.observe(this.viewLifecycleOwner) {state ->
+            val attributes = state.title?.data?.attributes
+            attributes?.let { val userCountMetadata = if (attributes.userCount != null && attributes.userCount > 5000)
+                "(" + (attributes.userCount / 1000).toString() + "k+ Views)"
+            else if (attributes.userCount != null) "(${attributes.userCount} Views)"
+            else ""
 
-        val episodeLengthMetadata = if (animeTitle.episodeLength != null) {
-            "• ${animeTitle.episodeLength} min"
-        } else ""
+                val episodeCountMetadata = if (attributes.episodeCount != null) {
+                    "${attributes.episodeCount} ep."
+                } else ""
 
-        val animeStartDate = animeTitle.startDate.orEmpty()
+                val animeRatingMetadata = attributes.averageRating.orEmpty()
 
-        val endDateMetadata = if (animeTitle.endDate != null) {
-            "-> ${animeTitle.endDate}"
-        } else "-> ongoing"
+                val episodeLengthMetadata = if (attributes.episodeLength != null) {
+                    "• ${attributes.episodeLength} min"
+                } else ""
 
-        val amountOfTimeMD = "$episodeCountMetadata $episodeLengthMetadata"
-        val releaseDateMD = "$animeStartDate $endDateMetadata"
-        with(binding) {
-            animeCardViewTitle.text = animeTitle.canonicalTitle
-            animeCardViewSubTitle.text = animeTitle.description
-            animeCardViewAmountOfTimeTextView.text = amountOfTimeMD
-            animeCardReleaseDateTextView.text = releaseDateMD
-            animeCardViewRating.text = animeRatingMetadata
-            animeCardViewViews.text = userCountMetadata
-            Glide.with(requireContext())
-                .load(animeTitle.posterImage?.original)
-                .placeholder(R.drawable.anime)
-                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
-                .into(animeCardViewMainImageView)
+                val animeStartDate = attributes.startDate.orEmpty()
 
+                val endDateMetadata = if (attributes.endDate != null) {
+                    "-> ${attributes.endDate}"
+                } else "-> ongoing"
+
+                val amountOfTimeMD = "$episodeCountMetadata $episodeLengthMetadata"
+                val releaseDateMD = "$animeStartDate $endDateMetadata"
+                with(binding) {
+                    animeCardViewTitle.text = attributes.canonicalTitle
+                    animeCardViewSubTitle.text = attributes.description
+                    animeCardViewAmountOfTimeTextView.text = amountOfTimeMD
+                    animeCardReleaseDateTextView.text = releaseDateMD
+                    animeCardViewRating.text = animeRatingMetadata
+                    animeCardViewViews.text = userCountMetadata
+                    Glide.with(requireContext())
+                        .load(attributes.posterImage?.original)
+                        .placeholder(R.drawable.anime)
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                        .into(animeCardViewMainImageView)
+                }
+            }
+            if(state.isLoading) {
+                binding.scrollContent.visibility = View.INVISIBLE
+                binding.appBar.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            else {
+                binding.scrollContent.visibility = View.VISIBLE
+                binding.appBar.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
+            }
         }
 
         binding.root.doOnLayout {
@@ -99,17 +121,14 @@ class AnimeSelectedItemFragment :
             return@setOnTouchListener false
         }
 
-        val animeTitleID = titleData?.getParcelable<AnimeTitleData>("animeTitle")?.id
-            ?: throw IllegalArgumentException("AnimeTitle is required for fragment AnimeSelectedItemFragment")
-        binding.pager.adapter = FragmentAdapter(this, animeTitleID)
-
+        binding.pager.adapter = id?.let { FragmentAdapter(this, it) }
         TabLayoutMediator(
             binding.pagerTabs, binding.pager
         ) { tab, position ->
             when (position) {
                 0 -> tab.text = "Episodes"
                 1 -> tab.text = "Characters"
-                2 -> tab.text = "..."
+                2 -> tab.text = "Reviews"
             }
         }.attach()
     }

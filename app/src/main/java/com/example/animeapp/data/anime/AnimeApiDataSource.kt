@@ -22,4 +22,8 @@ class AnimeApiDataSource(
     suspend fun loadMoreSearchQuery(searchString: String, offset: Int): AnimeApiResponse? {
         return animeApi.getNextSearchResponse(searchString.replace(' ', '%'), 20, offset).body()
     }
+
+    suspend fun getTitle(id: String): AnimeTitleDataResponse? {
+        return animeApi.getTitle(id).body()
+    }
 }

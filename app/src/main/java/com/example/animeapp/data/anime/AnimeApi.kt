@@ -21,6 +21,9 @@ interface AnimeApi {
     @GET("anime/{id}/categories")
     suspend fun getCategories(@Path("id") id: Int)
 
+    @GET("anime/{id}/")
+    suspend fun getTitle(@Path("id") id: String) : Response<AnimeTitleDataResponse>
+
     @GET("anime/{id}/reviews")
     suspend fun getReviews(@Path("id") id: Int)
 

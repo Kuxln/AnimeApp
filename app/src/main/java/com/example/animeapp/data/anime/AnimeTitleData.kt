@@ -12,6 +12,9 @@ data class AnimeLinks(
     val next: String? = null
 )
 
+data class AnimeTitleDataResponse(
+    val data: AnimeTitleData? = null
+)
 @Parcelize
 data class AnimeTitleData(
     val id: String,
