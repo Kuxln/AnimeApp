@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentTabsBinding
-import com.example.animeapp.presentation.anime.AnimeHostFragment
+import com.example.animeapp.presentation.anime.anime_tab.AnimeHostFragment
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.manga.MangaHostFragment
 import com.example.animeapp.presentation.profile.ProfileFragment

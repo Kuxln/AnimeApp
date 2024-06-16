@@ -1,4 +1,4 @@
-package com.example.animeapp.presentation.anime
+package com.example.animeapp.presentation.anime.anime_tab
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -50,4 +50,14 @@ interface AnimeApi {
         @Query("page[limit]") limit: Int,
         @Query("page[offset]") offset: Int
     ): Response<AnimeApiResponse>
+
+    @GET("anime/{id}/relationships/characters")
+    suspend fun getCharactersList(
+        @Path("id") id: String,
+    ): Response<AnimeCharactersListResponse>
+
+    @GET("media-characters/{id}/character")
+    suspend fun getCharacter(
+        @Path("id") id: String,
+    ): Response<AnimeCharacterResponse>
 }

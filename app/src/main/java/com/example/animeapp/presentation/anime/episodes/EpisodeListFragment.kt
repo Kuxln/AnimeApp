@@ -1,4 +1,4 @@
-package com.example.animeapp.presentation.anime.selectedtitle
+package com.example.animeapp.presentation.anime.episodes
 
 import android.os.Bundle
 import android.view.View
@@ -23,7 +23,7 @@ class EpisodeListFragment @Inject constructor() : BaseFragment<FragmentAnimeEpis
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = FragmentAnimeEpisodesBinding.bind(view)
+        binding = FragmentAnimeEpisodesBinding.bind(view)
         val args = this.arguments
         val id = args?.getString("ID") ?: throw IllegalArgumentException("id is required for fragment EpisodeListFragment")
         binding.recycler.adapter = adapter
@@ -45,7 +45,6 @@ class EpisodeListFragment @Inject constructor() : BaseFragment<FragmentAnimeEpis
 
         }
     }
-
 
     companion object {
         fun newInstance(id: String): EpisodeListFragment {

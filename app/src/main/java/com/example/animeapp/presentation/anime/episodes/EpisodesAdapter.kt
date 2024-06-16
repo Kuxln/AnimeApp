@@ -1,4 +1,4 @@
-package com.example.animeapp.presentation.anime.selectedtitle
+package com.example.animeapp.presentation.anime.episodes
 
 import android.util.Log
 import android.view.LayoutInflater

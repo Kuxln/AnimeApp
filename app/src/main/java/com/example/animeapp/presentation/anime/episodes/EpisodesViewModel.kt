@@ -1,4 +1,4 @@
-package com.example.animeapp.presentation.anime.selectedtitle
+package com.example.animeapp.presentation.anime.episodes
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -18,6 +18,7 @@ class EpisodesViewModel @Inject constructor(
     val liveData: LiveData<EpisodesViewState> get() = _liveData
     private val _liveData = MutableLiveData<EpisodesViewState>()
     private val viewState = EpisodesViewState()
+    //todo()
     private var id: String? = null
 
 

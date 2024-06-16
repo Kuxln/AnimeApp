@@ -2,9 +2,8 @@ package com.example.animeapp.presentation.core.ui
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.animeapp.presentation.anime.selectedtitle.EpisodeListFragment
-import com.example.animeapp.presentation.profile.ProfileFragment
-import com.example.animeapp.presentation.reels.ReelsFragment
+import com.example.animeapp.presentation.anime.characters.CharacterListFragment
+import com.example.animeapp.presentation.anime.episodes.EpisodeListFragment
 
 class FragmentAdapter(fragment: Fragment, val id: String) : FragmentStateAdapter(fragment) {
 
@@ -15,7 +14,7 @@ class FragmentAdapter(fragment: Fragment, val id: String) : FragmentStateAdapter
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> EpisodeListFragment.newInstance(id)
-            1 -> EpisodeListFragment.newInstance(id)
+            1 -> CharacterListFragment.newInstance(id)
             2 -> EpisodeListFragment.newInstance(id)
 
             else -> EpisodeListFragment.newInstance(id)

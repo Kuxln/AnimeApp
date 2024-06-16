@@ -2,11 +2,8 @@ package com.example.animeapp.presentation.manga
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentMangaHostBinding
-import com.example.animeapp.presentation.anime.AnimeFragment
-import com.example.animeapp.presentation.anime.AnimeHostFragment
 import com.example.animeapp.presentation.core.ui.BaseFragment
 
 class MangaHostFragment : BaseFragment<FragmentMangaHostBinding>(

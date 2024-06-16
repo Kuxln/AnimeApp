@@ -1,6 +1,6 @@
 package com.example.animeapp.data.anime
 
-data class AnimeCharacterMetadata (
+data class AnimeCharacterResponse(
     val data: Data? = null,
 )
 
@@ -9,9 +9,19 @@ data class Data(
 )
 
 data class Attributes(
-    val names: Names,
+    val canonicalName: String,
+    val image: Image,
 )
 
-data class Names(
-    val canonicalName: String? = null
+data class Image(
+    val original: String
 )
+
+data class AnimeCharactersListResponse(
+    val data: List<CharacterItem>? = null
+)
+
+data class CharacterItem(
+    val id: String
+)
+

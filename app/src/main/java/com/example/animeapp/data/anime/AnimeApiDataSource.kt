@@ -26,4 +26,12 @@ class AnimeApiDataSource(
     suspend fun getTitle(id: String): AnimeTitleDataResponse? {
         return animeApi.getTitle(id).body()
     }
+
+    suspend fun getCharacter(id: String): AnimeCharacterResponse? {
+        return animeApi.getCharacter(id).body()
+    }
+
+    suspend fun getCharactersList(id: String): AnimeCharactersListResponse? {
+        return animeApi.getCharactersList(id).body()
+    }
 }
