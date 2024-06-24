@@ -9,6 +9,7 @@ import com.example.animeapp.data.anime.AnimeApiDataSource
 import com.example.animeapp.data.anime.CharacterItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class CharacterListViewModel @Inject constructor(
     private val state = CharacterListViewState()
 
     fun setId(id: String) {
-        state.id = id
+        state.animeId = id
         _livedata.postValue(state)
         getCharactersIdList()
     }
@@ -29,10 +30,9 @@ class CharacterListViewModel @Inject constructor(
     private fun getCharactersIdList() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                state.id?.let {
-                    val response = api.getCharactersList(it)
-                    state.charactersIdList = response
-                    getCharactersList()
+                state.animeId?.let {animeId ->
+                    state.charactersIds = api.getCharactersList(animeId)?.data?.map { it.id }
+//                    getCharactersList()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -40,23 +40,28 @@ class CharacterListViewModel @Inject constructor(
         }
     }
 
-    private fun getCharactersList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                state.charactersIdList?.data?.let {
-                    for (data: CharacterItem in it) {
-                        val response = api.getCharacter(data.id)
-                        response?.let {item ->
-                            state.charactersList.add(item)
-                        }
-                    }
-                    _livedata.postValue(state)
-                }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
+//    private fun getCharactersList() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            try {
+//                val task = async {
+//
+//                }
+//                state.charactersIdList?.data?.let {
+//
+//                    for (data: CharacterItem in it) {
+//                        val response = api.getCharacter(data.id)
+//                        response?.let { item ->
+//                            state.charactersList.add(item)
+//                        }
+//                    }
+//                    _livedata.postValue(state)
+//                }
+//
+//                task.
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
+//    }
 
 }

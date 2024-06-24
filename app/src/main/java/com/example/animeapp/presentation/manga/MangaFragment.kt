@@ -21,7 +21,7 @@ class MangaFragment : BaseFragment<FragmentMangaBinding>(
 
 
         with(binding) {
-            mangaRecyclerView.addItemDecoration(PaddingItemDecoration(24))
+            mangaRecyclerView.addItemDecoration(PaddingItemDecoration(24,0))
             mangaRecyclerView.visibility = View.INVISIBLE
 
             mangaSwipeRefreshLayout.setColorSchemeResources(R.color.orange)

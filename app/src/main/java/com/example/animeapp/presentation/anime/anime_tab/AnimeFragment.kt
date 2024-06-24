@@ -56,7 +56,7 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
             (activity as AppCompatActivity?)!!.setSupportActionBar(animeToolbar)
 
             animeRecyclerView.setItemAnimator(null)
-            animeRecyclerView.addItemDecoration(PaddingItemDecoration(24))
+            animeRecyclerView.addItemDecoration(PaddingItemDecoration(24, 0))
             animeRecyclerView.visibility = View.INVISIBLE
             animeRecyclerView.adapter = animeAdapter
 

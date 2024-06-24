@@ -5,6 +5,7 @@ data class AnimeCharacterResponse(
 )
 
 data class Data(
+    val id: String,
     val attributes: Attributes? = null,
 )
 

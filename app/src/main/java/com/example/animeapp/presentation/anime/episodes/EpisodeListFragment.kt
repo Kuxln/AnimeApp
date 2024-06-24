@@ -29,7 +29,7 @@ class EpisodeListFragment @Inject constructor() : BaseFragment<FragmentAnimeEpis
         binding.recycler.adapter = adapter
         viewModel.populateData(id)
 
-        binding.recycler.addItemDecoration(PaddingItemDecoration(24))
+        binding.recycler.addItemDecoration(PaddingItemDecoration(24,0))
 
         viewModel.liveData.observe(this.viewLifecycleOwner) {state ->
             state.episodesData?.let {data ->
