@@ -25,39 +25,22 @@ class CharacterListFragment @Inject constructor() : BaseFragment<FragmentAnimeCh
         val id = this.arguments?.getString("ID", "")
         id?.let { viewModel.setId(it) }
 
+        val adapter = CharacterListAdapter { viewModel.onLoad() }
 
-        val adapter = CharacterListAdapter(
-            listOf(
-                AnimeCharacterEntity("1", null, null, false),
-                AnimeCharacterEntity("2", null, null, false),
-                AnimeCharacterEntity("3", null, null, false),
-                AnimeCharacterEntity("4", null, null, false),
-                AnimeCharacterEntity("5", null, null, false),
-                AnimeCharacterEntity("6", null, null, false),
-                AnimeCharacterEntity("7", null, null, false),
-                AnimeCharacterEntity("8", null, null, false),
-                AnimeCharacterEntity("9", null, null, false),
-                AnimeCharacterEntity("10", null, null, false),
-                AnimeCharacterEntity("11", null, null, false),
-                AnimeCharacterEntity("12", null, null, false),
-                AnimeCharacterEntity("13", null, null, false),
-                AnimeCharacterEntity("14", null, null, false),
-                AnimeCharacterEntity("15", null, null, false),
-                AnimeCharacterEntity("16", null, null, false),
-                AnimeCharacterEntity("17", null, null, false),
-                AnimeCharacterEntity("18", null, null, false),
-                AnimeCharacterEntity("19", null, null, false),
-                AnimeCharacterEntity("20", null, null, false),
-            )
-        )
         with(binding.recycler) {
             layoutManager = GridLayoutManager(requireActivity(), 2)
             addItemDecoration(PaddingItemDecoration(24, 10))
             this.adapter = adapter
         }
         binding.recycler.adapter = adapter
-    }
 
+        viewModel.livedata.observe(this.viewLifecycleOwner) { state ->
+            state.pageList?.let {
+                adapter.updateData(it)
+            }
+//            binding.
+        }
+    }
 
     companion object {
         fun newInstance(id: String): CharacterListFragment {

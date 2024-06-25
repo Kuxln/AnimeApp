@@ -1,21 +1,19 @@
 package com.example.animeapp.presentation.anime.characters
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.animeapp.data.anime.AnimeApiDataSource
-import com.example.animeapp.data.anime.CharacterItem
+import com.example.animeapp.domain.AnimeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.min
 
 @HiltViewModel
 class CharacterListViewModel @Inject constructor(
-    private val api: AnimeApiDataSource
+    private val repository: AnimeRepository
 ) : ViewModel() {
     private val _livedata = MutableLiveData<CharacterListViewState>()
     val livedata: LiveData<CharacterListViewState> get() = _livedata
@@ -24,44 +22,65 @@ class CharacterListViewModel @Inject constructor(
     fun setId(id: String) {
         state.animeId = id
         _livedata.postValue(state)
-        getCharactersIdList()
+        getCharactersIds()
     }
 
-    private fun getCharactersIdList() {
+    fun onLoad() {
+        getCharactersList()
+    }
+
+    private fun getCharactersIds() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                state.animeId?.let {animeId ->
-                    state.charactersIds = api.getCharactersList(animeId)?.data?.map { it.id }
-//                    getCharactersList()
+                state.animeId?.let {
+                    state.charactersIds = repository.getCharactersIds(it)
+                    _livedata.postValue(state)
+                    getCharactersList()
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        }
+    }
+
+    private fun getCharactersList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (state.pageList == null) {
+                try {
+                    state.pageList = state.charactersIds?.let {
+                        listOf(CharListPage(repository.getCharacters(it.subList(0, min(10,it.size)))))
+                    }
+                    _livedata.postValue(state)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            } else {
+                loadMoreCharacters()
+            }
+        }
+    }
+
+    private fun loadMoreCharacters() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                state.pageList?.let {
+                    val startRange = it.size * 10
+                    val endRange = min(state.charactersIds?.size ?: startRange, startRange + 10)
+                    state.charactersIds?.let { ids ->
+                        state.pageList = listOf(it, listOf(CharListPage(
+                            repository.getCharacters(
+                                ids.subList(startRange, endRange
+                                )
+                            ))
+                        )).flatten()
+                    }
+                }
+                _livedata.postValue(state)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
-
-//    private fun getCharactersList() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            try {
-//                val task = async {
-//
-//                }
-//                state.charactersIdList?.data?.let {
-//
-//                    for (data: CharacterItem in it) {
-//                        val response = api.getCharacter(data.id)
-//                        response?.let { item ->
-//                            state.charactersList.add(item)
-//                        }
-//                    }
-//                    _livedata.postValue(state)
-//                }
-//
-//                task.
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
 
 }
