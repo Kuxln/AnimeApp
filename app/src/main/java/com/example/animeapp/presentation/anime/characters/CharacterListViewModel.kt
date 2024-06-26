@@ -51,6 +51,7 @@ class CharacterListViewModel @Inject constructor(
                     state.pageList = state.charactersIds?.let {
                         listOf(CharListPage(repository.getCharacters(it.subList(0, min(10,it.size)))))
                     }
+                    state.isLoading = false
                     _livedata.postValue(state)
                 } catch (e: Exception) {
                     e.printStackTrace()

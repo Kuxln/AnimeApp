@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.animeapp.R
 import com.example.animeapp.data.anime.AnimeCharacterResponse
 import com.example.animeapp.data.anime.AnimeCharactersListResponse
@@ -28,7 +29,7 @@ class CharacterListFragment @Inject constructor() : BaseFragment<FragmentAnimeCh
         val adapter = CharacterListAdapter { viewModel.onLoad() }
 
         with(binding.recycler) {
-            layoutManager = GridLayoutManager(requireActivity(), 2)
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             addItemDecoration(PaddingItemDecoration(24, 10))
             this.adapter = adapter
         }
@@ -37,6 +38,13 @@ class CharacterListFragment @Inject constructor() : BaseFragment<FragmentAnimeCh
         viewModel.livedata.observe(this.viewLifecycleOwner) { state ->
             state.pageList?.let {
                 adapter.updateData(it)
+            }
+            if (state.isLoading == true) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.recycler.visibility = View.INVISIBLE
+            } else {
+                binding.progressBar.visibility = View.INVISIBLE
+                binding.recycler.visibility = View.VISIBLE
             }
 //            binding.
         }

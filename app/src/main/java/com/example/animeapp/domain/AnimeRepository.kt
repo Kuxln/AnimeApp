@@ -21,7 +21,7 @@ class AnimeRepository @Inject constructor(
 //3.2, 5.5
     suspend fun getCharacters(charIds: List<String>): List<AnimeCharacterEntity> {
         Log.d("StartChar", "Start")
-        val charsJobs = charIds.mapNotNull {
+        val charsJobs = charIds.map {
             pool.async {api.getCharacter(it)}
         }
 
