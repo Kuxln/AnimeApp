@@ -30,6 +30,8 @@ class CharacterListViewModel @Inject constructor(
     }
 
     private fun getCharactersIds() {
+        state.isLoading = true
+        _livedata.postValue(state)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 state.animeId?.let {
@@ -51,6 +53,7 @@ class CharacterListViewModel @Inject constructor(
                     state.pageList = state.charactersIds?.let {
                         listOf(CharListPage(repository.getCharacters(it.subList(0, min(10,it.size)))))
                     }
+                    isHasMore()
                     state.isLoading = false
                     _livedata.postValue(state)
                 } catch (e: Exception) {
@@ -77,11 +80,16 @@ class CharacterListViewModel @Inject constructor(
                         )).flatten()
                     }
                 }
+                isHasMore()
                 _livedata.postValue(state)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun isHasMore() {
+        state.hasMore = state.pageList!!.size.times(10) < state.charactersIds!!.size
     }
 
 }

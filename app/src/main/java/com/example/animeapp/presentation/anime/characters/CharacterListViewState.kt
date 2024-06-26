@@ -5,4 +5,5 @@ data class CharacterListViewState(
     var charactersIds: List<String>? = null,
     var pageList: List<CharListPage>? = null,
     var isLoading: Boolean = true,
+    var hasMore: Boolean = true
 )
