@@ -1,7 +1,10 @@
 package com.example.animeapp.presentation.anime.characters
 
+import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout.LayoutParams
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,7 +13,7 @@ import com.example.animeapp.R
 import com.example.animeapp.databinding.ListItemAnimeCharacterBinding
 import com.example.animeapp.databinding.ListLoadingProgressBarBinding
 import com.example.animeapp.domain.entity.AnimeCharacterEntity
-import com.example.animeapp.presentation.anime.anime_tab.AnimeListAdapter
+
 
 class CharacterListAdapter(
     private val onLoad: () -> Unit = {}
@@ -48,7 +51,54 @@ class CharacterListAdapter(
         when (getItemViewType(position)) {
             ITEM -> {
                 val viewHolder = holder as CharacterListViewHolder
-                viewHolder.nameTextView.text = dataSet[position].name
+                val nameMetadata = dataSet[position].name?.split(" ").orEmpty()
+                when (nameMetadata.size) {
+                    1 -> viewHolder.nameTextView1.text = nameMetadata[0]
+                    2 -> {
+                        viewHolder.nameTextView1.text = nameMetadata[0]
+                        val layoutParams1 = viewHolder.nameTextView1.layoutParams as LayoutParams
+                        layoutParams1.topMargin = 30
+                        layoutParams1.bottomMargin = -15
+
+                        viewHolder.nameTextView2.text = nameMetadata[1]
+                        val layoutParams2 = viewHolder.nameTextView2.layoutParams as LayoutParams
+                        layoutParams2.bottomMargin = 30
+                        viewHolder.nameTextView2.visibility = View.VISIBLE
+                    }
+
+                    3 -> {
+                        viewHolder.nameTextView1.text = nameMetadata[0]
+                        val layoutParams1 = viewHolder.nameTextView1.layoutParams as LayoutParams
+                        layoutParams1.topMargin = 30
+                        layoutParams1.bottomMargin = -15
+                        viewHolder.nameTextView2.text = nameMetadata[1]
+                        val layoutParams2 = viewHolder.nameTextView2.layoutParams as LayoutParams
+                        layoutParams2.topMargin = -10
+                        layoutParams2.bottomMargin = -15
+                        viewHolder.nameTextView2.visibility = View.VISIBLE
+                        viewHolder.nameTextView3.text = nameMetadata[2]
+                        val layoutParams3 = viewHolder.nameTextView3.layoutParams as LayoutParams
+                        layoutParams3.bottomMargin = 30
+                        viewHolder.nameTextView3.visibility = View.VISIBLE
+                    }
+
+                    else -> {
+                        viewHolder.nameTextView1.text = nameMetadata[0]
+                        val layoutParams1 = viewHolder.nameTextView1.layoutParams as LayoutParams
+                        layoutParams1.topMargin = 30
+                        layoutParams1.bottomMargin = -15
+                        viewHolder.nameTextView2.text = nameMetadata[1]
+                        val layoutParams2 = viewHolder.nameTextView2.layoutParams as LayoutParams
+                        layoutParams2.topMargin = -10
+                        layoutParams2.bottomMargin = -15
+                        viewHolder.nameTextView2.visibility = View.VISIBLE
+                        viewHolder.nameTextView3.text = nameMetadata[2]
+                        val layoutParams3 = viewHolder.nameTextView3.layoutParams as LayoutParams
+                        layoutParams3.bottomMargin = 30
+                        viewHolder.nameTextView3.visibility = View.VISIBLE
+                    }
+                }
+
                 Glide.with(viewHolder.imageView.context)
                     .load(dataSet[position].image)
                     .placeholder(R.drawable.anime)
@@ -70,13 +120,15 @@ class CharacterListAdapter(
     class CharacterListViewHolder(
         binding: ListItemAnimeCharacterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        val nameTextView = binding.nameTV
+        val nameTextView1 = binding.nameTV1
+        val nameTextView2 = binding.nameTV2
+        val nameTextView3 = binding.nameTV3
         val imageView = binding.imageIV
     }
 
     class ProgressBarViewHolder(
         binding: ListLoadingProgressBarBinding
-    ) : RecyclerView.ViewHolder(binding.root) {}
+    ) : RecyclerView.ViewHolder(binding.root)
 
     fun updateData(newData: List<CharListPage>, hasMore: Boolean) {
         this.hasMore = hasMore
