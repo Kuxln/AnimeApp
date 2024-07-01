@@ -27,53 +27,18 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/orange">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/nameTV1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical|center_horizontal"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginBottom="18dp"
-                    android:paddingHorizontal="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    tools:text="@string/_1234567890" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/nameTV2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical|center_horizontal"
-                    android:paddingHorizontal="10dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    tools:text="@string/_1234567890" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/nameTV3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical|center_horizontal"
-                    android:paddingHorizontal="10dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="18dp"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    tools:text="@string/_1234567890" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/nameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="18dp"
+                android:layout_gravity="center"
+                android:paddingHorizontal="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="@string/_1234567890" />
 
         </com.google.android.material.card.MaterialCardView>
     </androidx.appcompat.widget.LinearLayoutCompat>

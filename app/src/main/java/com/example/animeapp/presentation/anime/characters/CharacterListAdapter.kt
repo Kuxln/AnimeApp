@@ -51,53 +51,8 @@ class CharacterListAdapter(
         when (getItemViewType(position)) {
             ITEM -> {
                 val viewHolder = holder as CharacterListViewHolder
-                val nameMetadata = dataSet[position].name?.split(" ").orEmpty()
-                when (nameMetadata.size) {
-                    1 -> viewHolder.nameTextView1.text = nameMetadata[0]
-                    2 -> {
-                        viewHolder.nameTextView1.text = nameMetadata[0]
-                        val layoutParams1 = viewHolder.nameTextView1.layoutParams as LayoutParams
-                        layoutParams1.topMargin = 30
-                        layoutParams1.bottomMargin = -15
-
-                        viewHolder.nameTextView2.text = nameMetadata[1]
-                        val layoutParams2 = viewHolder.nameTextView2.layoutParams as LayoutParams
-                        layoutParams2.bottomMargin = 30
-                        viewHolder.nameTextView2.visibility = View.VISIBLE
-                    }
-
-                    3 -> {
-                        viewHolder.nameTextView1.text = nameMetadata[0]
-                        val layoutParams1 = viewHolder.nameTextView1.layoutParams as LayoutParams
-                        layoutParams1.topMargin = 30
-                        layoutParams1.bottomMargin = -15
-                        viewHolder.nameTextView2.text = nameMetadata[1]
-                        val layoutParams2 = viewHolder.nameTextView2.layoutParams as LayoutParams
-                        layoutParams2.topMargin = -10
-                        layoutParams2.bottomMargin = -15
-                        viewHolder.nameTextView2.visibility = View.VISIBLE
-                        viewHolder.nameTextView3.text = nameMetadata[2]
-                        val layoutParams3 = viewHolder.nameTextView3.layoutParams as LayoutParams
-                        layoutParams3.bottomMargin = 30
-                        viewHolder.nameTextView3.visibility = View.VISIBLE
-                    }
-
-                    else -> {
-                        viewHolder.nameTextView1.text = nameMetadata[0]
-                        val layoutParams1 = viewHolder.nameTextView1.layoutParams as LayoutParams
-                        layoutParams1.topMargin = 30
-                        layoutParams1.bottomMargin = -15
-                        viewHolder.nameTextView2.text = nameMetadata[1]
-                        val layoutParams2 = viewHolder.nameTextView2.layoutParams as LayoutParams
-                        layoutParams2.topMargin = -10
-                        layoutParams2.bottomMargin = -15
-                        viewHolder.nameTextView2.visibility = View.VISIBLE
-                        viewHolder.nameTextView3.text = nameMetadata[2]
-                        val layoutParams3 = viewHolder.nameTextView3.layoutParams as LayoutParams
-                        layoutParams3.bottomMargin = 30
-                        viewHolder.nameTextView3.visibility = View.VISIBLE
-                    }
-                }
+                val nameMetadata = dataSet[position].name
+                    viewHolder.nameTextView.text = nameMetadata
 
                 Glide.with(viewHolder.imageView.context)
                     .load(dataSet[position].image)
@@ -120,9 +75,7 @@ class CharacterListAdapter(
     class CharacterListViewHolder(
         binding: ListItemAnimeCharacterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        val nameTextView1 = binding.nameTV1
-        val nameTextView2 = binding.nameTV2
-        val nameTextView3 = binding.nameTV3
+        val nameTextView = binding.nameTV
         val imageView = binding.imageIV
     }
 
