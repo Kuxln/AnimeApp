@@ -4,6 +4,7 @@ import com.example.animeapp.data.anime.AnimeApi
 import com.example.animeapp.data.anime.AnimeApiDataSource
 import com.example.animeapp.data.manga.MangaApi
 import com.example.animeapp.data.manga.MangaApiDataSource
+import com.example.animeapp.domain.AnimeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,5 +48,11 @@ class NetworkModule {
     @Provides
     fun provideMangaDataSource(api: MangaApi): MangaApiDataSource {
         return MangaApiDataSource(api)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAnimeRepository(api: AnimeApiDataSource) : AnimeRepository {
+        return AnimeRepository(api)
     }
 }

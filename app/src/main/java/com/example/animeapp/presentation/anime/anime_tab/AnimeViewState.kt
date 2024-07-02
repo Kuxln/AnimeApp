@@ -1,10 +1,11 @@
 package com.example.animeapp.presentation.anime.anime_tab
 
 import com.example.animeapp.data.anime.AnimeTitleData
+import com.example.animeapp.domain.entity.AnimeTitleEntity
 
 data class AnimeViewState(
-    var animeTitleData: List<AnimeTitleData>? = null,
-    var animeSearchTitleData: List<AnimeTitleData>? = null,
+    var animeTitleData: List<AnimeTitleEntity>? = null,
+    var animeSearchTitleData: List<AnimeTitleEntity>? = null,
     var searchString: String = "",
     var hasMoreData: Boolean = false,
     var searchHasMoreData: Boolean = false,
