@@ -1,10 +1,7 @@
 package com.example.animeapp.presentation.anime.characters
 
-import android.util.TypedValue
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout.LayoutParams
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -52,7 +49,7 @@ class CharacterListAdapter(
             ITEM -> {
                 val viewHolder = holder as CharacterListViewHolder
                 val nameMetadata = dataSet[position].name
-                    viewHolder.nameTextView.text = nameMetadata
+                viewHolder.nameTextView.text = nameMetadata
 
                 Glide.with(viewHolder.imageView.context)
                     .load(dataSet[position].image)

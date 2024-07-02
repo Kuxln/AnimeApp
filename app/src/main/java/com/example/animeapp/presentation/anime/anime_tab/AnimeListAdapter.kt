@@ -10,11 +10,12 @@ import com.example.animeapp.R
 import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.ListItemAnimeBinding
 import com.example.animeapp.databinding.ListLoadingProgressBarBinding
+import com.example.animeapp.domain.entity.AnimeTitleEntity
 import com.example.animeapp.presentation.core.ui.LoadingProgressBarViewHolder
 
 class AnimeDiffUtil(
-    private val oldData: List<AnimeTitleData>,
-    private val newData: List<AnimeTitleData>
+    private val oldData: List<AnimeTitleEntity>,
+    private val newData: List<AnimeTitleEntity>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
@@ -30,7 +31,7 @@ class AnimeDiffUtil(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldData[oldItemPosition].attributes?.canonicalTitle == newData[newItemPosition].attributes?.canonicalTitle
+        return oldData[oldItemPosition].canonicalTitle == newData[newItemPosition].canonicalTitle
     }
 }
 
@@ -50,9 +51,9 @@ class AnimeListViewHolder(
 class AnimeListAdapter(
     private val onScroll: (visiblePosition: Int) -> Unit = {},
     private val onLastElementVisible: () -> Unit = {},
-    private val onItemSelected: (animeTitleData: AnimeTitleData) -> Unit = {}
+    private val onItemSelected: (animeTitleData: AnimeTitleEntity) -> Unit = {}
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
-    private var data: MutableList<AnimeTitleData> = mutableListOf()
+    private var data: List<AnimeTitleEntity> = listOf()
     private var hasMoreData: Boolean = false
 
     override fun onCreateViewHolder(
@@ -94,38 +95,31 @@ class AnimeListAdapter(
                     onItemSelected(data[position])
                 }
 
-                val dataAttributes = data[position].attributes
+                val dataAttributes = data[position]
 
-                val userCountMetadata = if (dataAttributes?.userCount != null && dataAttributes.userCount > 5000)
+                val userCountMetadata = if (dataAttributes.userCount > 5000)
                     "(" + (dataAttributes.userCount / 1000).toString() + "k+ Views)"
-                else if (dataAttributes?.userCount != null) "(${dataAttributes.userCount} Views)"
-                else ""
+                else "(${dataAttributes.userCount} Views)"
 
-                val episodeCountMetadata = if (dataAttributes?.episodeCount != null) {
-                    "${dataAttributes.episodeCount} ep."
-                } else ""
+                val episodeCountMetadata = "${dataAttributes.episodeCount} ep."
 
-                val episodeLengthMetadata = if (dataAttributes?.episodeLength != null) {
-                    "• ${dataAttributes.episodeLength} min"
-                } else ""
+                val episodeLengthMetadata = "• ${dataAttributes.episodeLength} min"
 
-                val animeStartDate = dataAttributes?.startDate.orEmpty()
+                val animeStartDate = dataAttributes.startDate
 
-                val endDateMetadata = if (dataAttributes?.endDate != null) {
-                    "-> ${dataAttributes.endDate}"
-                } else "-> ongoing"
+                val endDateMetadata = "-> ${dataAttributes.endDate}"
 
                 val amountOfTimeMD = "$episodeCountMetadata $episodeLengthMetadata"
                 val releaseDateMD = "$animeStartDate $endDateMetadata"
                 with(animeListViewHolder) {
-                    canonicalTitle.text = dataAttributes?.canonicalTitle
-                    description.text = dataAttributes?.description
-                    averageRating.text = dataAttributes?.averageRating
+                    canonicalTitle.text = dataAttributes.canonicalTitle
+                    description.text = dataAttributes.description
+                    averageRating.text = dataAttributes.averageRating
                     userCount.text = userCountMetadata
                     episodeCount.text = amountOfTimeMD
                     releaseDate.text = releaseDateMD
                     Glide.with(mainImageView.context)
-                        .load(dataAttributes?.posterImage?.original)
+                        .load(dataAttributes.image)
                         .placeholder(R.drawable.anime)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(mainImageView)
@@ -142,11 +136,16 @@ class AnimeListAdapter(
         return if (position == data.size) LOADING else ITEM
     }
 
-    fun updateData(newData: List<AnimeTitleData>, hasMore: Boolean) {
+    fun updateData(newData: List<AnimeTitleEntity>, hasMore: Boolean, isSearching: Boolean) {
         val animeDiffUtil = AnimeDiffUtil(this.data, newData)
         val animeDiffResult = DiffUtil.calculateDiff(animeDiffUtil)
-        this.data.clear()
-        this.data.addAll(newData)
+        val newDataSet: List<AnimeTitleEntity> = if (isSearching) {
+            this.data + newData
+        } else {
+            newData
+        }
+
+        this.data = newDataSet
         this.hasMoreData = hasMore
         animeDiffResult.dispatchUpdatesTo(this)
     }

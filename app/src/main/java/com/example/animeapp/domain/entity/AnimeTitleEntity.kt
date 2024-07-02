@@ -1,5 +1,9 @@
 package com.example.animeapp.domain.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class AnimeTitleEntity (
     val id: String,
     val canonicalTitle: String = "",
@@ -11,4 +15,4 @@ data class AnimeTitleEntity (
     val endDate: String = "",
     val episodeLength: Int = 0,
     val image: String = "",
-)
+) : Parcelable

@@ -5,6 +5,7 @@ import android.view.View
 import com.example.animeapp.R
 import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeHostBinding
+import com.example.animeapp.domain.entity.AnimeTitleEntity
 import com.example.animeapp.presentation.anime.selectedtitle.AnimeSelectedItemFragment
 import com.example.animeapp.presentation.core.ui.BaseFragment
 
@@ -19,7 +20,7 @@ class AnimeHostFragment : AnimeFragment.AnimeFragmentCallback,
             .commit()
     }
 
-    override fun onAnimeClicked(titleData: AnimeTitleData) {
+    override fun onAnimeClicked(titleData: AnimeTitleEntity) {
         childFragmentManager.beginTransaction()
             .addToBackStack(AnimeSelectedItemFragment::class.java.name)
             .replace(

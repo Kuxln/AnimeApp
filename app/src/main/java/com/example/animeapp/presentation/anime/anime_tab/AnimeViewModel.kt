@@ -82,64 +82,64 @@ class AnimeViewModel @Inject constructor(
 //            }
 //        }
 //    }
-//
-//    fun setSearchString(searchString: String) {
-//        if (viewState.searchString == searchString && viewState.animeSearchTitleData != null) {
-//            viewState.setSearchData = true
-//            _liveData.postValue(viewState)
-//            return
-//        }
-//        viewState.searchString = searchString
-//        _liveData.postValue(viewState)
-//        onSearch()
-//    }
-//
-//    private fun onSearch() {
-//        viewState.setData = false
-//        viewState.isLoading = true
-//        _liveData.postValue(viewState)
-//        viewModelScope.launch(Dispatchers.IO) {
-//            try {
-//                val response = repo.searchQuery(viewState.searchString)
-//                Log.d("tag", response.toString())
-//                viewState.animeSearchTitleData = response?.data
-//                viewState.searchHasMoreData = response?.links?.next != null
-//                viewState.isLoading = false
-//                viewState.isSearching = viewState.searchHasMoreData
-//                viewState.setSearchData = true
-//                _liveData.postValue(viewState)
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//                viewState.isLoading = false
-//                _liveData.postValue(viewState)
-//            }
-//        }
-//    }
-//
-//    fun onRefresh() {
-//        viewState.setData = false
-//        viewState.setSearchData = false
-//        viewState.isSearching = false
-//        viewState.isLoading = true
-//        _liveData.postValue(viewState)
-//        if (viewState.animeTitleData != null) {
-//            viewState.isLoading = false
-//            viewState.setData = true
-//            _liveData.postValue(viewState)
-//        } else {
-//            viewModelScope.launch(Dispatchers.IO) {
-//                try {
-//                    val response = repo.getTopAnime()
-//                    Log.d("tag", response.toString())
-//                    viewState.animeTitleData = response?.data
-//                    viewState.hasMoreData = response?.links?.next != null
-//                    viewState.isLoading = false
-//                    viewState.setData = true
-//                    _liveData.postValue(viewState)
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
-//                }
-//            }
-//        }
-//    }
+
+    fun setSearchString(searchString: String) {
+        if (viewState.searchString == searchString && viewState.animeSearchTitleData != null) {
+            viewState.setSearchData = true
+            _liveData.postValue(viewState)
+            return
+        }
+        viewState.searchString = searchString
+        _liveData.postValue(viewState)
+        onSearch()
+    }
+
+    private fun onSearch() {
+        viewState.setData = false
+        viewState.isLoading = true
+        _liveData.postValue(viewState)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repo.searchQuery(viewState.searchString)
+                Log.d("tag", response.toString())
+                viewState.animeSearchTitleData = response.data
+                viewState.searchHasMoreData = response.hasNext
+                viewState.isLoading = false
+                viewState.isSearching = viewState.searchHasMoreData
+                viewState.setSearchData = true
+                _liveData.postValue(viewState)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                viewState.isLoading = false
+                _liveData.postValue(viewState)
+            }
+        }
+    }
+
+    fun onRefresh() {
+        viewState.setData = false
+        viewState.setSearchData = false
+        viewState.isSearching = false
+        viewState.isLoading = true
+        _liveData.postValue(viewState)
+        if (viewState.animeTitleData != null) {
+            viewState.isLoading = false
+            viewState.setData = true
+            _liveData.postValue(viewState)
+        } else {
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    val response = repo.getTopAnime()
+                    Log.d("tag", response.toString())
+                    viewState.animeTitleData = response.data
+                    viewState.hasMoreData = response.hasNext
+                    viewState.isLoading = false
+                    viewState.setData = true
+                    _liveData.postValue(viewState)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
 }

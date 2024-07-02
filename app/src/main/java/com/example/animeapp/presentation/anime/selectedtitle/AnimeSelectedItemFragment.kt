@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.animeapp.R
 import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeSelectedBinding
+import com.example.animeapp.domain.entity.AnimeTitleEntity
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.FragmentAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -35,7 +36,7 @@ class AnimeSelectedItemFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentAnimeSelectedBinding.bind(view)
         anotherBinding = binding
-        val id = this.arguments?.getParcelable<AnimeTitleData>("animeTitle")?.id
+        val id = this.arguments?.getParcelable<AnimeTitleEntity>("animeTitle")?.id
         viewModel.setId(id)
 
 
@@ -148,7 +149,7 @@ class AnimeSelectedItemFragment :
 
     companion object {
         @JvmStatic
-        fun newInstance(animeTitle: AnimeTitleData): AnimeSelectedItemFragment {
+        fun newInstance(animeTitle: AnimeTitleEntity): AnimeSelectedItemFragment {
             val animeSelectedItemFragment = AnimeSelectedItemFragment()
             val animeTitleBundle = Bundle()
             animeTitleBundle.putParcelable("animeTitle", animeTitle)

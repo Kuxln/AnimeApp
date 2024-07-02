@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import com.example.animeapp.R
 import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeBinding
+import com.example.animeapp.domain.entity.AnimeTitleEntity
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.PaddingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +46,7 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
                 fragmentCallback.onAnimeClicked(titleData)
             },
             onLastElementVisible = {
-                viewModel.onLoadMore()
+//                todo viewModel.onLoadMore()
             }
         )
     }
@@ -74,7 +75,7 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
 
             if (state.setData) {
                 state.animeTitleData?.let { data ->
-                    animeAdapter.updateData(data, state.hasMoreData)
+                    animeAdapter.updateData(data, state.hasMoreData, state.isSearching)
                     if (binding.animeSwipeRefreshLayout.isRefreshing) {
                         binding.animeSwipeRefreshLayout.isRefreshing = false
                     }
@@ -83,7 +84,7 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
 
             if (state.setSearchData) {
                 state.animeSearchTitleData?.let {data ->
-                    animeAdapter.updateData(data, state.searchHasMoreData)
+                    animeAdapter.updateData(data, state.searchHasMoreData, state.isSearching)
                 }
             }
             if (!state.isLoading) {
@@ -121,6 +122,6 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
     }
 
     interface AnimeFragmentCallback {
-        fun onAnimeClicked(titleData: AnimeTitleData)
+        fun onAnimeClicked(titleData: AnimeTitleEntity)
     }
 }
