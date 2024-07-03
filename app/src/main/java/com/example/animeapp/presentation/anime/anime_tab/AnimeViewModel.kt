@@ -37,51 +37,51 @@ class AnimeViewModel @Inject constructor(
             }
         }
     }
-//
-//    fun onLoadMore() {
-//        if (viewState.isSearching) loadMoreSearch()
-//        if (viewState.setData) loadMore()
-//    }
-//
-//    private fun loadMore() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            try {
-//                val response = repo.getAnimeTitles(viewState.animeTitleData.orEmpty().size)
-//                Log.d("tag", response.toString())
-//                viewState.animeTitleData = listOf(
-//                    viewState.animeTitleData.orEmpty(),
-//                    response?.data.orEmpty()
-//                ).flatten()
-//                viewState.hasMoreData = response?.links?.next != null
-//                viewState.isSearching = false
-//                _liveData.postValue(viewState)
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-//
-//    private fun loadMoreSearch() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            try {
-//                val response = repo.loadMoreSearchQuery(
-//                    viewState.searchString,
-//                    viewState.animeTitleData.orEmpty().size
-//                )
-//                Log.d("tag", response.toString())
-//                viewState.animeTitleData = listOf(
-//                    viewState.animeTitleData.orEmpty(),
-//                    response?.data.orEmpty()
-//                ).flatten()
-//                viewState.hasMoreData = response?.links?.next != null
-//                _liveData.postValue(viewState)
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//                viewState.isLoading = false
-//                _liveData.postValue(viewState)
-//            }
-//        }
-//    }
+
+    fun onLoadMore() {
+        if (viewState.isSearching) loadMoreSearch()
+        if (viewState.setData) loadMore()
+    }
+
+    private fun loadMore() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repo.getAnimeTitles(viewState.animeTitleData.orEmpty().size)
+                Log.d("tag", response.toString())
+                viewState.animeTitleData = listOf(
+                    viewState.animeTitleData.orEmpty(),
+                    response.data
+                ).flatten()
+                viewState.hasMoreData = response.hasNext
+                viewState.isSearching = false
+                _liveData.postValue(viewState)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun loadMoreSearch() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repo.loadMoreSearchQuery(
+                    viewState.searchString,
+                    viewState.animeTitleData.orEmpty().size
+                )
+                Log.d("tag", response.toString())
+                viewState.animeTitleData = listOf(
+                    viewState.animeTitleData.orEmpty(),
+                    response.data
+                ).flatten()
+                viewState.hasMoreData = response.hasNext
+                _liveData.postValue(viewState)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                viewState.isLoading = false
+                _liveData.postValue(viewState)
+            }
+        }
+    }
 
     fun setSearchString(searchString: String) {
         if (viewState.searchString == searchString && viewState.animeSearchTitleData != null) {

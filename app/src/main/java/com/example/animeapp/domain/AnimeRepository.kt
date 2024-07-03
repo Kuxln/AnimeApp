@@ -2,15 +2,13 @@ package com.example.animeapp.domain
 
 import android.util.Log
 import com.example.animeapp.data.anime.AnimeApiDataSource
+import com.example.animeapp.data.anime.AnimeApiResponse
 import com.example.animeapp.domain.entity.AnimeCharacterEntity
 import com.example.animeapp.domain.entity.AnimeTitleEntity
 import com.example.animeapp.presentation.anime.anime_tab.AnimeTitlePage
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.newFixedThreadPoolContext
-import java.util.concurrent.Callable
-import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class AnimeRepository @Inject constructor(
@@ -39,33 +37,27 @@ class AnimeRepository @Inject constructor(
     }
 
     suspend fun getTopAnime(): AnimeTitlePage {
-        val metadata = api.getTopAnime()
-        val list = metadata?.data?.map {
-            it.attributes?.let { attr ->
-                AnimeTitleEntity(
-                    it.id,
-                    attr.canonicalTitle.orEmpty(),
-                    attr.description.orEmpty(),
-                    attr.episodeCount ?: 0,
-                    attr.averageRating.orEmpty(),
-                    attr.userCount ?: 0,
-                    attr.startDate.orEmpty(),
-                    attr.endDate.orEmpty(),
-                    attr.episodeLength ?: 0,
-                    attr.posterImage?.original.orEmpty()
-                )
-            } ?: AnimeTitleEntity(it.id)
-        } ?: listOf(AnimeTitleEntity("-1"))
-        return AnimeTitlePage(list, metadata?.links?.next != null)
+        val response = api.getTopAnime()
+        return responseToEntity(response)
     }
 
-    suspend fun getAnimeTitles() {}
+    suspend fun getAnimeTitles(offset: Int): AnimeTitlePage {
+        val response = api.getAnimeTitles(offset)
+        return responseToEntity(response)
+    }
 
-    suspend fun loadMoreSearchQuery() {}
+    suspend fun loadMoreSearchQuery(searchString: String, offset: Int): AnimeTitlePage {
+        val response = api.loadMoreSearchQuery(searchString, offset)
+        return responseToEntity(response)
+    }
 
     suspend fun searchQuery(query: String): AnimeTitlePage {
-        val metadata = api.searchQuery(query)
-        val list = metadata?.data?.map {
+        val response = api.searchQuery(query)
+        return responseToEntity(response)
+    }
+
+    private fun responseToEntity(response: AnimeApiResponse?): AnimeTitlePage {
+        val list = response?.data?.map {
             it.attributes?.let { attr ->
                 AnimeTitleEntity(
                     it.id,
@@ -81,9 +73,7 @@ class AnimeRepository @Inject constructor(
                 )
             } ?: AnimeTitleEntity(it.id)
         } ?: listOf(AnimeTitleEntity("-1"))
-        return AnimeTitlePage(list, metadata?.links?.next != null)
+        return AnimeTitlePage(list, response?.links?.next != null)
     }
-
-
 }
 

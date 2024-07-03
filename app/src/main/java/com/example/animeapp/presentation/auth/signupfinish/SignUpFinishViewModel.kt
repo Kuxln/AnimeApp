@@ -7,18 +7,18 @@ import androidx.lifecycle.ViewModel
 import com.example.animeapp.data.users.AppDatabase
 import com.example.animeapp.data.users.User
 import com.example.animeapp.data.users.UserGender
+import com.example.animeapp.domain.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpFinishViewModel @Inject constructor(
-    db: AppDatabase
+    private val userRepo: UserRepository
 ) : ViewModel() {
     val liveData: LiveData<SignUpFinishState> get() = _liveData
     private val _liveData = MutableLiveData<SignUpFinishState>()
 
     private val signUpFinishState = SignUpFinishState()
-    private val dao = db.userDao()
 
     private lateinit var user: User
 
@@ -27,7 +27,7 @@ class SignUpFinishViewModel @Inject constructor(
         signUpFinishState.username = null
         signUpFinishState.profileImageURI = null
 
-        user = dao.findUserByEmail(email)!!
+        user = userRepo.findUserByEmail(email)!!
         if (user.name != null) {
             signUpFinishState.username = user.name
         }
@@ -44,7 +44,7 @@ class SignUpFinishViewModel @Inject constructor(
         if (signUpFinishState.profileImageURI != null) {
             user.profileImage = signUpFinishState.profileImageURI
         }
-        dao.update(user)
+        userRepo.update(user)
         signUpFinishState.email = user.email
         _liveData.postValue(signUpFinishState)
     }

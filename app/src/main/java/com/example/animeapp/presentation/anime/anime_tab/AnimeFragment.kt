@@ -46,7 +46,7 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
                 fragmentCallback.onAnimeClicked(titleData)
             },
             onLastElementVisible = {
-//                todo viewModel.onLoadMore()
+                viewModel.onLoadMore()
             }
         )
     }
@@ -83,7 +83,7 @@ class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
             }
 
             if (state.setSearchData) {
-                state.animeSearchTitleData?.let {data ->
+                state.animeSearchTitleData?.let { data ->
                     animeAdapter.updateData(data, state.searchHasMoreData, state.isSearching)
                 }
             }

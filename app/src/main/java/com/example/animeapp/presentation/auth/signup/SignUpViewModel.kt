@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.animeapp.data.users.AppDatabase
 import com.example.animeapp.data.users.User
+import com.example.animeapp.domain.UserRepository
 import com.example.animeapp.presentation.core.hashing
 import com.example.animeapp.presentation.core.isValidEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,22 +13,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    db: AppDatabase
+    private val userRepo: UserRepository
 ) : ViewModel() {
     val liveData: LiveData<SignUpState> get() = _liveData
     private val _liveData = MutableLiveData<SignUpState>()
 
     private val signUpState = SignUpState()
-    private val dao = db.userDao()
 
     fun onSignUpClicked(email: String, name: String, password: String) {
         val passHash = password.hashing()
         if (email.isValidEmail() && email.length >= 5) {
             if (password.length >= 8) {
                 if (name.length >= 2) {
-                    val user = dao.findUserByEmail(email)
+                    val user = userRepo.findUserByEmail(email)
                     if (user == null) {
-                        dao.insert(
+                        userRepo.insert(
                             User(
                                 email = email,
                                 name = name,
