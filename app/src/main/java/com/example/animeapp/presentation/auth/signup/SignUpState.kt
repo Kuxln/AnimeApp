@@ -1,10 +1,13 @@
 package com.example.animeapp.presentation.auth.signup
 
 data class SignUpState(
+    var isTermsAccepted: Boolean = false,
     var email: String? = null,
-    var isTermsAccepted: Boolean? = null,
-    var isEmailValid: Boolean? = null,
+    var password: String? = null,
+    var name: String? = null,
     var isEmailExist: Boolean? = null,
+    var isEmailValid: Boolean? = null,
     var isPasswordValid: Boolean? = null,
-    var isNameValid: Boolean? = null
+    var isNameValid: Boolean? = null,
+    var isFinished: Boolean? = null,
 )

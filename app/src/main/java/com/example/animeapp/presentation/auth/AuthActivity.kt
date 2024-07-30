@@ -29,7 +29,7 @@ class AuthActivity : AppCompatActivity(), AuthorizationCallback {
         }
     }
 
-    override fun onSignIn()  = launchFragment(SignInFragment())
+    override fun onSignIn() = launchFragment(SignInFragment())
 
     override fun onSignUp() = launchFragment(SignUpFragment())
 

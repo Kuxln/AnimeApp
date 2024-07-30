@@ -23,23 +23,12 @@ class SignInViewModel @Inject constructor(
     private val sharedPreferences =
         context.getSharedPreferences(R.string.pref_acc_key.toString(), Context.MODE_PRIVATE)
 
-    fun onSignInClicked(email: String, password: String) {
-        if (email.isValidEmail() && email.length >= 5) {
-            if (password.length >= 8) {
-                val user = userRepo.findUser(email, password.hashing())
-                state.showError = user == null
-            } else state.isPasswordValid = false
-        } else state.isEmailValid = false
-        state.email = email
-        _liveData.postValue(state)
-    }
-
-    fun clearState() {
-        state.isEmailValid = null
-        state.email = null
-        state.isPasswordValid = null
-        state.showError = null
-        _liveData.postValue(state)
+    fun onSignInClicked() {
+        if (state.isEmailValid == true && state.isPasswordValid == true) {
+            val user = userRepo.findUser(state.email.orEmpty(), state.password.orEmpty().hashing())
+            state.success = user != null
+            _liveData.postValue(state)
+        }
     }
 
     fun addPreferenceAccount() {
@@ -51,7 +40,19 @@ class SignInViewModel @Inject constructor(
 
     fun getPrefs() {
         val email = sharedPreferences.getString("email", "")
-        state.pref_email = email
+        state.prefsEmail = email
+        _liveData.postValue(state)
+    }
+
+    fun invalidateEmail(email: String) {
+        state.email = email
+        state.isEmailValid = email.isValidEmail() && email.length >= 5
+        _liveData.postValue(state)
+    }
+
+    fun invalidatePassword(password: String) {
+        state.password = password
+        state.isPasswordValid = password.length >= 8
         _liveData.postValue(state)
     }
 }

@@ -4,6 +4,7 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentSignUpBinding
@@ -19,66 +20,47 @@ class SignUpFragment : AuthFragment<FragmentSignUpBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentSignUpBinding.bind(view)
-        binding.tvTermsAndConditions.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-        binding.tvSignIn.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        with(binding) {
+            tvTermsAndConditions.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            tvSignIn.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
-        binding.tvSignIn.setOnClickListener { fragmentCallback.onSignIn() }
+            etEmailText.setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) viewModel.invalidateEmail(binding.etEmailText.text.toString())
+            }
+            etNameText.setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) viewModel.invalidateName(binding.etNameText.text.toString())
+            }
+            etPasswordText.setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) viewModel.invalidatePassword(binding.etEmailText.text.toString())
+            }
+            btnSignUp.setOnClickListener {
+                viewModel.invalidateEmail(binding.etEmailText.text.toString())
+                viewModel.invalidateName(binding.etNameText.text.toString())
+                viewModel.invalidatePassword(binding.etEmailText.text.toString())
+                viewModel.onSignUpClicked()
+            }
 
-        binding.btnSignUp.setOnClickListener {
-            val email = binding.etEmailText.text.toString()
-            val name = binding.etNameText.text.toString()
-            val password = binding.etPasswordText.text.toString()
-            viewModel.onSignUpClicked(email, name, password)
+            tvSignIn.setOnClickListener { fragmentCallback.onSignIn() }
+            checkboxAgree.setOnClickListener { viewModel.onConditionsClicked() }
         }
+        viewModel.liveData.observe(this.viewLifecycleOwner) { state ->
+            if (state.isEmailValid == false) createToast("Email is not Valid or length is shorter than 5 symbols")
+            if (state.isEmailExist == true) createToast("Account by this email already exists")
+            if (state.isPasswordValid == false) createToast("Password is shorter than 8 symbols")
+            if (state.isNameValid == false) createToast("Name is shorter than 2 symbols")
 
-        // TODO:  fragmentBinding.checkboxAgree.setOnCheckedChangeListener { }
-        binding.tvTermsAndConditions.setOnClickListener { }
-
-
-        viewModel.liveData.observe(this.viewLifecycleOwner) {
-            if (it.isEmailValid == false) {
-                Toast.makeText(
-                    requireActivity().applicationContext,
-                    "Email is not Valid or length is shorter than 5 symbols",
-                    Toast.LENGTH_SHORT
-                ).show()
-                viewModel.clearState()
-            }
-            if (it.isEmailExist == true) {
-                Toast.makeText(
-                    requireActivity().applicationContext,
-                    "Account by this email already exists",
-                    Toast.LENGTH_SHORT
-                ).show()
-                viewModel.clearState()
-            }
-            if (it.isEmailExist == false) {
-                Toast.makeText(
-                    requireActivity().applicationContext,
-                    "Registration successful",
-                    Toast.LENGTH_SHORT
-                ).show()
-                fragmentCallback.onFinishSignUp(SignUpFinishFragment.newInstance(it.email!!))
-                viewModel.clearState()
-            }
-            if (it.isPasswordValid == false) {
-                Toast.makeText(
-                    requireActivity().applicationContext,
-                    "Password is shorter than 8 symbols",
-                    Toast.LENGTH_SHORT
-                ).show()
-                viewModel.clearState()
-            }
-            if (it.isNameValid == false) {
-                Toast.makeText(
-                    requireActivity().applicationContext,
-                    "Name is shorter than 2 symbols",
-                    Toast.LENGTH_SHORT
-                ).show()
-                viewModel.clearState()
+            if (state.isFinished == true) {
+                createToast("Registration successful")
+                fragmentCallback.onFinishSignUp(SignUpFinishFragment.newInstance(state.email.orEmpty()))
             }
         }
     }
 
-
+    private fun createToast(text: String) {
+        Toast.makeText(
+            requireActivity().applicationContext,
+            text,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }

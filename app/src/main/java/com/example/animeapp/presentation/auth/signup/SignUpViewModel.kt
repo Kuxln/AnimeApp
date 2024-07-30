@@ -3,7 +3,6 @@ package com.example.animeapp.presentation.auth.signup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.animeapp.data.users.AppDatabase
 import com.example.animeapp.data.users.User
 import com.example.animeapp.domain.UserRepository
 import com.example.animeapp.presentation.core.hashing
@@ -16,40 +15,46 @@ class SignUpViewModel @Inject constructor(
     private val userRepo: UserRepository
 ) : ViewModel() {
     val liveData: LiveData<SignUpState> get() = _liveData
+
     private val _liveData = MutableLiveData<SignUpState>()
+    private val state = SignUpState()
 
-    private val signUpState = SignUpState()
-
-    fun onSignUpClicked(email: String, name: String, password: String) {
-        val passHash = password.hashing()
-        if (email.isValidEmail() && email.length >= 5) {
-            if (password.length >= 8) {
-                if (name.length >= 2) {
-                    val user = userRepo.findUserByEmail(email)
-                    if (user == null) {
-                        userRepo.insert(
-                            User(
-                                email = email,
-                                name = name,
-                                password = passHash
-                            )
-                        )
-                        signUpState.isEmailExist = false
-                    } else signUpState.isEmailExist = true
-                } else signUpState.isNameValid = false
-            } else signUpState.isPasswordValid = false
-        } else signUpState.isEmailValid = false
-        signUpState.email = email
-        _liveData.postValue(signUpState)
+    fun onSignUpClicked() {
+        if (state.isTermsAccepted && state.isNameValid == true && state.isPasswordValid == true && state.isEmailValid == true) {
+            val user = userRepo.findUserByEmail(state.email.orEmpty())
+            if (user == null) {
+                userRepo.insert(
+                    User(
+                        email = state.email.orEmpty(),
+                        name = state.name,
+                        password = state.password.orEmpty().hashing()
+                    )
+                )
+            }
+            state.isFinished = true
+            _liveData.postValue(state)
+        }
     }
 
-    fun clearState() {
-        signUpState.isEmailValid = null
-        signUpState.isEmailExist = null
-        signUpState.email = null
-        signUpState.isPasswordValid = null
-        signUpState.isNameValid = null
+    fun onConditionsClicked() {
+        state.isTermsAccepted = !state.isTermsAccepted
+    }
 
-        _liveData.postValue(signUpState)
+    fun invalidateEmail(email: String) {
+        state.email = email
+        state.isEmailValid = email.isValidEmail() && email.length >= 5
+        _liveData.postValue(state)
+    }
+
+    fun invalidateName(name: String) {
+        state.name = name
+        state.isNameValid = name.length >= 2
+        _liveData.postValue(state)
+    }
+
+    fun invalidatePassword(password: String) {
+        state.password = password
+        state.isPasswordValid = password.length >= 8
+        _liveData.postValue(state)
     }
 }
