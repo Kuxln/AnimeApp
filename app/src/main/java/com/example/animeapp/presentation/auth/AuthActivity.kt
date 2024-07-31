@@ -35,10 +35,10 @@ class AuthActivity : AppCompatActivity(), AuthorizationCallback {
 
     override fun onResetPassword() = launchFragment(ChangePasswordFragment())
 
-    override fun onFinishSignUp(fragment: SignUpFinishFragment) = launchFragment(fragment)
+    override fun <T : Fragment> onFinishSignUp(fragment: T) = launchFragment(fragment)
 
     override fun onChangePassword() = launchFragment(ChangePasswordFragment())
-
+    
     override fun onBackButtonPressed() = onBackPressed()
 
     override fun onAccountCreated(email: String) = navigateToMain(email)

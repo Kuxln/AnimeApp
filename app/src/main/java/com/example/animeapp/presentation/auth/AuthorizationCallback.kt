@@ -1,13 +1,13 @@
 package com.example.animeapp.presentation.auth
 
-import com.example.animeapp.presentation.auth.signupfinish.SignUpFinishFragment
+import androidx.fragment.app.Fragment
 
 interface AuthorizationCallback {
     fun onSignIn()
     fun onSignUp()
     fun onResetPassword()
     fun onBackButtonPressed()
-    fun onFinishSignUp(fragment: SignUpFinishFragment)
+    fun <T: Fragment> onFinishSignUp(fragment: T)
     fun onChangePassword()
     fun onAccountCreated(email: String)
     fun onAuthorization(email: String)

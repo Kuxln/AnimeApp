@@ -1,5 +1,6 @@
 package com.example.animeapp.presentation.auth.signup
 
+import android.content.Context
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
@@ -49,6 +50,13 @@ class SignUpFragment : AuthFragment<FragmentSignUpBinding>(
             if (state.isPasswordValid == false) createToast("Password is shorter than 8 symbols")
             if (state.isNameValid == false) createToast("Name is shorter than 2 symbols")
 
+            if (state.onCreatePrefs == false) {
+                val prefs = requireActivity().getSharedPreferences("AUTH_PREFERENCES", Context.MODE_PRIVATE)
+                with(prefs.edit()) {
+                    putString("LOGIN", state.email)
+                    apply()
+                }
+            }
             if (state.isFinished == true) {
                 createToast("Registration successful")
                 fragmentCallback.onFinishSignUp(SignUpFinishFragment.newInstance(state.email.orEmpty()))

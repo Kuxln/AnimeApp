@@ -38,12 +38,6 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun getPrefs() {
-        val email = sharedPreferences.getString("email", "")
-        state.prefsEmail = email
-        _liveData.postValue(state)
-    }
-
     fun invalidateEmail(email: String) {
         state.email = email
         state.isEmailValid = email.isValidEmail() && email.length >= 5

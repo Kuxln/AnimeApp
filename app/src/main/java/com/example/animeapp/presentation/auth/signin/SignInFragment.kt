@@ -1,5 +1,6 @@
 package com.example.animeapp.presentation.auth.signin
 
+import android.content.Context
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
@@ -19,7 +20,8 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
 
     override fun onStart() {
         super.onStart()
-        viewModel.getPrefs()
+        val prefs = requireActivity().getSharedPreferences("AUTH_PREFERENCES", Context.MODE_PRIVATE)
+        prefs.getString("LOGIN", "")?.let { fragmentCallback.onAuthorization(it) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

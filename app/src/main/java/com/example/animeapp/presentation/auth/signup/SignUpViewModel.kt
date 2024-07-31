@@ -1,5 +1,6 @@
 package com.example.animeapp.presentation.auth.signup
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,6 +32,7 @@ class SignUpViewModel @Inject constructor(
                     )
                 )
             }
+            state.onCreatePrefs = true
             state.isFinished = true
             _liveData.postValue(state)
         }

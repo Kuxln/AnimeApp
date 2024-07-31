@@ -10,4 +10,5 @@ data class SignUpState(
     var isPasswordValid: Boolean? = null,
     var isNameValid: Boolean? = null,
     var isFinished: Boolean? = null,
+    var onCreatePrefs: Boolean? = null,
 )
