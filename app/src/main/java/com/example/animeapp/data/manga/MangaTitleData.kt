@@ -1,19 +1,20 @@
 package com.example.animeapp.data.manga
 
-data class MangaApiResponse (
+data class MangaApiResponse(
     val data: List<MangaTitleData>? = null,
     val links: MangaLinks? = null
 )
-data class MangaTitleData (
+
+data class MangaTitleData(
     val id: String? = null,
     val attributes: MangaAttributes? = null
 )
 
-data class MangaLinks (
+data class MangaLinks(
     val next: String? = null
 )
 
-data class MangaAttributes (
+data class MangaAttributes(
     val canonicalTitle: String? = null,
     val description: String? = null,
     val averageRating: String? = null,
@@ -26,6 +27,6 @@ data class MangaAttributes (
 
 )
 
-data class MangaPosterImage (
+data class MangaPosterImage(
     val original: String? = null
 )

@@ -7,7 +7,6 @@ import com.example.animeapp.presentation.core.ui.BaseFragment
 abstract class AuthFragment<B>(
     layout: Int
 ) : BaseFragment<B>(layout) where B : ViewBinding {
-
     protected lateinit var fragmentCallback: AuthorizationCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {

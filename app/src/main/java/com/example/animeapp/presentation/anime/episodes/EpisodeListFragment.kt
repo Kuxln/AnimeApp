@@ -25,14 +25,15 @@ class EpisodeListFragment @Inject constructor() : BaseFragment<FragmentAnimeEpis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentAnimeEpisodesBinding.bind(view)
         val args = this.arguments
-        val id = args?.getString("ID") ?: throw IllegalArgumentException("id is required for fragment EpisodeListFragment")
+        val id = args?.getString("ID")
+            ?: throw IllegalArgumentException("id is required for fragment EpisodeListFragment")
         binding.recycler.adapter = adapter
         viewModel.populateData(id)
 
-        binding.recycler.addItemDecoration(PaddingItemDecoration(24,0))
+        binding.recycler.addItemDecoration(PaddingItemDecoration(24, 0))
 
-        viewModel.liveData.observe(this.viewLifecycleOwner) {state ->
-            state.episodesData?.let {data ->
+        viewModel.liveData.observe(this.viewLifecycleOwner) { state ->
+            state.episodesData?.let { data ->
                 adapter.updateData(data, state.hasMore)
             }
             if (state.isLoading) {

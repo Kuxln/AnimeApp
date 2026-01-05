@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class AnimeTitleEntity (
+data class AnimeTitleEntity(
     val id: String,
     val canonicalTitle: String = "",
     val description: String = "",

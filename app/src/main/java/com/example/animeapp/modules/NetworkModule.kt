@@ -13,7 +13,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
@@ -52,7 +51,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideAnimeRepository(api: AnimeApiDataSource) : AnimeRepository {
+    fun provideAnimeRepository(api: AnimeApiDataSource): AnimeRepository {
         return AnimeRepository(api)
     }
 }

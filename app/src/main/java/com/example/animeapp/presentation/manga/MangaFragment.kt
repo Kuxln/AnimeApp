@@ -18,10 +18,8 @@ class MangaFragment : BaseFragment<FragmentMangaBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentMangaBinding.bind(view)
 
-
-
         with(binding) {
-            mangaRecyclerView.addItemDecoration(PaddingItemDecoration(24,0))
+            mangaRecyclerView.addItemDecoration(PaddingItemDecoration(24, 0))
             mangaRecyclerView.visibility = View.INVISIBLE
 
             mangaSwipeRefreshLayout.setColorSchemeResources(R.color.orange)
@@ -66,7 +64,6 @@ class MangaFragment : BaseFragment<FragmentMangaBinding>(
                         mangaListProgressBar.visibility = View.VISIBLE
                     }
                 }
-
             }
         }
     }

@@ -5,7 +5,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
-
 class PaddingItemDecoration(
     private val sizeVertical: Int,
     private val sizeHorizontal: Int,
@@ -18,6 +17,5 @@ class PaddingItemDecoration(
         outRect.bottom += sizeVertical
         outRect.left += sizeHorizontal
         outRect.right += sizeHorizontal
-
     }
 }

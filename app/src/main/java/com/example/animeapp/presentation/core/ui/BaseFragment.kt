@@ -8,5 +8,5 @@ abstract class BaseFragment<B>(
 ) : Fragment(layout) where B : ViewBinding {
     protected lateinit var binding: B
 
-    open fun onBack() : Boolean = false
+    open fun onBack(): Boolean = false
 }

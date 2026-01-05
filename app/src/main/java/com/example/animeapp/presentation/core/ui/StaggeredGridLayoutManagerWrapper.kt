@@ -3,7 +3,6 @@ package com.example.animeapp.presentation.core.ui
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import java.lang.IndexOutOfBoundsException
 
 class StaggeredGridLayoutManagerWrapper(
     spanCount: Int,

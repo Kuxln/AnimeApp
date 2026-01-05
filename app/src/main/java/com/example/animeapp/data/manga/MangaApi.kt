@@ -6,8 +6,11 @@ import retrofit2.http.Query
 
 interface MangaApi {
     @GET("manga?page[limit]=20&page[offset]=0")
-    suspend fun getTopManga() : Response<MangaApiResponse>
+    suspend fun getTopManga(): Response<MangaApiResponse>
 
     @GET("anime?")
-    suspend fun loadNext(@Query("page[offset]") offset: Int, @Query("page[limit]") limit : Int) : Response<MangaApiResponse>
+    suspend fun loadNext(
+        @Query("page[offset]") offset: Int,
+        @Query("page[limit]") limit: Int
+    ): Response<MangaApiResponse>
 }

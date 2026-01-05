@@ -28,6 +28,5 @@ class AnimeSearchView @JvmOverloads constructor(
                 R.color.white
             ), android.graphics.PorterDuff.Mode.MULTIPLY
         )
-
     }
 }

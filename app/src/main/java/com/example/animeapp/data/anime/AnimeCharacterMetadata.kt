@@ -25,4 +25,3 @@ data class AnimeCharactersListResponse(
 data class CharacterItem(
     val id: String
 )
-

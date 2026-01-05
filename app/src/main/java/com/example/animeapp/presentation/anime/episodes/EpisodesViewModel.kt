@@ -18,14 +18,15 @@ class EpisodesViewModel @Inject constructor(
     val liveData: LiveData<EpisodesViewState> get() = _liveData
     private val _liveData = MutableLiveData<EpisodesViewState>()
     private val viewState = EpisodesViewState()
+
     //todo()
     private var id: String? = null
-
 
     fun loadMore() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = id?.let { animeApi.getAnimeEpisodes(it, viewState.episodesData.orEmpty().size)}
+                val response =
+                    id?.let { animeApi.getAnimeEpisodes(it, viewState.episodesData.orEmpty().size) }
                 Log.d("tag", response.toString())
                 response?.let {
                     viewState.episodesData = listOf(
@@ -35,8 +36,9 @@ class EpisodesViewModel @Inject constructor(
                     viewState.hasMore = it.links?.next != null
                     _liveData.postValue(viewState)
                 }
-
-            } catch (e: Exception) { e.printStackTrace() }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -54,9 +56,9 @@ class EpisodesViewModel @Inject constructor(
                     viewState.isLoading = false
                     _liveData.postValue(viewState)
                 }
-            } catch (e: Exception) { e.printStackTrace() }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
-
-
 }

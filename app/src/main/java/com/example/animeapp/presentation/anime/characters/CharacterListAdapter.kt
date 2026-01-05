@@ -11,7 +11,6 @@ import com.example.animeapp.databinding.ListItemAnimeCharacterBinding
 import com.example.animeapp.databinding.ListLoadingProgressBarBinding
 import com.example.animeapp.domain.entity.AnimeCharacterEntity
 
-
 class CharacterListAdapter(
     private val onLoad: () -> Unit = {}
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

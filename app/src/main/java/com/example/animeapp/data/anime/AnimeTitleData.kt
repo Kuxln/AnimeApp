@@ -15,11 +15,12 @@ data class AnimeLinks(
 data class AnimeTitleDataResponse(
     val data: AnimeTitleData? = null
 )
+
 @Parcelize
 data class AnimeTitleData(
     val id: String,
     val attributes: AnimeAttributes? = null
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class AnimeAttributes(
@@ -32,12 +33,12 @@ data class AnimeAttributes(
     val endDate: String? = null,
     val episodeLength: Int? = null,
     val posterImage: AnimePosters? = null
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class AnimePosters(
     val original: String? = null
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class AnimeTitle(
@@ -68,21 +69,21 @@ data class AnimeTitle(
     }
 }
 
-data class AnimeEpisodesResponse (
+data class AnimeEpisodesResponse(
     val data: List<AnimeEpisodesData>? = null,
     val links: AnimeEpisodesLinks? = null
 )
 
-data class AnimeEpisodesLinks (
+data class AnimeEpisodesLinks(
     val next: String? = null
 )
 
-data class AnimeEpisodesData (
+data class AnimeEpisodesData(
     val id: String? = null,
     val attributes: AnimeEpisodesAttributes? = null
 )
 
-data class AnimeEpisodesAttributes (
+data class AnimeEpisodesAttributes(
     val seasonNumber: Int? = null,
     val number: Int? = null,
     val length: Int? = null,
@@ -91,6 +92,6 @@ data class AnimeEpisodesAttributes (
     val canonicalTitle: String? = null
 )
 
-data class AnimeEpisodeThumbnail (
+data class AnimeEpisodeThumbnail(
     val original: String? = null
 )

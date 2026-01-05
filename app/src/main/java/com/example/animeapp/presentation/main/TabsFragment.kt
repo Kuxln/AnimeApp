@@ -39,7 +39,7 @@ class TabsFragment : BaseFragment<FragmentTabsBinding>(
         val fr = currentFragment
         if (fr is BaseFragment<*> && fr.onBack()) {
             return true
-        } else if (childFragmentManager.backStackEntryCount  > 0) {
+        } else if (childFragmentManager.backStackEntryCount > 0) {
             childFragmentManager.popBackStack()
             return true
         } else if (binding.mainNavBar.selectedItemId != R.id.animeTab) {

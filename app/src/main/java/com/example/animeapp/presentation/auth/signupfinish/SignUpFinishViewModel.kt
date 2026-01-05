@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.animeapp.data.users.AppDatabase
 import com.example.animeapp.data.users.User
 import com.example.animeapp.data.users.UserGender
 import com.example.animeapp.domain.UserRepository
@@ -53,5 +52,4 @@ class SignUpFinishViewModel @Inject constructor(
         signUpFinishState.profileImageURI = uri.toString()
         _liveData.postValue(signUpFinishState)
     }
-
 }

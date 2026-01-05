@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentSignInBinding
@@ -70,4 +69,3 @@ class SignInFragment : AuthFragment<FragmentSignInBinding>(
         ).show()
     }
 }
-

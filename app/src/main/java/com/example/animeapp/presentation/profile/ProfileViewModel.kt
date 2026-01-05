@@ -7,11 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor() : ViewModel(){
-    val liveData : LiveData<ProfileViewState> get() = _liveData
+class ProfileViewModel @Inject constructor() : ViewModel() {
+    val liveData: LiveData<ProfileViewState> get() = _liveData
     private val _liveData = MutableLiveData<ProfileViewState>()
 
     val profileViewState = ProfileViewState()
-
-
 }

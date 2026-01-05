@@ -51,7 +51,16 @@ class CharacterListViewModel @Inject constructor(
             if (state.pageList == null) {
                 try {
                     state.pageList = state.charactersIds?.let {
-                        listOf(CharListPage(repository.getCharacters(it.subList(0, min(10,it.size)))))
+                        listOf(
+                            CharListPage(
+                                charList = repository.getCharacters(
+                                    charIds = it.subList(
+                                        fromIndex = 0,
+                                        toIndex = min(10, it.size),
+                                    )
+                                )
+                            )
+                        )
                     }
                     isHasMore()
                     state.isLoading = false
@@ -72,12 +81,17 @@ class CharacterListViewModel @Inject constructor(
                     val startRange = it.size * 10
                     val endRange = min(state.charactersIds?.size ?: startRange, startRange + 10)
                     state.charactersIds?.let { ids ->
-                        state.pageList = listOf(it, listOf(CharListPage(
-                            repository.getCharacters(
-                                ids.subList(startRange, endRange
+                        state.pageList = listOf(
+                            it, listOf(
+                                CharListPage(
+                                    repository.getCharacters(
+                                        ids.subList(
+                                            startRange, endRange
+                                        )
+                                    )
                                 )
-                            ))
-                        )).flatten()
+                            )
+                        ).flatten()
                     }
                 }
                 isHasMore()
@@ -91,5 +105,4 @@ class CharacterListViewModel @Inject constructor(
     private fun isHasMore() {
         state.hasMore = state.pageList!!.size.times(10) < state.charactersIds!!.size
     }
-
 }

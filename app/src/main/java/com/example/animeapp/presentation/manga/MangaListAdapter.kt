@@ -17,7 +17,6 @@ class MangaDiffUtil(
     private val oldData: List<MangaTitleData>,
     private val newData: List<MangaTitleData>
 ) : DiffUtil.Callback() {
-
     override fun getOldListSize(): Int {
         return oldData.size
     }
@@ -133,7 +132,7 @@ class MangaListAdapter(
             }
 
             LOADING -> {
-                val loadingViewHolder = holder as LoadingProgressBarViewHolder
+                holder as LoadingProgressBarViewHolder
                 onLastElementVisible()
             }
         }

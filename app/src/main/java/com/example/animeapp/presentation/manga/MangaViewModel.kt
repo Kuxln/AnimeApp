@@ -36,7 +36,6 @@ class MangaViewModel @Inject constructor(
         }
     }
 
-
     fun loadMoreItems() {
         viewModelScope.launch(Dispatchers.IO) {
             try {

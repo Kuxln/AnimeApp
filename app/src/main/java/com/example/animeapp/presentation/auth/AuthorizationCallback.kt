@@ -7,7 +7,7 @@ interface AuthorizationCallback {
     fun onSignUp()
     fun onResetPassword()
     fun onBackButtonPressed()
-    fun <T: Fragment> onFinishSignUp(fragment: T)
+    fun <T : Fragment> onFinishSignUp(fragment: T)
     fun onChangePassword()
     fun onAccountCreated(email: String)
     fun onAuthorization(email: String)

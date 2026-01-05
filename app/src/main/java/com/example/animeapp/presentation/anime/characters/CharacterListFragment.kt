@@ -1,19 +1,14 @@
 package com.example.animeapp.presentation.anime.characters
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.animeapp.R
-import com.example.animeapp.data.anime.AnimeCharacterResponse
-import com.example.animeapp.data.anime.AnimeCharactersListResponse
 import com.example.animeapp.databinding.FragmentAnimeCharactersBinding
-import com.example.animeapp.presentation.core.ui.StaggeredGridLayoutManagerWrapper
-import com.example.animeapp.domain.entity.AnimeCharacterEntity
 import com.example.animeapp.presentation.core.ui.BaseFragment
 import com.example.animeapp.presentation.core.ui.PaddingItemDecoration
+import com.example.animeapp.presentation.core.ui.StaggeredGridLayoutManagerWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,21 +25,17 @@ class CharacterListFragment @Inject constructor() : BaseFragment<FragmentAnimeCh
 
         val adapter = CharacterListAdapter(onLoad = { viewModel.onLoad() })
 
-        with(binding.recycler) {
-//            val gridlayoutManager = GridLayoutManager(requireActivity(),2)
-//            gridlayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-//                override fun getSpanSize(position: Int): Int {
-//                    return when (position) {
-//                        ((state.pageList?.size)?.times(10)?.plus(1)) -> 1
-//                        else -> 2
-//                    }
-//                }
-//            }
-            layoutManager =
-                StaggeredGridLayoutManagerWrapper(2, StaggeredGridLayoutManager.VERTICAL)
-            addItemDecoration(PaddingItemDecoration(24, 10))
-            this.adapter = adapter
-        }
+        binding.recycler.layoutManager =
+            StaggeredGridLayoutManagerWrapper(
+                spanCount = 2,
+                orientation = StaggeredGridLayoutManager.VERTICAL,
+            )
+        binding.recycler.addItemDecoration(
+            PaddingItemDecoration(
+                sizeVertical = 24,
+                sizeHorizontal = 10
+            )
+        )
         binding.recycler.adapter = adapter
 
         viewModel.livedata.observe(this.viewLifecycleOwner) { state ->

@@ -7,11 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ReelsViewModel @Inject constructor() : ViewModel(){
-    val liveData : LiveData<ReelsViewState> get() = _liveData
+class ReelsViewModel @Inject constructor() : ViewModel() {
+    val liveData: LiveData<ReelsViewState> get() = _liveData
     private val _liveData = MutableLiveData<ReelsViewState>()
 
     val reelsViewState = ReelsViewState()
-
-
 }

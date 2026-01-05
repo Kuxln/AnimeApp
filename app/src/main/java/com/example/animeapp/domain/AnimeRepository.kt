@@ -19,7 +19,7 @@ class AnimeRepository @Inject constructor(
         return api.getCharactersList(animeId)?.data?.map { it.id }
     }
 
-    //3.2, 5.5
+    //3.2s, 5.5s
     suspend fun getCharacters(charIds: List<String>): List<AnimeCharacterEntity> {
         Log.d("StartChar", "Start")
         val charsJobs = charIds.map {
@@ -76,4 +76,3 @@ class AnimeRepository @Inject constructor(
         return AnimeTitlePage(list, response?.links?.next != null)
     }
 }
-

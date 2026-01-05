@@ -9,7 +9,6 @@ import com.example.animeapp.databinding.ActivityAuthBinding
 import com.example.animeapp.presentation.auth.changepassword.ChangePasswordFragment
 import com.example.animeapp.presentation.auth.signin.SignInFragment
 import com.example.animeapp.presentation.auth.signup.SignUpFragment
-import com.example.animeapp.presentation.auth.signupfinish.SignUpFinishFragment
 import com.example.animeapp.presentation.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,7 +37,7 @@ class AuthActivity : AppCompatActivity(), AuthorizationCallback {
     override fun <T : Fragment> onFinishSignUp(fragment: T) = launchFragment(fragment)
 
     override fun onChangePassword() = launchFragment(ChangePasswordFragment())
-    
+
     override fun onBackButtonPressed() = onBackPressed()
 
     override fun onAccountCreated(email: String) = navigateToMain(email)

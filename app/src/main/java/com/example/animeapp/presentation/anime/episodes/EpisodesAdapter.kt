@@ -56,8 +56,8 @@ class AnimeSelectedItemEpisodesAdapter(
                         .into(epImage)
 
                     description.text = attributes?.description
-                    seasonAndEpisode.text =seasonEpisodeMetadata
-                        length.text = lengthMetadata
+                    seasonAndEpisode.text = seasonEpisodeMetadata
+                    length.text = lengthMetadata
                 }
             }
 

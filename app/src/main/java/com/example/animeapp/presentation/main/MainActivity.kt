@@ -16,19 +16,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         tabsFragment = TabsFragment()
         val bundle = intent.extras
-        val email = bundle!!.getString("EMAIL")
+        bundle!!.getString("EMAIL")
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainActivityFragmentContainer, tabsFragment)
             .commit()
-
     }
 
     override fun onBackPressed() {
-
         if (!tabsFragment.onBack()) {
             super.onBackPressed()
         }
     }
 }
-
-

@@ -1,6 +1,5 @@
 package com.example.animeapp.presentation.anime.anime_tab
 
-import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.domain.entity.AnimeTitleEntity
 
 data class AnimeViewState(

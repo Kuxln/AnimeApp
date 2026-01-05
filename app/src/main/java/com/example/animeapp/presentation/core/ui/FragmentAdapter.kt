@@ -5,8 +5,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.animeapp.presentation.anime.characters.CharacterListFragment
 import com.example.animeapp.presentation.anime.episodes.EpisodeListFragment
 
-class FragmentAdapter(fragment: Fragment, val id: String) : FragmentStateAdapter(fragment) {
-
+class FragmentAdapter(
+    fragment: Fragment,
+    val id: String
+) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return 3
     }

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.doOnLayout
@@ -12,7 +11,6 @@ import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.animeapp.R
-import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeSelectedBinding
 import com.example.animeapp.domain.entity.AnimeTitleEntity
 import com.example.animeapp.presentation.core.ui.BaseFragment
@@ -28,7 +26,7 @@ class AnimeSelectedItemFragment :
     private var scrollPerformed: Boolean = false
 
     private val handler = Handler(Looper.getMainLooper())
-    private lateinit var anotherBinding: FragmentAnimeSelectedBinding;
+    private lateinit var anotherBinding: FragmentAnimeSelectedBinding
 
     private val viewModel: AnimeSelectedItemViewModel by viewModels()
 
@@ -39,14 +37,14 @@ class AnimeSelectedItemFragment :
         val id = this.arguments?.getParcelable<AnimeTitleEntity>("animeTitle")?.id
         viewModel.setId(id)
 
-
-
-        viewModel.liveData.observe(this.viewLifecycleOwner) {state ->
+        viewModel.liveData.observe(this.viewLifecycleOwner) { state ->
             val attributes = state.title?.data?.attributes
-            attributes?.let { val userCountMetadata = if (attributes.userCount != null && attributes.userCount > 5000)
-                "(" + (attributes.userCount / 1000).toString() + "k+ Views)"
-            else if (attributes.userCount != null) "(${attributes.userCount} Views)"
-            else ""
+            attributes?.let {
+                val userCountMetadata =
+                    if (attributes.userCount != null && attributes.userCount > 5000)
+                        "(" + (attributes.userCount / 1000).toString() + "k+ Views)"
+                    else if (attributes.userCount != null) "(${attributes.userCount} Views)"
+                    else ""
 
                 val episodeCountMetadata = if (attributes.episodeCount != null) {
                     "${attributes.episodeCount} ep."
@@ -80,12 +78,11 @@ class AnimeSelectedItemFragment :
                         .into(animeCardViewMainImageView)
                 }
             }
-            if(state.isLoading) {
+            if (state.isLoading) {
                 binding.scrollContent.visibility = View.INVISIBLE
                 binding.appBar.visibility = View.INVISIBLE
                 binding.progressBar.visibility = View.VISIBLE
-            }
-            else {
+            } else {
                 binding.scrollContent.visibility = View.VISIBLE
                 binding.appBar.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.INVISIBLE
@@ -93,8 +90,8 @@ class AnimeSelectedItemFragment :
         }
 
         binding.root.doOnLayout {
-            val rootHeight = binding.root.measuredHeight;
-            val tabsHeight = binding.pagerTabs.measuredHeight;
+            val rootHeight = binding.root.measuredHeight
+            val tabsHeight = binding.pagerTabs.measuredHeight
             binding.pager.updateLayoutParams {
                 height = rootHeight - tabsHeight
             }

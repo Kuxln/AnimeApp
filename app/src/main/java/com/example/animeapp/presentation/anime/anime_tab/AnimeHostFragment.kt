@@ -3,7 +3,6 @@ package com.example.animeapp.presentation.anime.anime_tab
 import android.os.Bundle
 import android.view.View
 import com.example.animeapp.R
-import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeHostBinding
 import com.example.animeapp.domain.entity.AnimeTitleEntity
 import com.example.animeapp.presentation.anime.selectedtitle.AnimeSelectedItemFragment

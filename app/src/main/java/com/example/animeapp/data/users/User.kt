@@ -26,7 +26,6 @@ enum class UserGender(
 }
 
 class Converters {
-
     @TypeConverter
     fun toUserGender(value: String) = enumValueOf<UserGender>(value)
 

@@ -2,7 +2,6 @@ package com.example.animeapp.domain
 
 import com.example.animeapp.data.users.User
 import com.example.animeapp.data.users.UserDao
-import com.example.animeapp.presentation.core.hashing
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
@@ -23,5 +22,4 @@ class UserRepository @Inject constructor(
     fun update(user: User) {
         userDao.update(user)
     }
-
 }

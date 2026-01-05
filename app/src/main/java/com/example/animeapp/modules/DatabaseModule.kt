@@ -2,10 +2,8 @@ package com.example.animeapp.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.example.animeapp.data.anime.AnimeApiDataSource
 import com.example.animeapp.data.users.AppDatabase
 import com.example.animeapp.data.users.UserDao
-import com.example.animeapp.domain.AnimeRepository
 import com.example.animeapp.domain.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -35,7 +33,7 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideUserRepository(userDao: UserDao) : UserRepository {
+    fun provideUserRepository(userDao: UserDao): UserRepository {
         return UserRepository(userDao)
     }
 }

@@ -12,7 +12,6 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
-import com.example.animeapp.data.anime.AnimeTitleData
 import com.example.animeapp.databinding.FragmentAnimeBinding
 import com.example.animeapp.domain.entity.AnimeTitleEntity
 import com.example.animeapp.presentation.core.ui.BaseFragment
@@ -21,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AnimeFragment : MenuProvider, BaseFragment<FragmentAnimeBinding>(
-    R.layout.fragment_anime
+    R.layout.fragment_anime,
 ) {
     private val viewModel: AnimeViewModel by viewModels()
     private lateinit var animeAdapter: AnimeListAdapter

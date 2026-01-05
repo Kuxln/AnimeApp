@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.animeapp.R
 import com.example.animeapp.databinding.FragmentSignUpBinding
@@ -51,7 +50,8 @@ class SignUpFragment : AuthFragment<FragmentSignUpBinding>(
             if (state.isNameValid == false) createToast("Name is shorter than 2 symbols")
 
             if (state.onCreatePrefs == false) {
-                val prefs = requireActivity().getSharedPreferences("AUTH_PREFERENCES", Context.MODE_PRIVATE)
+                val prefs =
+                    requireActivity().getSharedPreferences("AUTH_PREFERENCES", Context.MODE_PRIVATE)
                 with(prefs.edit()) {
                     putString("LOGIN", state.email)
                     apply()
